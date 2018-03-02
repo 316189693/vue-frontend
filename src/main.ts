@@ -43,8 +43,15 @@ Vue.config.errorHandler = function (err, vm, info) {
 };
 
 router.beforeEach(function(to, from, next) {
-  store.dispatch("changeHideForLogin", to.path);
-  next();
+    //hide nav bar and foot for login page
+    if (to.name !== 'Login' && !store.getters.formData.isLogin) {  
+      next('/')
+      store.dispatch("changeHideForLogin",'/');
+    }  else {
+      store.dispatch("changeHideForLogin", to.path);
+      next();
+    }
+    
 });
 
 Vue.use(VeeValidate, customMessage);

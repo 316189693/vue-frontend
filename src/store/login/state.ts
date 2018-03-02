@@ -41,6 +41,7 @@ const userInfo = {
 } ;
 
 const formData = {
+    isLogin : false,
     userName:'', 
     passWord:'',
     remeberMe:false,
@@ -75,7 +76,6 @@ const messageModel = {
 };
 
 const login = {
-
     stageText,
     formData,
     messageModel,

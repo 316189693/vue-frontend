@@ -15,12 +15,12 @@ export default new VueRouter({
   routes: [
     {
       path: "/",
-      name: " ",
+      name: "Login",
       component: Login
     },
     {
       path: "/home",
-      name: " ",
+      name: "Home",
       component: Home
     },
     {

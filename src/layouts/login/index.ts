@@ -120,10 +120,10 @@ export default class Login extends Vue {
     modalCancelText: string = "Nevermind";
    
     @Provide()
-    maxWidth:string = "700";
+    maxWidth:number = 700;
      
     @Provide()
-    maxHeight:string = "340";
+    maxHeight:number = 340;
   
     showModal() {
         this.$modal.show(this.modalName);

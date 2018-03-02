@@ -26,6 +26,7 @@ const mutations = {
     updateFormDataLoginInfo(state:any, formData:any) {
         state.login.formData.loginFail = formData.loginFail;
         state.login.formData.loginFailMsg = formData.loginFailMsg;
+        state.login.formData.isLogin = formData.isLogin;
         //clear data
         state.login.formData.trackFail = false;
         state.login.formData.trackResultMsg = '';  
@@ -288,13 +289,22 @@ const actions = {
             params.append('pageName', pageName);
             axiosService.post('write/check_user.php', params).then(function(res){
                 var data = res.data;
-               
+                var formLoginData = {};
                 if(String(data) === '-9999' || data == 0 || data == null) {
-                    clearLocalStorage("check_user fail")
+                    clearLocalStorage("check_user fail");
+                    formLoginData['loginFail'] = true;
+                    formLoginData['loginFailMsg'] = '';
+                    formLoginData['isLogin'] = false;
+                    store.commit('updateFormDataLoginInfo',formLoginData);
                     return false;
                 }
 
                 if (data['user_password_require_change'] === 1) {
+                    clearLocalStorage("change password");
+                    formLoginData['loginFail'] = true;
+                    formLoginData['loginFailMsg'] = '';
+                    formLoginData['isLogin'] = false;
+                    store.commit('updateFormDataLoginInfo',formLoginData);
                     console.log('change password');
                     return false;
                 }
@@ -309,7 +319,10 @@ const actions = {
                 localStorage.setItem("UserSuper", data['group_admin']);
                 // update user info
                 store.commit('updateUserInfo', data);
-
+                formLoginData['loginFail'] = false;
+                formLoginData['loginFailMsg'] = '';
+                formLoginData['isLogin'] = true;
+                store.commit('updateFormDataLoginInfo',formLoginData)
                 if(navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
                     window.location.href = 'index.html#/home';
                 } else {
@@ -357,14 +370,17 @@ const actions = {
                 clearLocalStorage('Login failed'+row);
                 formData.loginFail = true;
                 formData.loginFailMsg = 'Email or password incorrect';
+                formData.isLogin  = false;
             } else if(Number(row) == -1) {
                 clearLocalStorage('Login permission'+row);
                 formData.loginFail = true;
                 formData.loginFailMsg = 'Email or password incorrect';
+                formData.isLogin  = false;
                 console.log('You don\'t have permission to access this site.');
             } else {		
                 formData.loginFail = false;
                 formData.loginFailMsg = '';
+                formData.isLogin  = true;
                 var UserID = parseInt(row['UserID']);
                 if(UserID > 0) {
                     localStorage.setItem("UserID", row['UserID']);
@@ -429,6 +445,12 @@ const actions = {
         });
     },
     logout(store:any){
+        var formData = {};
+        formData['loginFail'] = false;
+        formData['loginFailMsg'] = '';
+        formData['isLogin'] = false;
+        store.commit('updateFormDataLoginInfo', formData);
+        console.log('You don\'t have permission to access this site.');
         clearLocalStorage('user log out'); 
         window.location.href = 'index.html#/';
     }

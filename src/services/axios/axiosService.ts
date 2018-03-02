@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var baseURL = process.env.NODE_ENV === 'production' ? 'https://client.htjy.com/':'https://clientdev.htjy.com/';
+var baseURL = process.env.NODE_ENV === 'production' ? 'https://client.freightapp.com/':'https://clientdev.freightapp.com/';
 
 var instance = axios.create({
     baseURL : baseURL,

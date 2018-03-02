@@ -21,11 +21,11 @@ if(page_name.indexOf('#') !== -1){
 }
 
 if(dev_site === 1){
-    var socket2 = io.connect('https://r00.com:7790/data_channel', { secure: true, 
+    var socket2 = io.connect('https://r00.htjy.com:7790/data_channel', { secure: true, 
         query: 'new_style='+new_style+'&page_name='+page_name+'&UserID='+localStorage.getItem('UserID')+'&UserToken='+localStorage.getItem('UserToken')
     });
 } else {
-    var socket2 = io.connect('https://api.com:7788/data_channel', { secure: true, 
+    var socket2 = io.connect('https://api.htjy.com:7788/data_channel', { secure: true, 
         query: 'new_style='+new_style+'&page_name='+page_name+'&UserID='+localStorage.getItem('UserID')+'&UserToken='+localStorage.getItem('UserToken')
     });
 }

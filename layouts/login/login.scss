@@ -1,0 +1,329 @@
+@font-face {
+    font-family: 'AvenirNext';
+    src: url('../../assets/fonts/AvenirNext-Regular.woff') format('woff');
+}
+@font-face {
+font-family: AvenirNext-DemiBold;
+src: url("../../assets/fonts/AvenirNext-DemiBold.woff") format("woff"); 
+}
+
+@font-face {
+    font-family: AvenirNext-Medium;
+    src: url("../../assets/fonts/AvenirNext-Medium.woff") format("woff"); 
+}
+
+
+* {
+    padding:0;
+    margin:0
+}
+body{
+    overflow-x: auto;
+}
+#top_container { 
+    background: #ffffff url(../../assets/images/group-3.png)  no-repeat right top;
+    background-size: 66%;
+    float: left;
+    width: 100%;
+    object-fit: contain;
+}
+
+#top_container label, input, button, pre {
+    font-family: AvenirNext;
+    letter-spacing: 0.4px;
+   
+}
+
+.second-container {
+    margin-left: 13%;
+    width: 80%;
+    min-width: 900px;
+}
+
+#login_section {
+    margin-top: 13%;
+}
+
+#track_section {
+    margin-top: 50px;
+}
+
+.input-container{
+    margin-top:15px;
+ }
+
+ #track_detail_section{
+    width: 100%;
+ 
+    margin-top:60px;
+    min-width:900px;
+}
+
+.process-font{
+    font-family: AvenirNext-DemiBold;
+    font-size: 18px;
+}
+
+.p-text {
+    width: 240px;
+    height: 33px;
+    font-family: AvenirNext-Medium;
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: #333333;
+}
+
+.font_error{
+    height: 18px;
+    font-family: AvenirNext-DemiBold;
+    font-size: 13px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: #b21717;
+}
+
+.label-for-input {
+    width: 170px;
+    height: 17px;
+    font-family: AvenirNext-Medium !important;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    display: block;
+}
+
+.btn-login{
+    width: 180px;
+    height: 50px;
+    border-radius: 6px;
+    background-color: #f7b020;
+    font-size: 15px;
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: #15223d;
+    border: 0px;
+    font-family: AvenirNext-DemiBold !important;
+}
+
+.btn-login:hover{
+   background-color: rgba(247, 176, 32, 0.7)  !important;
+}
+
+ #a_forgot_password_section{
+    margin-top:42px;
+  }
+
+  .a-forgot-password{
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    text-align: left;
+    font-family: AvenirNext-Medium !important;
+    text-decoration:underline;
+}
+
+.a-forgot-password:hover{
+
+    color: #091dd4 ;
+}
+
+.input-class{
+    width: 45%;
+    height: 40px;
+    border-radius: 2px;
+    border: 1px solid;
+    margin-top:5px;
+    font-size: 20px;
+}
+
+input.input-class.is-danger{
+    background-color: rgba(178, 23, 23, 0.2);
+}
+
+.btn-container{
+    width: 45%;
+    height: 60px;
+    margin-top:20px;
+}
+
+.float_left{
+    float:left;
+}
+
+.float-right{
+    float: right;
+}
+
+#pre_remeber_me {
+    margin-left:10px;
+    font-size: 14px;
+    float: left;
+    margin-top: 2px;
+}
+
+.remeber-container{
+    width: 58%;
+    height: 40px;
+    float:left;
+ }
+
+ .remeber-container-sub{
+    width: 58%;
+    height: 20px;
+    float:left;
+ }
+
+//checkbox
+#remeber_me+label span{
+   padding-top: 2px;
+}
+//checkbox end
+
+    .msg-loging-in{
+        margin-left:13%;
+        margin-top:50px;
+        width: 415px;
+        height: 50px;
+        border-radius: 25px;
+        background-color: rgba(21, 34, 61, 0.9);
+    
+    }
+    .label-msg-loging-in{
+        padding-top:14px;
+        font-family: AvenirNext;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: 0.4px;
+        text-align: center !important;
+        color: #ffffff !important;
+    }
+
+  
+
+//process
+.Oval {
+    width: 30px;
+    height: 30px;
+    border-radius:50%;
+    display: inline-block;
+ }
+.Oval-chose{
+    background-color: #f7b020;
+    background-image:url(../../assets/images/shape.png);
+    background-position:6px 8px;
+    background-repeat:no-repeat;
+}
+  
+.Oval-gray {
+    background-color: white;
+    border:2px solid #e5e5e5;
+
+}
+.line{
+        width: 82%;
+        min-width: 100px;
+        height: 2px;
+       display: inline-block;
+       margin-bottom: 10px;
+       margin-right:10px;
+       margin-left:10px;
+    }
+    
+    .line-chose{
+        background-color: #f7b020;
+    }
+    .line-gray{
+         background-color:#e5e5e5;
+    }
+
+    ul{
+      list-style-type:none;
+      margin:0;
+      padding:0;
+      overflow:hidden;
+      
+    }
+    li
+    {
+      float:left;
+    }
+    #tracking_status_text li{
+        width: 33.3%;
+        text-align: center;
+        min-width: 150px;
+        display: flex;
+        justify-content: space-around;
+    }
+   
+#tracking_tatus_text li p{
+    font-family:  AvenirNext-DemiBold;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #15223d;
+}
+#tracking_status_icon_section{
+    margin-top:20px;
+    height:40px;
+    min-width:900px;
+}
+#tracking_status_icon{
+    margin-top: 110x;
+
+}
+#tracking_status_icon li:first-child{
+    width:18%;
+    text-align: right;
+}
+#tracking_status_icon li:first-child ~ li{
+    width:33%;
+    text-align: right;
+}
+
+#destination_text li{
+    width: 33.3%;
+    text-align: center;
+    min-width: 150px;
+}
+
+#destination_text li .date{
+    width:100%;
+    height:20px;
+    display: block;
+}
+//process end
+
+//forgot password model
+ 
+
+//forgot password model
+
+//transition
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+//transition

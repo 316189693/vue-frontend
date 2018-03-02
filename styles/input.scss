@@ -1,0 +1,272 @@
+.label-input {
+	font-size: .75rem;
+	font-weight: bold;
+	margin-bottom: 6px;
+	display: block;
+	letter-spacing: .4px;
+	@include ellipsis();
+}
+
+input[type="file"] {
+	display: none;
+}
+
+select,
+button,
+input[type="checkbox"],
+button {
+	-webkit-appearance: none;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+select {
+	height: 30px;
+	width: 100%;
+	margin-bottom: 14px;
+	border-radius: 0;
+	padding-left: 8px;
+	font-size: .875rem;
+	outline: none;
+	border: 1px solid transparent;
+	color: $lightblack;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"] {
+	padding-right: 8px;
+}
+
+input.input-error,
+select.input-error {
+	background-color: #FAF8CC !important;
+	border: 1px solid #F34D70 !important;
+}
+
+select {
+	padding-right: 35px;
+}
+
+button {
+	min-height: 28px;
+	outline: none;
+	border: none;
+	font-size: .875rem;
+	cursor: pointer;
+	padding: 0 6px;
+	color: white;
+	position: relative;
+	width: 100%;
+	letter-spacing: .4px;
+	@include transition(.25s, ease-in-out, top);
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+
+	a {
+		display: block;
+		padding: 5px 0;
+		text-decoration: none;
+	}
+
+	// Animation messing up js click
+	// &:active {
+	// 	top: 5px;
+	// }
+}
+
+.btn-icon-add,
+.btn-icon-delete {
+	cursor: pointer;
+	position: relative;
+	margin-top: 15px;
+	@include transition(.25s, ease-in-out);
+
+	// Animation messing up js click
+	&:active {
+		opacity: .5;
+	}
+}
+
+.container .checkbox,
+.container .radio {
+	padding: 0 10px;
+	
+	&:first-of-type {
+		padding-left: 0;
+	}
+
+	&:last-of-type {
+		padding-right: 0;
+	}
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	display: none;
+
+	&:checked {
+		+ .radio {
+			&:first-of-type {
+				&:before {
+					left: 5px;
+				}
+			}
+
+			&:before {
+			    content: "";
+			    width: 20px;
+			    height: 20px;
+			    border-radius: 50%;
+			    background-color: #D3D3D3;
+			    display: inline-block;
+			    position: absolute;
+			    top: 27px;
+			    left: 15px;
+			}
+		} 
+	}
+
+	+ .checkbox,
+	+ .radio {
+		display: inline-block;
+		cursor: pointer;
+		float: left;
+		position: relative;
+
+		span {
+			font-size: .75rem;
+			font-weight: bold;
+			margin-bottom: 6px;
+			display: block;
+		}
+
+		&:after {
+			content: "";
+			display: inline-block;
+			width: 30px;
+			height: 30px;
+			cursor: pointer;
+			box-sizing: border-box;
+		}
+	}
+
+	+ .radio {
+		&:after {
+			border-radius: 50%;
+			border: 1px solid #CCCCCC;
+		}
+	}
+}
+
+.table {
+	input[type="checkbox"],
+	input[type="radio"] {
+		&:checked {
+			+ .radio {
+				&:before {
+				    width: 10px;
+				    height: 10px;
+				    left: 5px;
+				}
+			} 
+		}
+	}
+}
+
+.table {
+	input[type="checkbox"],
+	input[type="radio"] {
+		&:checked {
+			+ .checkbox:after,
+			+ .radio:after {
+				background-size: 13px 13px !important;
+			}
+		}
+
+		+ .checkbox,
+		+ .radio {
+			&:after {
+				width: 20px;
+				height: 20px;
+			}
+		}
+	}
+}
+
+.custom-select {
+    background-size: 22px 22px;
+}
+
+textarea {
+	min-height: 90px;
+	padding: 7px;
+	resize: vertical;
+	font-size: .875rem;
+	width: 100%;
+	outline: none;
+	color: $lightblack;
+}
+
+// Ripple Button Effect
+.ripplelink {
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+	overflow: hidden;
+}
+
+.ink {
+	display: block;
+	position: absolute;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 100%;
+	-webkit-transform: scale(0);
+	-moz-transform: scale(0);
+	-o-transform: scale(0);
+	transform: scale(0);
+}
+
+.animate {
+	-webkit-animation: ripple 0.65s linear;
+	-moz-animation: ripple 0.65s linear;
+	-ms-animation: ripple 0.65s linear;
+	-o-animation: ripple 0.65s linear;
+	animation: ripple 0.65s linear;
+}
+
+@-webkit-keyframes ripple {
+    100% {
+		opacity: 0; 
+		-webkit-transform: scale(2.5);
+	}
+}
+
+@-moz-keyframes ripple {
+    100% {
+		opacity: 0; 
+		-moz-transform: scale(2.5);
+	}
+}
+
+@-o-keyframes ripple {
+    100% {
+		opacity: 0; 
+		-o-transform: scale(2.5);
+	}
+}
+
+@keyframes ripple {
+    100% {
+		opacity: 0; 
+		transform: scale(2.5);
+	}
+}

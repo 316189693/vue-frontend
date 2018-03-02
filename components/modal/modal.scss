@@ -1,0 +1,58 @@
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: right;
+}
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
+    background-color: #4D7F89;
+    border-radius: 4px;
+    color: #FFFFFF;
+}
+
+.h1-model-class{
+    height: 33px;
+    font-family: AvenirNext-Medium;
+    font-size: 24px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    text-align: left;
+    color: #15223d;
+    margin-top: 20px;
+    margin-left:30px;
+    margin-bottom: 40px;
+}
+
+.p-model-class {
+    height: 22px;
+   font-family: AvenirNext;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #15223d;
+  margin-left:30px;
+  margin-bottom: 20px;
+}
+.slot_section{
+    margin-left:30px;
+    margin-bottom: 33px;
+}
+.ui-button {
+    display:inline-block;
+    width:200px;
+    height:50px;
+    float:right;
+    margin-right: 24px;
+    margin-bottom:32px; 
+}
+
+.ui-button.delete {
+    background-color: #b21717 !important;
+    color: white !important;
+    border: transparent !important;
+}

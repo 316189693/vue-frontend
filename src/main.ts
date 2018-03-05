@@ -53,10 +53,12 @@ router.beforeEach(function(to, from, next) {
             if (isLogin){
               next();
             } else {
+             store.dispatch("changeHideForLogin", '/');
              next('/');
             }
            }).catch(error=>{console.log(error);});
       } else {
+        store.dispatch("changeHideForLogin", '/');
         next('/');
       }
     }  else {

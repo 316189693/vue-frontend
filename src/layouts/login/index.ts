@@ -49,6 +49,10 @@ export default class Login extends Vue {
         this.$store.dispatch('clearLoginFailMsg');
     }
 
+    clearTrackErrorMsg(){
+        this.$store.dispatch('clearTrackErrorMsg');
+    }
+
     remeberMe(){
         this.$store.dispatch('changeRemeberMe',this.formData);
     }

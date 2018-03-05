@@ -300,6 +300,13 @@ const actions = {
     changeRemeberMe(store:any, formData:any){
           store.commit('updateFormDataRemeberMe',formData.remeberMe);
     },
+    clearTrackErrorMsg(store:any){
+        var track = {};
+        track['trackFail'] = false;
+        track['trackResultMsg'] = '';
+        store.commit("updateTrackRequiredMsg", track);
+        return;
+    },
     trackShipment(store: any, formData: any) {
         if (!formData.proNumber) { 
             var track = {};

@@ -4,13 +4,13 @@
      <p class="p-text">Login to Client Portal</p>
 	 <div class="input-container">
 	    <label class ="label-for-input" for="email_input">EMAIL</label>
-		<input class="input-class" type="text" id="email_input" @keyup.enter.stop.prevent = "signIn" name="userName" v-model='formData.userName' v-validate.disable="'required'" :class="{'input': true, 'is-danger': errors.has('userName')|formData.loginFail }" >
+		<input class="input-class" type="text" id="email_input" @keyup.enter.stop.prevent = "signIn" v-on:change="inputChangeEvent"  name="userName" v-model='formData.userName' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('userName')|formData.loginFail }" >
 		<pre v-if="errors.has('userName')" class="help is-danger">{{ errors.first('userName') }}</pre>
 		<pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
 	 </div>
 	  <div class="input-container">
         <label class ="label-for-input" for="password_input">PASSWORD</label>
-		<input class="input-class"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" name="passWord" v-model='formData.passWord' v-validate.disable="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
+		<input class="input-class"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" v-on:change="inputChangeEvent" name="passWord" v-model='formData.passWord' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
 		<pre v-if="errors.has('passWord')" class="help is-danger">{{ errors.first('passWord') }}</pre>
 		<pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
 	 </div>

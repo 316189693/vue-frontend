@@ -36,8 +36,6 @@ export default class Login extends Vue {
         }
         
     }
-   
-
 
     @Watch("formData.hasTrackTableRows",{deep:true,immediate:true})
     scrollDown(val: any, oldVal: any, event: any){
@@ -47,13 +45,16 @@ export default class Login extends Vue {
         
     }
 
+    inputChangeEvent(){
+        this.$store.dispatch('clearLoginFailMsg');
+    }
 
     remeberMe(){
         this.$store.dispatch('changeRemeberMe',this.formData);
     }
 
     created(){
-        this.$store.dispatch('checkLogin');
+        this.$store.dispatch('validatedAndLogin');
     }
     
     // watch

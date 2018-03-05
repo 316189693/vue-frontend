@@ -2,6 +2,8 @@ import login from "./state";
 import axiosService from '../../services/axios/axiosService';
 import router from "../../router";
 import socketIO from '../../services/socketIO/socketIO';
+import { resolve } from "url";
+
 
 // state object
 const state = {
@@ -13,6 +15,10 @@ const state = {
 
 // mutations are operations that actually mutates the state.
 const mutations = {
+    clearLoginFailMsg(state:any){
+        state.login.formData.loginFail = false;
+        state.login.formData.loginFailMsg = '';
+    },
     updateMessageModel(state:any, messageModel:any) {
         state.login.messageModel.isShowMessageModel = messageModel.isShowMessageModel;
         state.login.messageModel.messageModelTitle = messageModel.messageModelTitle;
@@ -278,60 +284,18 @@ const actions = {
          console.log(error);
        });
     },
-    checkLogin(store:any) {
-        let userId = localStorage.getItem('UserID') ? parseInt(String(localStorage.getItem('UserID'))) : null;
-        let UserToken = localStorage.getItem("UserToken") ? localStorage.getItem('UserToken') : '';
-        let pageName = location.pathname+location.search;
-        if (userId && userId > 0 && UserToken) {
-            var params = new URLSearchParams();
-            params.append('UserID', String(localStorage.getItem('UserID')));
-            params.append('UserToken', UserToken);
-            params.append('pageName', pageName);
-            axiosService.post('write/check_user.php', params).then(function(res){
-                var data = res.data;
-                var formLoginData = {};
-                if(String(data) === '-9999' || data == 0 || data == null) {
-                    clearLocalStorage("check_user fail");
-                    formLoginData['loginFail'] = true;
-                    formLoginData['loginFailMsg'] = '';
-                    formLoginData['isLogin'] = false;
-                    store.commit('updateFormDataLoginInfo',formLoginData);
-                    return false;
-                }
-
-                if (data['user_password_require_change'] === 1) {
-                    clearLocalStorage("change password");
-                    formLoginData['loginFail'] = true;
-                    formLoginData['loginFailMsg'] = '';
-                    formLoginData['isLogin'] = false;
-                    store.commit('updateFormDataLoginInfo',formLoginData);
-                    console.log('change password');
-                    return false;
-                }
-
-                if (data['site_offline'] === 1) {
-                    console.log('site offline');
-                    return false;
-                }
-
-                localStorage.setItem('UserCustomer', data['group_customer']);
-                localStorage.setItem('UserGroupID', data['group_id']);
-                localStorage.setItem("UserSuper", data['group_admin']);
-                // update user info
-                store.commit('updateUserInfo', data);
-                formLoginData['loginFail'] = false;
-                formLoginData['loginFailMsg'] = '';
-                formLoginData['isLogin'] = true;
-                store.commit('updateFormDataLoginInfo',formLoginData)
+    validatedAndLogin(store:any) {
+        store.dispatch('checkLogin').then(function(isLogin:boolean){
+            if (isLogin){
                 if(navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
                     window.location.href = 'index.html#/home';
                 } else {
                     window.location.href = 'index.html#/home';
                 } 
-            }).catch(function(error){
-                clearLocalStorage("check login fail");
-            });
-        }
+            } else {
+                return;
+            }
+        });
     },
     changeRemeberMe(store:any, formData:any){
           store.commit('updateFormDataRemeberMe',formData.remeberMe);
@@ -453,6 +417,66 @@ const actions = {
         console.log('You don\'t have permission to access this site.');
         clearLocalStorage('user log out'); 
         window.location.href = 'index.html#/';
+    },
+    checkLogin(store:any){
+        return new Promise((resolve,reject)=>{
+            let userId = localStorage.getItem('UserID') ? parseInt(String(localStorage.getItem('UserID'))) : null;
+            let UserToken = localStorage.getItem("UserToken") ? localStorage.getItem('UserToken') : '';
+            let pageName = location.pathname+location.search;
+            if (userId && userId > 0 && UserToken) {
+                var params = new URLSearchParams();
+                params.append('UserID', String(localStorage.getItem('UserID')));
+                params.append('UserToken', UserToken);
+                params.append('pageName', pageName);
+                axiosService.post('write/check_user.php', params).then(function(res:any) {
+                    var data = res.data;
+                    var formLoginData = {};
+                    if(String(data) === '-9999' || data == 0 || data == null) {
+                        clearLocalStorage("check_user fail");
+                        formLoginData['loginFail'] = true;
+                        formLoginData['loginFailMsg'] = '';
+                        formLoginData['isLogin'] = false;
+                        store.commit('updateFormDataLoginInfo',formLoginData);
+                        return resolve(false);
+                    }
+    
+                    if (data['user_password_require_change'] === 1) {
+                        clearLocalStorage("change password");
+                        formLoginData['loginFail'] = true;
+                        formLoginData['loginFailMsg'] = '';
+                        formLoginData['isLogin'] = false;
+                        store.commit('updateFormDataLoginInfo',formLoginData);
+                        console.log('change password');
+                        return resolve(false);
+                    }
+    
+                    if (data['site_offline'] === 1) {
+                        console.log('site offline');
+                        return resolve(false);
+                    }
+                    localStorage.setItem('UserCustomer', data['group_customer']);
+                    localStorage.setItem('UserGroupID', data['group_id']);
+                    localStorage.setItem("UserSuper", data['group_admin']);
+                    // update user info
+                    store.commit('updateUserInfo', data);
+                    formLoginData['loginFail'] = false;
+                    formLoginData['loginFailMsg'] = '';
+                    formLoginData['isLogin'] = true;
+                    store.commit('updateFormDataLoginInfo',formLoginData)
+                    return resolve(true);
+                }).catch(error=>{
+                    console.log("check login error");
+                    resolve(false);
+                });
+               
+            } 
+            else {
+                resolve(false);
+            }
+        });
+    },
+    clearLoginFailMsg(store:any){
+        store.commit('clearLoginFailMsg');
     }
 };
 

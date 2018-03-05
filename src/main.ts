@@ -43,12 +43,23 @@ Vue.config.errorHandler = function (err, vm, info) {
 };
 
 router.beforeEach(function(to, from, next) {
-    //hide nav bar and foot for login page
+   //hide nav bar and foot for login page
+    store.dispatch("changeHideForLogin", to.path);
+    let userId = localStorage.getItem('UserID') ? parseInt(String(localStorage.getItem('UserID'))) : null;
+    let UserToken = localStorage.getItem("UserToken") ? localStorage.getItem('UserToken') : '';
     if (to.name !== 'Login' && !store.getters.formData.isLogin) {  
-      next('/')
-      store.dispatch("changeHideForLogin",'/');
+      if (userId && userId > 0 && UserToken) {
+        store.dispatch('checkLogin').then(function(isLogin:boolean){
+            if (isLogin){
+              next();
+            } else {
+             next('/');
+            }
+           }).catch(error=>{console.log(error);});
+      } else {
+        next('/');
+      }
     }  else {
-      store.dispatch("changeHideForLogin", to.path);
       next();
     }
     

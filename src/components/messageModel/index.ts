@@ -26,22 +26,42 @@ export default class messageModel extends Vue {
   @Prop()
   message: string;
 
-  @Prop({ default: "50%" })
+  @Prop({ default: "20%" })
   height: string | number;
 
-  @Prop({ default: "80%" })
+  @Prop({ default: "22%" })
   width: string | number;
 
-  @Prop({ default: 700 })
+  @Prop({ default: 400 })
   maxWidth: string | number;
 
-  @Prop({ default: 300 })
+  @Prop({ default: 400 })
   maxHeight: string | number;
 
-  @Prop({ default: 0.3 })
+  @Prop({ default: 0.35 })
   yPosition: string | number;
 
   @Provide()
   preventClose = true;
 
+  @Prop({default:2000})
+  waitMillsSecondsToClose:number;
+
+
+  async closeModelAfterSecond(){
+    await this.waitSeconds(this.waitMillsSecondsToClose);
+    this.$modal.hide(this.modalName);
+  }
+  
+  closeModel(){
+    this.$modal.hide(this.modalName);
+  }
+
+  waitSeconds(time:number){
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            resolve();
+        }, time);
+    })
+  }
 }

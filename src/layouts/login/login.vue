@@ -1,219 +1,194 @@
 <template>
 <div id="top_container">
-   <div class="second-container" id="login_section">
-     <p class="p-text">Login to Client Portal</p>
-	 <div class="input-container">
-	    <label class ="label-for-input" for="email_input">EMAIL</label>
-		<input class="input-class" type="text" id="email_input" @keyup.enter.stop.prevent = "signIn" v-on:input="inputChangeEvent"  name="userName" v-model='formData.userName' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('userName')|formData.loginFail }" >
-		<pre v-if="errors.has('userName')" class="help is-danger">{{ errors.first('userName') }}</pre>
-		<pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
-	 </div>
-	  <div class="input-container">
-        <label class ="label-for-input" for="password_input">PASSWORD</label>
-		<input class="input-class"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" v-on:input="inputChangeEvent" name="passWord" v-model='formData.passWord' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
-		<pre v-if="errors.has('passWord')" class="help is-danger">{{ errors.first('passWord') }}</pre>
-		<pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
-	 </div>
-	 <div class="btn-container">
-	     <div class="remeber-container">
-             <div class="remeber-container-sub">
-				  <input type="checkbox" id="remeber_me" @click="remeberMe" v-model="formData.remeberMe">
-				  <label class="checkbox" for="remeber_me">
-						<span>Remember me</span>
-				  </label>
-									
-             </div>
-	        <div id="a_forgot_password_section" > <a @click.stop.prevent="showModal" class="a-forgot-password">Forgot Password</a></div>
-	    </div>
-	     <div class="float-right"><button class="btn-login" @click.stop.prevent="signIn" >LOGIN</button></div>
-	 </div>
-   </div>
-   <transition name="fade">
-   <div v-show="formData.showLoding" class="msg-loging-in"><pre class="label-msg-loging-in">Logging you in...hang tight!</pre></div>
-   </transition>
-   <div class="second-container" id="track_section">
-      <p class="p-text">Track a Shipment</p>
-			
-	  <div class="input-container">
-	    <label class ="label-for-input" for="pro_input">PRO#</label>
-        <input v-model="formData.proNumber" @keyup.enter.stop.prevent = "trackShipment" v-on:input="clearTrackErrorMsg"  class="input-class" type="text" id="pro_input" :class="{'input': true, 'is-danger': formData.trackFail }">
-	  </div>
-	   <pre v-show="formData.trackFail" class="help is-danger">{{formData.trackResultMsg}}</pre>
-	  <div class="btn-container">
-	    <div class="float-right" id ="track_btn_section"><button class="btn-login" @click.stop.prevent="trackShipment">TRACK</button></div>
-	  </div>
-	  
-	  <transition name="fade">
-	  <div id="track_detail_section" v-if="formData.hasTrackTableRows">
-           <ul id='tracking_status_text'>
-			   <li>
-				    <p id="origin-status-text">Origin</p>
-			    </li>
-			    <li>									
-				    <p id="in-transit-status-text">In Transit</p>
-				</li>
-			    <li>
-					<p id="destination-status-text">Destination</p>									
-				</li>
-			</ul>
-            <div id ="tracking_status_icon_section">
-                 <ul id="tracking_status_icon">
-                     <li id="status-pick-up" data-status="pick-up">
-						 <span class="Oval"  :class="{'Oval-chose':formData.originChose,'Oval-gray':!formData.originChose}"></span>									
-					 </li>		
-					 <li id="status-transit" data-status="transit">
-						 <span class="line"  :class="{'line-chose':formData.transitChose,'line-gray':!formData.transitChose}"></span>
-						 <span class="Oval" :class="{'Oval-chose':formData.transitChose,'Oval-gray':!formData.transitChose}"></span>
-					 </li>
-					 <li id="status-delivered" data-status="delivered">
-						 <span class="line" :class="{'line-chose':formData.destinationChose,'line-gray':!formData.destinationChose}"></span>
-						 <span class="Oval" :class="{'Oval-chose':formData.destinationChose,'Oval-gray':!formData.destinationChose}"></span>								
-					 </li>
-				</ul>
+    <div class="grid-container margin-top" > 
+         	 <div class="grid-100 tablet-grid-100" >
+              	 <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                            <div class="grid-45 tablet-grid-45">
+                                <label class="first-title" >Login to Client Portal</label>
+                            </div>
+                        </div>
+
+						 <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                            <div class="grid-50 tablet-grid-50">
+                                <label class="input-label" for="email_input">EMAIL OR USERNAME</label>
+		                        <input class="input-class" type="text" id="email_input" @keyup.enter.stop.prevent = "signIn" v-on:input="inputChangeEvent"  name="userName" v-model='formData.userName' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('userName')|formData.loginFail }" >
+		                        <pre v-if="errors.has('userName')" class="help is-danger">{{ errors.first('userName') }}</pre>
+		                        <pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
+                            </div>
+                        </div>
+						
+						<div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                            <div class="grid-50 tablet-grid-50">
+                                <label class="input-label" for="password_input">PASSWORD</label>
+		                        <input class="input-class"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" v-on:input="inputChangeEvent" name="passWord" v-model='formData.passWord' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
+		                        <pre v-if="errors.has('passWord')" class="help is-danger">{{ errors.first('passWord') }}</pre>
+		                        <pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
+                            </div>
+                        </div>
+                        <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+							<div class="grid-50 tablet-grid-50">
+						            <ul class="checkbox-list">
+                                        <li >
+											<input type="checkbox" id="remeber_me" @click="remeberMe" v-model="formData.remeberMe">
+				                            <label class="checkbox" for="remeber_me">
+						                        <span>Remember me</span>
+				                            </label>
+                                        </li>
+                                        <li style="float:left">
+											 <a @click.stop.prevent="showModal" class="checkbox a-forgot-password ">Forgot Password</a>
+                                        </li>
+                                    </ul>
+									<div class="grid-15 tablet-grid-20" style="margin-top: 10px;float:right;padding:0px;">
+								        <div>
+						                    <button class="button-yellow-medium btn-login" @click.stop.prevent="signIn">LOGIN</button>
+								        </div>
+                                   </div>
+							</div>
+							
+						</div>
+                       
+    <transition name="fade">
+		<div class="grid-100 tablet-grid-100 mobile-grid-100 container"  v-show="formData.showLoding">
+            <div class="grid-40 tablet-grid-40 container ">
+                <div class="grid-70 tablet-grid-70 toast-message">
+                   <p>Logging you in...hang tight!</p>
+                </div>
             </div>
+		</div>
+    </transition>
+         </div>
 
-			<ul id= "destination_text" class="tracking-status-text ul-login-page">
-				<li>									
-				    <span class="date order-pickup-date" id="origin_date">{{formData.originDate}}</span>	
-					<span class="date order-pickup-location" id="origin_location">{{formData.originLocation}}</span>																		
-				</li>
-				<li>
-					<span class="date order-pickup-date" id="transit_date">{{formData.transitDate}}</span>	
-					<span class="date order-pickup-location" id="transit_location">{{formData.transitLocation}}</span>		
-				</li>
-				<li>
-					<span class="date order-delivery-date" id="destination_date">{{formData.destinationDate}}</span>		
-					<span class="date order-pickup-location" id="destination_location">{{formData.destinationLocation}}</span>				
-				</li>
-			</ul>	           
-       
-		   <div id="details_table_section" >
-		        <table id="table_location_date_info" cellspacing="0">
-		               <thead>
-			                <tr>
-				                <td class="table-title-font">DATE</td>
-				                <td class="table-title-font">STATUS</td>
-				                <td class="table-title-font">LOCATION</td>
-				           </tr>
-			            </thead>
-				        <tbody v-if="formData.hasTrackTableRows" v-html="formData.trackTable">
+      
+		 <div class="grid-100 tablet-grid-100 margin-top-30" >
+				<div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                    <div class="grid-45 tablet-grid-45">
+                        <label class="first-title" >Track a Shipment</label>
+                    </div>
+                </div>
+                <div class="grid-100 tablet-grid-100 container ">
+                    <div class="grid-50 tablet-grid-50">
+                         <label class ="input-label" for="pro_input">REFERENCE # OR PRO #</label>
+                         <input v-model="formData.proNumber" @keyup.enter.stop.prevent = "trackShipment" v-on:input="clearTrackErrorMsg"  class="input-class" type="text" id="pro_input" :class="{'input': true, 'is-danger': formData.trackFail }"/>
+	 
+                        <span v-if="formData.trackFail" class="help is-danger">{{formData.trackResultMsg}}
+        
+                        </span>
+                       
+                    </div>
+                </div>
+
+				 <div class="grid-100 tablet-grid-100 container ">
+                    <div class="grid-50 tablet-grid-50">
+                        <div class="grid-100 tablet-grid-100" style="padding:0px;"> 
+							     <div >
+						    <button class="button-yellow-medium btn-login" @click.stop.prevent="trackShipment">TRACK</button>
+							     </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            <div class="grid-100 tablet-grid-100 container margin-left" >
+               <transition name="fade" :duration="{ enter: 500, leave: 800 }">
+                    <div class="tracking-process grid-100 tablet-grid-100 container title " v-if="formData.hasTrackTableRows">
+                        <ul class="tracking-status-text">
+                            <li>
+                                <p :class="{ complete: formData.originChose }">Origin</p>
+                            </li>
+
+                            <li>
+                                <p :class="{ complete: formData.transitChose }">In Transit</p>
+                            </li>
+
+                            <li>
+                                <p :class="{ complete: formData.destinationChose }">Destination</p>
+                            </li>
+                        </ul>
+
+                        <ul class="tracking-status-icon">
+                            <li id="status-pick-up" data-status="pick-up">
+                                <span :class="{circle: true, complete: formData.originChose}"></span>
+                            </li>
+
+                            <li id="status-transit" data-status="transit">
+                                <span :class="{line: true, complete: formData.transitChose}"></span>
+                                <span :class="{circle: true, complete: formData.transitChose}"></span>
+                            </li>
+
+                            <li id="status-delivered" data-status="delivered">
+                                <span :class="{line: true, complete: formData.destinationChose}"></span>
+                                <span :class="{circle: true, complete: formData.destinationChose}"></span>
+                            </li>
+                        </ul>
+
+                        <ul class="tracking-status-text">
+                            <li>
+                                <span class="details">{{formData.originDate}}</span>
+                                <span class="details">{{formData.originLocation}}</span>
+                            </li>
+
+                            <li>
+								 <span class="details">{{formData.transitDate}}</span>
+                                <span class="details">{{formData.transitLocation}}</span>
+							</li>
+
+                            <li>
+                                <span class="details">{{formData.destinationDate}}</span>
+                                <span class="details">{{formData.destinationLocation}}</span>
+                            </li>
+                        </ul>
+                    </div>
+               </transition>
+			    <transition name="fade" :duration="{ enter: 500, leave: 800 }">
+                    <div class="grid-95 tablet-grid-95 container title " v-if="formData.hasTrackTableRows">
+                        <table class="table-tracking">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody  >
+								
+							  <template v-for="(items,date) in formData.trackTable">
+                                    <tr class="date-info-row">
+                                        <td colspan="3" class="date">{{date}}</td>
+                                    </tr>
+									
+                                    <template v-for="detail in items">
+                                        <tr>
+                                            <td class="time-info-column">{{detail.outputTime}}</td>
+                                            <td class="status-info-column">{{detail.status}}</td>
+                                            <td class="location-info-column">{{detail.location}}</td>
+                                        </tr>
+                                    </template>
+									
+                                </template>
+								
 				        </tbody>
-		        </table>
-		   </div>
-	    </div>
-      </transition>
-     </div>
-
-   <transition name="fade">
+                        </table>
+                    </div>
+               </transition>
+            </div>
+            </div>
+   </div>
+    <transition name="fade">
        <messageModel :modalName="messageModel.messageName" :title="messageModel.messageModelTitle" :message="messageModel.messageModelMessage">
 		
        </messageModel>
    </transition>
       <transition name="fade">
-   <DefaultModal :modalName="modalName" :title="modalTitle" :maxWidth="maxWidth" :maxHeight="maxHeight"  :message="modalMessage" :confirmText="modalConfirmText" :cancelText="modalCancelText" :confirmAction="confirmModal" :cancelAction="closeModal">
+   <DefaultModal :modalName="modalName" :title="modalTitle" :width="width" :maxWidth="maxWidth" :height="height" :maxHeight="maxHeight"  :message="modalMessage" :rightBtnText="modalConfirmText" :leftBtnText="modalCancelText" :rightBtnAction="confirmModal" :leftBtnAction="closeModal">
 			<!--test elment-->
 			<!-- <a href="/">you can place customized elements</a> -->
 			<slot>
-				 <label class ="label-for-input" for="forgot_email_input">EMAIL</label>
-		         <input class="input-class" type="text" id="forgot_email_input" v-model='formData.forgotEmail' :class="{'input': true, 'is-danger': (formData.sendForgotEmailstaus === -1) }" >  
-				 <pre v-if="formData.sendForgotEmailstaus === -1" class="help is-danger">{{formData.sendForgotEmailMsg}}</pre>   
+				 <label class ="input-label" for="forgot_email_input">EMAIL</label>
+		         <input class="input-forgot-mail input-class" type="text" id="forgot_email_input" v-model='formData.forgotEmail' v-on:input="inputForgotPassword" :class="{'input': true, 'is-danger': (formData.sendForgotEmailstaus === -1) }" >
+				 <pre v-if="formData.sendForgotEmailstaus === -1" class="help is-danger">{{formData.sendForgotEmailMsg}}</pre>
 			</slot>
     </DefaultModal>
 	   </transition>
-	
 </div>
+
 </template>
 <style lang="scss" src="./login.scss" scoped></style>
-<style lang="scss">
-     
-.date-info-row{
-    width: 100%;
-    height: 40px;
-    background-color: rgba(21, 34, 61, 0.9);
-    font-family: AvenirNext;
-    font-size: 14px;
-    font-weight: 500;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    text-align: left;
-    color: #ffffff;
-}
-.date-info-row td{
-		vertical-align: middle;  
-		 width: 100%;
-}
-#table_location_date_info{
-	width:100%;
-}
-
-#table_location_date_info tr td:first-child{
-    padding-left:40px;
-}
-
-#details_table_section{
-    margin-top:30px;
-    clear:both;
-    float:left;
-    margin-left:9%;
-    width: 90%;
- }
-
- .location-info-column{
-    width:40%;
-    height:40px;
-    font-family: AvenirNext;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    text-align: left;
-	color: #15223d;
-}
-
-.table-title-font{
-    height:40px;
-    font-family: AvenirNext-Medium;
-    font-size: 13px;
-    font-weight: 500;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    text-align: left;
-    color: #15223d;
-}
-
-.time-info-column{
-    width:30%;
-    height:40px;
-    font-family: AvenirNext;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    text-align: left;
-    color: #15223d;      
-}
-
-.status-info-column{
-    width:30%;
-    height:40px;
-    font-family: AvenirNext;
-    font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: 0.4px;
-    text-align: left;
-    color: #15223d;
-}
-
-
-</style>

@@ -74,16 +74,26 @@
                     </div>
 
                     <div class="grid-100 tablet-grid-100 container">
-                        <h1 class="section-header optional-label">Pickup Window Hours</h1>
-                        <p class="sub-header">Ready for Pickup: 02/06/2018</p>
+                        <h1 class="section-header">Pickup Window Date & Hours</h1>
                     </div>
 
                     <div class="grid-80 tablet-grid-100 container">
-                        <div class="grid-40 tablet-grid-50">
-                            <label class="input-label">From</label>
-                            <select class="dropdown">
-                                <option></option>
-                            </select>
+                        <div class="grid-40 container">
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                                <div class="grid-100 tablet-grid-90">
+                                    <label class="input-label">Earliest Pickup Date</label>
+                                    <Datepicker :input-class="{'input-date':true,'input': true, 'is-danger': errors.has('earliestPickupDate') || !validPickupDateTime && validationStarted}" placeholder="select" v-bind:format="dateFormat" name="earliestPickupDate" v-model="scheduleData.pickup.earliestPickupDate" v-validate.disable="{required:true}"></Datepicker>
+                                </div>
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                                <div class="grid-100 tablet-grid-90">
+                                    <label class="input-label">Earliest Pickup Time</label>
+                                    <select class="input-time" v-model="scheduleData.pickup.earliestPickupTime" :class="{'input-date':true,'input': true, 'is-danger': !validPickupDateTime && validationStarted}">
+                                        <option v-for="(item, key) in getTimeOptions()" :key="key">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="grid-10 tablet-grid-10" style="margin-top: 15px;">
@@ -91,11 +101,22 @@
                             <label>to</label>
                         </div>
 
-                        <div class="grid-40 tablet-grid-50">
-                            <label class="input-label">To</label>
-                            <select class="dropdown">
-                                <option></option>
-                            </select>
+                        <div class="grid-40 container">
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                                <div class="grid-100 tablet-grid-90">
+                                    <label class="input-label">Latest Pickup Date</label>
+                                    <Datepicker :input-class="{'input-date':true,'input': true, 'is-danger': errors.has('latestPickupDate') || !validPickupDateTime && validationStarted}" placeholder="select" v-bind:format="dateFormat" name="latestPickupDate" v-model="scheduleData.pickup.latestPickupDate" v-validate.disable="{required:true}"></Datepicker>
+                                </div>
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 container">
+                                <div class="grid-100 tablet-grid-90">
+                                    <label class="input-label">Latest Pickup Time</label>
+                                    <select class="input-time" v-model="scheduleData.pickup.latestPickupTime" :class="{'input-date':true,'input': true, 'is-danger': !validPickupDateTime && validationStarted}">
+                                        <option v-for="(item, key) in getTimeOptions()" :key="key">{{item}}</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -183,8 +204,8 @@
             </div>
         </div>
 
-        <MainButtonSet :confirmAction="validate" :cancelAction="showModal"></MainButtonSet>
-        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" :confirmAction="confirmModal" :cancelAction="closeModal"></DefaultModal>
+        <MainButtonSet :rightBtnAction="validate" :leftBtnAction="showModal"></MainButtonSet>
+        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" :rightBtnAction="confirmModal" :leftBtnAction="closeModal"></DefaultModal>
     </div>
 
 </template>

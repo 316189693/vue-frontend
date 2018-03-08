@@ -1,0 +1,73 @@
+{
+    "palletDimensionsOptions": [
+        {
+            "type": 1,
+            "title": "Pallets: Standard (40\" x 48\")",
+            "width":40,
+            "length": 48,
+            "editable": false
+        },
+        {
+            "type": 2,
+            "title": "Pallets: (60\" x 48\")",
+            "width": 60,
+            "length": 48,
+            "editable": false
+        },
+        {
+            "type": 3,
+            "title": "Pallets: (48\" x 48\")",
+            "width": 48,
+            "length": 48,
+            "editable": false
+        },
+        {
+            "type": 4,
+            "title": "Pallets: (enter dimensions)",
+            "width": 0,
+            "length": 0,
+            "editable": true
+        }
+    ],
+    "locationTypeOptions": [
+        {
+            "key": 1,
+            "value": "Business"
+        },
+        {
+            "key": 2,
+            "value": "Construction Site"
+        },
+        {
+            "key": 3,
+            "value": "Convention Center"
+        },
+        {
+            "key": 4,
+            "value": "Freight Carrier Terminal"
+        },
+        {
+            "key": 5,
+            "value": "Home/Residential"
+        },
+        {
+            "key": 6,
+            "value": "Military Base"
+        },
+        {
+            "key": 7,
+            "value": "Self Storage/Mini Storage"
+        },
+        {
+            "key": 8,
+            "value": "Religious Institution"
+        }
+    ],
+    "palletSpaceCalculation": {
+        "standardWidth": 48,
+        "standardLength": 40,
+        "widthInterval": 2,
+        "lengthInterval": 15,
+        "maxHeight": 104
+    }
+}

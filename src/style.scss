@@ -1,9 +1,10 @@
 //@import "styles/variables";
 @import "styles/global";
+@import "styles/transitions";
 
-* {
-    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
-    -moz-user-select: none; /* mozilla browsers */
-    -khtml-user-select: none; /* webkit (konqueror) browsers */
-    -ms-user-select: none; /* IE10+ */
-}
+// * {
+//     -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+//     -moz-user-select: none; /* mozilla browsers */
+//     -khtml-user-select: none; /* webkit (konqueror) browsers */
+//     -ms-user-select: none; /* IE10+ */
+// }

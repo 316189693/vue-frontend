@@ -24,20 +24,42 @@ export default class SchedulePickupShipment extends Vue {
 
     // vue life cycle method
     beforeCreate() {
-        let processStage = this.$store.getters.quoteProcessStage;
-        if (processStage < 3) {
+
+        // check the stage if it's allowed to access this page directly
+        let stage = this.$store.getters.quoteProcessStage;
+        if (stage.currentStage < stage.stageEnum.scheduleShipmentPage) {
             window.location.href = "#/schedulePickup";
+        }
+        else {
+            this.$store.dispatch("changeQuotePageStage", "scheduleShipmentPage");
         }
     }
 
     @Provide()
     quoteData = this.$store.getters.quoteData;
 
- 
+
+    get allTotalWeight() {
+
+        let sum = 0;
+        this.quoteData.pallets.forEach((item: any) => {
+            sum += parseInt(item.totalWeight);
+        });
+        return sum;
+    }
+
+    get totalPallets() {
+        let total = 0;
+        this.quoteData.pallets.forEach((item: any) => {
+            total += parseInt(item.quantity);
+        });
+        return total;
+    }
 
 
     confirm() {
-        alert("confirm");
+        this.$store.dispatch("changeQuotePageStage","scheduleReviewPage");
+        window.location.href = "#/schedulepickup/review";
     }
 
     cancel() {

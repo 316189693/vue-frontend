@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { Component, Prop, Provide, Watch } from "vue-property-decorator";
+import { Component, Prop, Provide, Watch, Inject } from "vue-property-decorator";
 import * as Logger from "js-logger";
 
 
@@ -9,9 +9,11 @@ import ShippingDetail from "../../components/shippingDetail";
 import EstimatedQuote from "../../components/estimatedQuote";
 import DefaultModal from "../../components/modal";
 import MainButtonSet from "../../components/mainButtonSet";
-import * as $ from "jquery";
 import googleAutoComplete from "../../services/googleAPI/autoComplete";
+import bus from "../../bus";
+import { Validator } from "vee-validate";
 
+const VueScrollTo = require('vue-scrollto');
 
 
 
@@ -33,31 +35,38 @@ const Datepicker = require("vuejs-datepicker");
 export default class GetQuote extends Vue {
 
     // Data
-    @Provide()
     quoteData = this.$store.getters.quoteData;
 
-    @Provide()
     hasQuote: boolean = false;
 
-    @Provide()
     calculating: boolean = false;
 
+   
 
-    @Provide()
-    dateFormat: string = "MM/dd/yyyy";
-
-    @Provide()
     pickupZipValue_OnFocus: string;
 
-    @Provide()
     pickupZipValue_OnBlur: string;
     // Data
+
+    @Inject()
+    $validator:Validator;
+
+
+    get palletSpaces(){
+        let sum = 0;
+        this.quoteData.pallets.forEach((item:any) => {
+            sum += item.palletSpace;
+        });
+        this.quoteData.palletSpaces = sum;
+        return sum;
+    }
     
 
     // component life cycle method
     beforeCreate() {
         this.$store.dispatch("changeTab", 2);
-        this.$store.dispatch("quotePage_RestoreStage");
+        this.$store.dispatch("changeQuotePageStage","quoteStartPage");
+
     }
 
     mounted() {
@@ -68,28 +77,14 @@ export default class GetQuote extends Vue {
     }
 
 
-
     // methods
     addLine() {
-        let newPallet = {
-            width: 10,
-            length: 10,
-            height: 10
-        };
         this.$store.dispatch("addLine");
-        // this.$store.commit('addLine');
-
-        $.ajax({
-            url: "http://maps.googleapis.com/maps/api/geocode/json?address=91776", success: function (result) {
-                console.log(result);
-            }
-        });
-
-
-
     }
 
     async validate() {
+
+       
         let result = await this.$validator.validateAll();
 
         if (result) {
@@ -98,10 +93,14 @@ export default class GetQuote extends Vue {
             setTimeout(() => {
                 this.calculating = false;
                 this.hasQuote = true;
-                this.quoteData.amount = 1000;
+                this.quoteData.amount = 1000;  
+                
+                setTimeout(()=>{
+                    VueScrollTo.scrollTo("#estimatedQuoteBox",1000);
+                },100);
             }, 1500);
 
-            this.$store.dispatch("allowSchedulePage");
+            this.$store.dispatch("changeQuotePageStage","schedulePage");
 
         }
         else {
@@ -143,19 +142,10 @@ export default class GetQuote extends Vue {
 
 
     // Modal
-    @Provide()
     modalName: string = "cancelQuoteModal";
-
-    @Provide()
     modalMessage: string = `Are you sure you want to cancel scheduling this pickup? Canceled pickups will be reverted back to a "Saved Quote"`;
-
-    @Provide()
     modalTitle: string = "Cancel Quote";
-
-    @Provide()
     modalConfirmText: string = "Yes, Cancel Quote";
-
-    @Provide()
     modalCancelText: string = "Nevermind";
 
     showModal() {

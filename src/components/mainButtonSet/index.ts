@@ -12,17 +12,17 @@ import template from "./mainButtonSet.vue";
 export default class MainButtonSet extends Vue {
 
     @Prop({default:"Continue"})
-    confirmText:string;
+    rightBtnText:string;
 
     @Prop({default:"Cancel"})
-    cancelText:string;
+    leftBtnText:string;
 
 
     @Prop()
-    confirmAction:Function;
+    rightBtnAction:Function;
 
     @Prop()
-    cancelAction:Function;
+    leftBtnAction:Function;
 
  
 }

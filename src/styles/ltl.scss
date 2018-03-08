@@ -30,8 +30,12 @@
 	position: relative;
 }
 
-.textfield-text {
+.textfield-text, .textfield-text-medium {
 	font-size: 0.875rem;
+}
+
+.textfield-text-medium {
+	font-family: AvenirNext-Medium;
 }
 
 .text-bold {
@@ -67,121 +71,16 @@
 	top: -10px;
 }
 
-.tooltip-light:after {
-	content: url(./styles/svg/tooltip-light.svg);
-	cursor: pointer;
-	float: right;
-    margin-left: 70px;
-    height: 0;
-    /*position: relative;
-    left: 20px;
-    bottom: -2px;*/
-}
-/*
-.info-text {
-	font-size: 0.875rem;
+.margin-bottom-40 {
+	margin-bottom: 40px;
 }
 
-.info .tooltip-light {
-	visibility: hidden;
+.margin-left-10 {
+	margin-left: 10px !important;
 }
 
-.tooltip-light:hover .info-text, .tooltip-light:hover .tooltip-bubble {
-	visibility: visible;
-}
-
-.tooltip-bubble {
-	visibility: hidden;
-    position: relative;
-    min-width: 175px !important;
-    padding: 10px;
-    background-color:#FFF;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius: 2px;
-    border: 1.5px solid #5d5d5d;
-    left: -48px;
-    top: 105px;
-}
-
-.tooltip-bubble:before,
-.tooltip-bubble:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: -19px;
-    left: 30px;
-    z-index: 2;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    border: solid 20px transparent;
-    border-top: 0;
-    border-bottom-color: #FFF;
-}
-
-.tooltip-bubble:before {
-    top: -21px;
-    z-index: 1;
-    border-bottom-color: #333333;
-}*/
-
-
-/*
-.tooltip-light:after {
-	content: url(./styles/svg/tooltip-light.svg);
-	cursor: pointer;
-    position: relative;
-    left: 20px;
-    bottom: -2px;
-}
-
-.tooltip-light:hover .tooltip-bubble {
-	visibility: visible;
-}
-
-.tooltip-bubble {
-	visibility: hidden;
-    position:relative;
-    width: 320px;
-    padding: 10px;
-    margin: 3em;
-    background-color:#FFF;
-    color: #666;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    border: 2.5px solid black;
-}
-
-.tooltip-bubble p {
-    font-size: 0.875rem;
-}
-
-.tooltip-bubble:before,
-.tooltip-bubble:after {
-    content: "\0020";
-    display:block;
-    position:absolute;
-    top:-20px;
-    left:20px;
-    z-index:2;
-    width: 0;
-    height: 0;
-    overflow:hidden;
-    border: solid 22px transparent;
-    border-top: 0;
-    border-bottom-color:#FFF;
-}
-.tooltip-bubble:before {
-    top:-25px;
-    z-index:1;
-    border-bottom-color:black;
-}*/
-
-.label-number {
+.label-number, .label-number-summary {
 	font-family: AvenirNext-Medium;
-	background-color: #656565;
 	color: #ffffff;
 	border-radius: 100%;
 	padding: 4px 11px;
@@ -189,9 +88,21 @@
 	font-size: 1.125rem;
 }
 
+.label-number {
+	background-color: #656565;
+}
+
+.label-number-summary {
+	background-color: #15223d;
+}
+
 .label-number.active {
 	background-color: #f7b020;
 	color: #15223d;
+}
+
+.manifest-line-container {
+	position: relative;
 }
 
 .manifest-line-count {
@@ -202,7 +113,6 @@
 	float: left;
     width: 2%;
 }
-
 
 .pallets-count-container {
 	background-color: #e5e5e5;
@@ -222,6 +132,7 @@
 .step-header {
 	font-family: AvenirNext-Medium;
 	font-size: 1.5rem;
+	position: relative;
 }
 
 h1.title {
@@ -257,12 +168,17 @@ textarea:disabled {
 }
 
 .input-date {
-	background: #1D1D1D url(./styles/svg/icon-input-date-calendar-white-light.svg) no-repeat right 10px center;
+	background: url(./styles/svg/icon-input-date-calendar-white-light.svg) no-repeat right 10px center;
+	background-size: 15px;
+}
+
+.input-time {
+	background: url(./styles/svg/input_time.svg) no-repeat right 10px center;
 	background-size: 15px;
 }
 
 .input-search {
-	background: #1D1D1D url(./styles/svg/input_search.svg) no-repeat left 10px center;
+	background: url(./styles/svg/input_search.svg) no-repeat left 10px center;
 	background-size: 15px;
 	padding-left: 35px !important;
 }
@@ -312,10 +228,22 @@ input[type="radio"]:checked + .radio:before {
 	left: 15px;
 }
 
-input[type="checkbox"]:checked + .checkbox:after, .white-theme input[type="radio"]:checked + .checkbox:after {
+input[type="checkbox"]:checked + .checkbox:after {
 	background: #FFFFFF url(./styles/svg/checkbox-light.svg) no-repeat 2px 2px !important;
     background-size: 15px 15px !important;
     background-color: #15223d !important;
+}
+
+input[type="checkbox"]:disabled:checked + .checkbox:after {
+	background: url(./styles/svg/checkbox-disabled.svg) no-repeat 2px 2px !important;
+    background-size: 15px 15px !important;
+    background-color: #e5e5e5 !important;
+    cursor: not-allowed;
+    border: transparent;
+}
+
+input[type="checkbox"]:disabled + .checkbox:after, input[type="checkbox"]:disabled:not(:checked) + .checkbox:after {
+	cursor: not-allowed !important;
 }	
 
 input[type="checkbox"] + .checkbox span, input[type="checkbox"] + .radio span, input[type="radio"] + .checkbox span, input[type="radio"] + .radio span {
@@ -326,11 +254,32 @@ input[type="checkbox"] + .checkbox span, input[type="checkbox"] + .radio span, i
 	font-weight: normal !important;
 }
 
+input[type="checkbox"]:disabled + .checkbox span {
+	cursor: not-allowed;
+}
+
 button {
 	font-family: AvenirNext-Medium;
 	border-radius: 6px !important;
 	box-shadow: none !important;
 	text-transform: uppercase !important;
+}
+
+button.download {
+	background: url(./styles/svg/download_item.svg) no-repeat 10px 8px !important;
+	padding-left: 10px;
+}
+
+button.download:hover {
+	background: url(./styles/svg/download_item_hover.svg) no-repeat 10px 8px !important;
+	padding-left: 10px;
+}
+
+button.delete-standalone {
+	background: url(./styles/svg/remove_item.svg) no-repeat 1px 10px !important;
+	border-radius: 0px !important;
+	padding-left: 10px;
+	vertical-align: sub;
 }
 
 button.remove {
@@ -348,6 +297,20 @@ button.remove:disabled {
 	padding-left: 20px;
 }
 
+button.delete-manifest-line {
+	background: #e5e5e5 url(./styles/svg/remove_item_disabled.svg) no-repeat 8px 5px !important;
+    width: 30px;
+    border-radius: 2px !important;
+    margin-top: 25px;
+    margin-left: 7px;
+    position: relative;
+    right: -30px;
+}
+
+button.delete-manifest-line:hover {
+	background: #b21717 url(./styles/svg/remove_item_hover.svg) no-repeat 7.5px 5px !important;
+}
+
 button.add {
 	background: #FFFFFF url(./styles/svg/add_item.svg) no-repeat 25px 10px !important;
 	padding-left: 20px;
@@ -355,6 +318,21 @@ button.add {
 
 button.add:hover {
 	background: #FFFFFF url(./styles/svg/add_item_hover.svg) no-repeat 25px 10px !important;
+	padding-left: 20px;
+}
+
+button.edit {
+	background: #FFFFFF url(./styles/svg/edit_item.svg) no-repeat 15px 10px !important;
+	padding-left: 20px;
+}
+
+button.edit:hover {
+	background: #FFFFFF url(./styles/svg/edit_item_hover.svg) no-repeat 15px 10px !important;
+	padding-left: 20px;
+}
+
+button.edit:disabled {
+	background: #FFFFFF url(./styles/svg/edit_item_disabled.svg) no-repeat 15px 10px !important;
 	padding-left: 20px;
 }
 
@@ -523,14 +501,6 @@ input.input-client-error {
     padding: 15px;
     left: 25%;
     min-width: 50%;
-    /*position: absolute;
-    height: auto;
-    width: auto;
-    top: 314.5px;
-    left: 575px;
-    display: block;
-    z-index: 101;
-    min-width: 450px;*/
 }
 
 .message-box {
@@ -538,20 +508,49 @@ input.input-client-error {
     border-radius: 6px;
     position: relative;
     padding: 25px 25px 0 25px;
-    left: 20%;
+    left: 15%;
     text-align: center;
-    min-width: 60%
+    min-width: 70%
 }
 
 .message-box > div {
-	padding: 40px 0 20px 0; 
+	padding: 30px 0 20px 0; 
 	margin: 0 auto;
 	position: relative; 
-	width: 65%;
+	width: 85%;
 }
 
 .message-box > p {
 	padding: 10px 0;
+	position: relative;
+}
+
+.message-container p {
+	position: relative;
+	font-family: AvenirNext-Medium;
+}
+
+.message-container p:not(.text-disclosure) {
+	padding-top: 15px !important;
+}
+
+.message-container> p > span {
+	position: absolute;
+	right: 0;
+	color: #15223d;
+	font-size: 1rem;
+	font-style: normal;
+	text-decoration: none;
+	text-transform: none;
+}
+
+.message-container {
+	text-align: left;
+	padding-top: 10px !important;
+}
+
+.message-container p.text-disclosure {
+	top: 0px !important;
 }
 
 .grid-container {
@@ -638,6 +637,22 @@ table:not(.ui-datepicker-calendar) tbody > tr:nth-child(even):hover {
 	color: #ffffff;
 }
 
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+    background: none;
+}
+
 .actions:after {
 	content: url(./styles/svg/actions_icon.svg);
 	cursor: pointer;
@@ -645,24 +660,56 @@ table:not(.ui-datepicker-calendar) tbody > tr:nth-child(even):hover {
 
 .table-details {
 	border-collapse: collapse;
+	margin: 15px 0 0 40px;
+	position: relative;
 }
 
 .table-details tr td:first-of-type {
-	white-space: nowrap;
+	font-family: 'AvenirNext-Medium';
 }
 
 .table-details thead th, .table-details tbody td {
-	padding: 20px;
+	padding: 5px 10px 15px 10px;
 }
 
+.table-details tbody td {
+	white-space: nowrap;
+	font-size: .875rem;
+}
 
+.table-details tbody td:nth-child(even) {
+	position: relative;
+    max-width: 170px;
+    min-width: 170px;
+}
+
+table:not(.table-client) tbody > tr:nth-child(even):hover, table:not(.table-client) tbody > tr:nth-child(odd):hover {
+	background-color: transparent !important;
+}
 
 .table-details .checkbox {
 	float: none !important;
+	padding: 0px !important;
 }
 
-.table-details .checkbox:first-of-type {
-	padding-left: 10px !important;
+.table-details input[type="checkbox"] + .checkbox span {
+	margin-left: 10px !important;
+}
+
+.table-details .line {
+	background: #e5e5e5;
+    width: 500px;
+    height: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    left: -50px;
+}
+
+.table-details div.manifest-line-count {
+	position: absolute;
+    left: -30px;
+    margin-left: 0;
 }
 /* End of tables */
 
@@ -804,4 +851,226 @@ ul.tracking-status-icon {
 	background-color: #f7b020;
 }
 
+.schedule-pickup-nav {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+.schedule-pickup-nav li {
+	display: inline-block;
+}
+
+.schedule-pickup-nav li span.circle {
+	width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: solid 2px #f7b020;
+    margin-left: -16px;
+    display: inline-block;
+}
+
+.schedule-pickup-nav li span.current {
+	background-color: #f7b020;
+}
+
+.schedule-pickup-nav .line {
+	background: #15223d;
+    width: 70px;
+    height: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: -8px;
+    left: -8px;
+}
+
+.schedule-pickup-nav-text {
+	position: absolute !important;
+    right: -30px !important;
+    top: 25px !important;
+    display: inline-flex !important;
+}
+
+.schedule-pickup-nav-text li {
+	font-size: 0.875rem;
+	position: relative;
+	left: -65px;
+	top: 20px;
+}
+
+.schedule-pickup-nav-text li:first-of-type {
+	left: -95px !important;
+	position: relative;
+}
+
+.schedule-pickup-nav-text li:last-of-type {
+	left: -25px !important;
+	position: relative;
+}
+
+.schedule-pickup-nav-text span.current  {
+	font-family: 'AvenirNext-DemiBold';
+}
+
 /* End of Tracking page styling*/
+
+/* Start of speech/tooltip bubbles */
+.tooltip-label:after {
+	margin-left: 20px !important;
+}
+
+.tooltip-light:after {
+	content: url(./styles/svg/tooltip-light.svg);
+	cursor: pointer;
+	float: right;
+    margin-left: 70px;
+    height: 0;
+}
+
+.manifest-tooltip-light:after {
+	content: url(./styles/svg/tooltip-light.svg);
+    cursor: pointer;
+    float: right;
+    height: 0;
+    top: 30px;
+    position: relative;
+    right: 10px;
+}
+
+.actions, .tooltip-light, .manifest-tooltip-light {
+	position: relative;
+}
+
+.actions .speech-bubble, .tooltip-light .tooltip-bubble, .manifest-tooltip-light .tooltip-bubble {
+	visibility: hidden;
+}
+
+.actions:hover .speech-bubble, .tooltip-light:hover .tooltip-bubble, .manifest-tooltip-light:hover .tooltip-bubble {
+	visibility: visible;
+}
+
+.speech-bubble {
+    position: absolute;
+    width: 118px;
+    padding: 5px;
+    background-color: #FFF;
+    color: #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 2px;
+    border: 1px solid #15223d;
+    top: 60px;
+    left: -40px;
+    z-index: 1;
+}
+
+.speech-bubble p, .tooltip-bubble p {
+    font-size: .875rem;
+    cursor: pointer;
+}
+
+.speech-bubble:before,
+.speech-bubble:after {
+    content: "\0020";
+    display: block;
+    position: relative;
+    top: -89px;
+    left: 42px;
+    z-index: 2;
+    width: 0px;
+    height: 0;
+    overflow: hidden;
+    border: solid 13.5px transparent;
+    border-top: 0;
+    border-bottom-color: #FFF;
+    /* top: -24px; */
+}
+.speech-bubble:before {
+    top:-20px;
+    z-index:1;
+    border-bottom-color: #15223d;
+}
+
+.tooltip-bubble {
+    position: absolute;
+    width: auto;
+    height: auto;
+    min-width: 195px;
+    padding: 5px;
+    background-color: #FFF;
+    color: #666;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 2px;
+    border: 1px solid #15223d;
+    top: 34px;
+    left: -45px;
+    z-index: 1;
+}
+
+.manifest-tooltip-light .tooltip-bubble {
+    top: 70px !important;
+    left: -118px !important;
+}
+
+.tooltip-label .tooltip-bubble {
+	left: -100px !important;
+	top: 37px !important;
+}
+
+.tooltip-bubble p {
+    font-size: .875rem;
+    white-space: normal;
+    text-transform: none;
+}
+
+.tooltip-bubble:before, 
+.tooltip-bubble:after {
+    content: "\0020";
+    display: block;
+    position: relative;
+    top: -126px;
+    left: 100px;
+    z-index: 2;
+    width: 0px;
+    height: 0;
+    overflow: hidden;
+    border: solid 13.5px transparent;
+    border-top: 0;
+    border-bottom-color: #FFF;
+}
+ 
+.tooltip-bubble:before {
+    top: -19px;
+    z-index: 1;
+    border-bottom-color: #15223d;
+}
+
+/* End of speech/tooltip bubbles */
+
+/* File Manager */
+
+.file-list {
+    height: 350px;
+    overflow: auto;
+    padding-left: 35px;
+}
+
+/*  End of File Manager*/
+
+/* Fixes input fields autofill CSS */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+	-webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+	box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+

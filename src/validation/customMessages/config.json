@@ -1,0 +1,5 @@
+{
+    "default_Required_Message": "This is a required field.",
+    "default_Email_Message": "Not a valid email.",
+    "default_Numeric_Message": "Only numeric"
+}

@@ -27,16 +27,16 @@ export default class DefaultModal extends Vue {
   message: string;
 
   @Prop({ default: "Yes" })
-  confirmText: string;
+  rightBtnText: string;
 
   @Prop({ default: "No" })
-  cancelText: string;
+  leftBtnText: string;
 
   @Prop()
-  confirmAction: Function;
+  rightBtnAction: Function;
 
   @Prop()
-  cancelAction: Function;
+  leftBtnAction: Function;
 
   @Prop({ default: "50%" })
   height: string | number;

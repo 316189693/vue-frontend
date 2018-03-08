@@ -9,8 +9,8 @@
    
       <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
         <div class="ui-dialog-buttonset">
-            <button type="button" class="ui-button ui-corner-all ui-widget delete" @click="confirmAction">{{confirmText}}</button>
-            <button type="button" class="btn ui-button btn-default" @click="cancelAction">{{cancelText}}</button>
+            <button type="button" class="ui-button ui-corner-all ui-widget delete" @click="rightBtnAction">{{rightBtnText}}</button>
+            <button type="button" class="btn ui-button btn-default" @click="leftBtnAction">{{leftBtnText}}</button>
         </div>
       </div>
       <!-- <div tabindex="-1" role="dialog" class="ui-dialog ui-corner-all ui-widget ui-widget-content ui-front ui-dialog-buttons ui-draggable">

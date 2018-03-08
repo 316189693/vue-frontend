@@ -3,7 +3,6 @@ import { Component, Model, Provide, Watch} from "vue-property-decorator";
 import * as Logger from "js-logger";
 
 import template from "./login.vue";
-import axiosService from '../../services/axios/axiosService';
 import DefaultModal from "../../components/modal";
 import messageModel from "../../components/messageModel";
 import * as $ from "jquery";
@@ -76,36 +75,23 @@ export default class Login extends Vue {
 
     @Watch("messageModel.isShowMessageModel",{deep:true,immediate:true})
     onMessageModelChange(val: any, oldVal: any, event: any) {
- 
         if (val && val !== oldVal) {
             this.showMessageModal();
         } 
     }
    
-   async showMessageModal() {
+    showMessageModal() {
         this.$modal.show(this.messageModel.messageName);
-         await  this.waitFiveSecond(1000);
-         this.closeMessageModel();
-        
     }
 
-    waitFiveSecond(time:number){
-        return new Promise(function (resolve, reject) {
-            setTimeout(function () {
-                resolve();
-            }, time);
-        })
-       
-    }
 
     closeMessageModel(){
-
-        this.$modal.hide(this.messageModel.messageName);
         this.messageModel.isShowMessageModel = false;
         this.messageModel.messageModelTitle = '';
         this.messageModel.messageModelMessage = '';
         this.$store.dispatch('updateMessageModel', this.messageModel);
     }
+
     //messageModel
 
     // Modal
@@ -126,10 +112,14 @@ export default class Login extends Vue {
    
     @Provide()
     maxWidth:number = 700;
+
+    @Provide()
+    width:number = 600;
      
     @Provide()
     maxHeight:number = 340;
-  
+    @Provide()
+    height:number = 340;
     showModal() {
         this.$modal.show(this.modalName);
     }
@@ -137,6 +127,10 @@ export default class Login extends Vue {
     closeModal() {
         this.$modal.hide(this.modalName);
         this.$store.dispatch('cancelForgotModel');
+    }
+    
+    inputForgotPassword(){
+        this.$store.dispatch('validateForgotMsg',this.formData);
     }
 
     confirmModal(){

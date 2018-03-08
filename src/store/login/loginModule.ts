@@ -23,6 +23,10 @@ const mutations = {
         state.login.messageModel.isShowMessageModel = messageModel.isShowMessageModel;
         state.login.messageModel.messageModelTitle = messageModel.messageModelTitle;
         state.login.messageModel.messageModelMessage = messageModel.messageModelMessage;
+    }, 
+    cancelForgotMsg(state:any, formData:any) {
+        state.login.formData.sendForgotEmailMsg = formData.sendForgotEmailMsg;
+        state.login.formData.sendForgotEmailstaus = formData.sendForgotEmailstaus;
     },
     updateFormDataForgotEmail(state:any, formData:any) {
         state.login.formData.forgotEmail = formData.forgotEmail;
@@ -182,22 +186,8 @@ const mutations = {
            }
        }
      
-       let trackTableStr = '';
-       for (let key in trackTable) {
-           let echo = '<tr class="date-info-row" >'
-                    + '<td  colspan="3" >' + key + '</td>'
-                    +"</tr>";
-            let values = trackTable[key];
-            for (let index in values) {
-                 echo += '<tr>';
-                 echo += ' <td class="time-info-column">' + values[index].outputTime + "</td>";
-                 echo += ' <td class="status-info-column">' + values[index].status + "</td>";
-                 echo += ' <td class="location-info-column">' + values[index].location + "</td>";
-                 echo += '</tr>';
-            }
-            trackTableStr += echo;
-       }
-       state.login.formData.trackTable = trackTableStr;
+     
+       state.login.formData.trackTable = trackTable;
     }
 
 };
@@ -244,6 +234,17 @@ function formateDate(dateStr:string){
 const actions = {
     updateMessageModel(store:any, messageModelData:any) {
         store.commit('updateMessageModel', messageModelData);
+    },
+    validateForgotMsg(store:any, formData:any) {
+        var data = {};
+        if (!formData || !formData.forgotEmail) {
+            data['sendForgotEmailMsg'] = 'This field is required!';
+            data['sendForgotEmailstaus'] = -1;
+        } else {
+            data['sendForgotEmailMsg'] = '';
+            data['sendForgotEmailstaus'] = '';
+        }
+        store.commit('cancelForgotMsg', data);
     },
     cancelForgotModel(store:any) {
         var data = {};
@@ -421,7 +422,6 @@ const actions = {
         formData['loginFailMsg'] = '';
         formData['isLogin'] = false;
         store.commit('updateFormDataLoginInfo', formData);
-        console.log('You don\'t have permission to access this site.');
         clearLocalStorage('user log out'); 
         window.location.href = 'index.html#/';
     },
@@ -487,11 +487,18 @@ const actions = {
     }
 };
 
- function clearLocalStorage(str: string) {
+function clearLocalStorage(str: string) {
     localStorage.setItem("ErrorMessage", 'Your session has expired. Please login again.');
 	socketIO.sendPushToRoom('room_msg', 'DEV', 'ClearCache ' + str + ' site '+window.location.href + ' token '+localStorage.getItem("UserToken") + ' user '+localStorage.getItem("UserID"), 1);
 	localStorage.removeItem("UserToken");
-	localStorage.removeItem("UserID");
+    localStorage.removeItem("UserID");
+    localStorage.removeItem('UserCustomer');
+    localStorage.removeItem('UserGroupID');
+    localStorage.removeItem("UserSuper");
+    localStorage.removeItem("password_expire");
+    localStorage.removeItem("UserMenu");
+    localStorage.removeItem("ParentMenuOrder");
+    localStorage.removeItem("ErrorMessage");
 }
 
 

@@ -15,11 +15,13 @@ import router from "./router";
 
 //valiation
 import VeeValidate from "vee-validate";
-import customMessage from "./validation";
+import { Validator } from "vee-validate";
+import customMessage from "./validation/customMessages";
+import customValidationRules from "./validation/customRules";
 
 import VModal from "vue-js-modal";
 
-
+const VueScrollTo = require('vue-scrollto');
 
 import Navbar from "./components/navbar";
 import Foot from "./components/foot";
@@ -68,7 +70,11 @@ router.beforeEach(function(to, from, next) {
 });
 
 Vue.use(VeeValidate, customMessage);
+customValidationRules();
+
 Vue.use(VModal);
+Vue.use(VueScrollTo);
+
 
 @Component({
   mixins: [template],

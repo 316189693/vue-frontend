@@ -6,7 +6,9 @@ import Home from "../layouts/home";
 import GetQuote from "../layouts/getQuote";
 import SchedulePickup from "../layouts/schedulePickup";
 import SchedulePickupShipment from "../layouts/schedulePickupShipment";
+import SchedulePickupReview from "../layouts/schedulePickupReview";
 import Demo from "../layouts/demo";
+import Track from "../layouts/track";
 import NotFound from "../layouts/not-found";
 import Login from "../layouts/login";
 Vue.use(VueRouter);
@@ -39,9 +41,19 @@ export default new VueRouter({
       component: SchedulePickupShipment
     },
     {
+      path: "/schedulePickup/Review",
+      name: "schedulePickupReview",
+      component: SchedulePickupReview
+    },
+    {
       path: "/demo",
       name: "demo",
       component: Demo
+    },
+    {
+      path: "/track",
+      name: "track",
+      component: Track
     },
     {
       path: "*",
@@ -49,5 +61,9 @@ export default new VueRouter({
     }
   ],
   mode: "hash",
-  linkActiveClass: "active"
+  linkActiveClass: "active",
+  //scroll to top
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 });

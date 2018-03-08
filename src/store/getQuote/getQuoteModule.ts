@@ -21,18 +21,25 @@ const mutations = {
         state.quote.pallets.splice(index, 1);
     },
 
-    quotePage_RestoreStage(state: any) {
-        state.quote.processStage = 1;
-    },
 
-    allowSchedulePage(state: any) {
-        state.quote.processStage = 2;
-    },
-    schedulePage_RestoreStage(state: any) {
-        state.quote.processStage = 2;
-    },
-    allow_ScheduleShipmentPage(state: any) {
-        state.quote.processStage = 3;
+    changeStage(state: any, page: string) {
+        let stage = state.quote.stage;
+        let pageOptions = state.quote.stage.stageEnum;
+
+        switch (page) {
+            case "quoteStartPage":
+                stage.currentStage = pageOptions.quoteStartPage;
+                break;
+            case "schedulePage":
+                stage.currentStage = pageOptions.schedulePage;
+                break;
+            case "scheduleShipmentPage":
+                stage.currentStage = pageOptions.scheduleShipmentPage;
+                break;
+            case "scheduleReviewPage":
+                stage.currentStage = pageOptions.scheduleReviewPage;
+                break;
+        }
     }
 
 
@@ -48,18 +55,8 @@ const actions = {
         store.commit("deleteLine", index);
     },
 
-    quotePage_RestoreStage(store: any) {
-        store.commit("quotePage_RestoreStage");
-    },
-
-    allowSchedulePage(store: any) {
-        store.commit("allowSchedulePage");
-    },
-    schedulePage_RestoreStage(store: any) {
-        store.commit("schedulePage_RestoreStage");
-    },
-    allow_ScheduleShipmentPage(store: any) {
-        store.commit("allow_ScheduleShipmentPage");
+    changeQuotePageStage(store: any, page: string) {
+        store.commit("changeStage", page);
     }
 
 };
@@ -74,7 +71,7 @@ const getters = {
     },
 
     quoteProcessStage(state: any) {
-        return state.quote.processStage;
+        return state.quote.stage;
     }
 
 };

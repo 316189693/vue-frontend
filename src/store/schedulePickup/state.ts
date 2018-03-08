@@ -8,7 +8,11 @@ const schedule = {
         fax: null,
         timeFrom: null,
         timeTo: null,
-        instructions: null
+        instructions: null,
+        earliestPickupDate: new Date(),
+        latestPickupDate: new Date(),
+        earliestPickupTime: "12:00 AM",
+        latestPickupTime: "12:00 AM"
     },
     delivery: {
         company: null,

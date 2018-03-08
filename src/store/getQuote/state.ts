@@ -1,26 +1,10 @@
-const palletDimensionsOptions = [
-    {
-        type: 1,
-        title: "Pallets: Standard (48\" x 40\")",
-        width: 48,
-        length: 40,
-        editable: false
-    },
-    {
-        type: 2,
-        title: "Pallets: 60 x 48",
-        width: 60,
-        length: 48,
-        editable: false
-    },
-    {
-        type: 3,
-        title: "Pallets: (enter dimensions)",
-        width: 0,
-        length: 0,
-        editable: true
-    }
-];
+import Config from "../getQuote/config.json";
+
+
+const palletDimensionsOptions = Config.palletDimensionsOptions;
+const locationTypeOptions = Config.locationTypeOptions;
+const palletSpaceCalculationSettings = Config.palletSpaceCalculation;
+
 
 function getPalletTypeDimension(type: number) {
     let dimension = {
@@ -45,87 +29,96 @@ function getPallet() {
     let type = 1;
     let dimension = getPalletTypeDimension(type);
 
-    let pallet = {       
+    let pallet = {
         palletType: type,
         width: dimension.width,
         length: dimension.length,
-        height: 4,
-        quantity: 5,
-        totalWeight: 3,
-        palletClass: 1,
+        height: 48,
+        quantity: 0,
+        totalWeight: 0,
+        palletClass: 0,
         stackable: false,
+        palletSpace: 0,
         isHazardous: false,
-        description: null
+        description: undefined
     };
 
     return pallet;
 }
 
-const locationTypeOptions = [
-    {
-        key: 1,
-        value: "Business"
-    },
-    {
-        key: 2,
-        value: "Construction Site"
-    },
-    {
-        key: 3,
-        value: "Convention Center"
-    },
-    {
-        key: 4,
-        value: "Freight Carrier Terminal"
-    },
-    {
-        key: 5,
-        value: "Home/Residential"
-    },
-    {
-        key: 6,
-        value: "Military Base"
-    },
-    {
-        key: 7,
-        value: "Self Storage/Mini Storage"
-    },
-    {
-        key: 8,
-        value: "Religious Institution"
-    },
-];
+
+function calculateUnitPalletSpace(x: number, y: number) {
+    let X = palletSpaceCalculationSettings.standardWidth;
+    let Y = palletSpaceCalculationSettings.standardLength;
+
+    let A = palletSpaceCalculationSettings.widthInterval;
+    let B = palletSpaceCalculationSettings.lengthInterval;
+
+    let a = Math.ceil(x / X);
+    let b = Math.ceil(y / Y);
 
 
+    let widthTooLong = false;
+    let lengthTooLong = false;
 
+    if (a > A) {
+        widthTooLong = true;
+    }
+    if (b > B) {
+        lengthTooLong = true;
+    }
+
+    if (widthTooLong || lengthTooLong) {
+        return -1;
+    }
+    else {
+        return a * b;
+    }
+
+}
+
+
+enum stageEnum {
+    quoteStartPage = 1,
+    schedulePage = 2,
+    scheduleShipmentPage = 3,
+    scheduleReviewPage = 4
+}
 
 
 const quote = {
     pickup: {
-        locationType: 0,
-        zipCode: null,
-        state: "CA",
-        city: "Los Angeles",
+        locationType: 1,
+        zipCode: undefined,
+        state: "",
+        city: "",
         date: "",
         liftGate: false,
         limitedAccess: false,
         palletJack: false,
     },
     delivery: {
-        locationType: 0,
-        zipCode: null,
-        state: "CA",
-        city: "Los Angeles",
+        locationType: 1,
+        zipCode: undefined,
+        state: "",
+        city: "",
         liftGate: false,
         limitedAccess: false,
         palletJack: false,
     },
+    stage: {
+        stageEnum: stageEnum,
+        currentStage: stageEnum.quoteStartPage,
+    },
     locationTypeOptions,
     palletDimensionsOptions,
     pallets: [getPallet()],
+    palletSpaces: 0,
     getPalletTypeDimension,
     getPallet,
-    processStage: 1,
+    calculateUnitPalletSpace,
+    palletSpaceCalculationSettings
+
 
 };
 

@@ -24,7 +24,7 @@
 
                 <div class="grid-50 tablet-grid-50">
                     <label class="input-label optional-label">Order Reference #
-                        <span class="tooltip-light"></span>
+                        <span class="tooltip-dark" v-tooltip.bottom="tooltipMessages.reference"></span>
                     </label>
                     <input type="text"></div>
             </div>

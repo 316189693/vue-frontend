@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "../../services/axios/axiosService";
 import qs from "qs";
 
-const baseUrl = process.env.NODE_ENV === "production" ? "https://client.freightapp.com/" : "https://clientdev.freightapp.com/";
+// const baseUrl = process.env.NODE_ENV === "production" ? "https://client.freightapp.com/" : "https://clientdev.freightapp.com/";
 
 const stageArray = [
     {
@@ -72,7 +72,7 @@ function getStage(key: number) {
 
 
 const getOrdersCustomer = async (userID: number) => {
-    const res = await axios.post(baseUrl + "write/get_tms_orders_customer.php", qs.stringify({ userID: userID }), { headers: { "Content-Type": "application/x-www-form-urlencoded"} })
+    const res = await axios.post("/write/get_tms_orders_customer.php", qs.stringify({ userID: userID }), { headers: { "Content-Type": "application/x-www-form-urlencoded"} })
         .then(response => response.data)
         .then(data => {
             return data;

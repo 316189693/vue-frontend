@@ -10,3 +10,24 @@ declare module 'socket.io-client' {
   var e: any;
   export = e;
 }
+declare module 'vue-scrollto' {
+  const scrollto: any;
+  export = scrollto;
+}
+declare module 'v-tooltip' {
+  const vtooltip: any;
+  export = vtooltip;
+}
+declare module 'scriptjs' {
+  const scriptjs: any;
+  export = scriptjs;
+}
+declare module 'vuejs-datepicker'{
+  const datepicker: any;
+  export = datepicker;
+}
+declare module 'socket.io'{
+  const socketio:any;
+  export = socketio;
+}
+

@@ -10,7 +10,7 @@ function getPalletTypeDimension(type: number) {
     let dimension = {
         width: 0,
         length: 0
-    }
+    };
 
     for (let i = 0; i < palletDimensionsOptions.length; i++) {
         if (palletDimensionsOptions[i].type == type) {
@@ -61,12 +61,12 @@ function calculateUnitPalletSpace(x: number, y: number) {
     let widthTooLong = false;
     let lengthTooLong = false;
 
-    if (a > A) {
-        widthTooLong = true;
-    }
-    if (b > B) {
-        lengthTooLong = true;
-    }
+    // if (a > A) {
+    //     widthTooLong = true;
+    // }
+    // if (b > B) {
+    //     lengthTooLong = true;
+    // }
 
     if (widthTooLong || lengthTooLong) {
         return -1;
@@ -75,6 +75,50 @@ function calculateUnitPalletSpace(x: number, y: number) {
         return a * b;
     }
 
+}
+
+function getPalletSpace(width: number, length: number, quantity: number) {
+    let com = getOrientationCombination(quantity);
+
+
+
+    let finalResult = Infinity;
+
+    for (let i = 0; i < com.length; i++) {
+
+        let _x = com[i].x * width;
+        let _y = com[i].y * length;
+
+        let result1 = calculateUnitPalletSpace(_x, _y);
+        finalResult = result1 > 0 && result1 < finalResult ? result1 : finalResult;
+
+        let result2 = calculateUnitPalletSpace(_y, _x);
+        finalResult = result2 > 0 && result2 < finalResult ? result2 : finalResult;
+
+        let __x = com[i].x * length;
+        let __y = com[i].y * width;
+
+        let result3 = calculateUnitPalletSpace(__x, __y);
+        finalResult = result3 > 0 && result3 < finalResult ? result3 : finalResult;
+
+        let result4 = calculateUnitPalletSpace(__y, __x);
+        finalResult = result4 > 0 && result4 < finalResult ? result4 : finalResult;
+
+
+    }
+
+    return finalResult;
+
+}
+
+function getOrientationCombination(quantity: number) {
+    let result = [];
+
+    for (let i = 1; i <= Math.ceil(quantity / i); i++) {
+        result.push({ x: i, y: Math.ceil(quantity / i) });
+    }
+
+    return result;
 }
 
 
@@ -92,7 +136,6 @@ const quote = {
         zipCode: undefined,
         state: "",
         city: "",
-        date: "",
         liftGate: false,
         limitedAccess: false,
         palletJack: false,
@@ -106,6 +149,12 @@ const quote = {
         limitedAccess: false,
         palletJack: false,
     },
+    estimate: {
+        palletSpaceCharge: 0,
+        fuelCharge: 0,
+        complianceCharge: 0,
+        total: 0,
+    },
     stage: {
         stageEnum: stageEnum,
         currentStage: stageEnum.quoteStartPage,
@@ -117,6 +166,7 @@ const quote = {
     getPalletTypeDimension,
     getPallet,
     calculateUnitPalletSpace,
+    getPalletSpace,
     palletSpaceCalculationSettings
 
 

@@ -62,6 +62,18 @@ const stageArray = [
     },
 ];
 
+const trackData = {
+    showTrack: false,
+    showTerms: true,
+    showNotFound: false,
+    status: "",
+    originDate: "",
+    originLocation: "",
+    destinationDate: "",
+    destinationLocation: "",
+    details: {}
+};
+
 function getStage(key: number) {
     for (let i = 0; i < stageArray.length; i++) {
         if (stageArray[i].key == key) {
@@ -81,7 +93,7 @@ const searchByProNumber = async (proNumber: number) => {
 };
 
 const track = {
-    getStage,
+    trackData,
     searchByProNumber
 };
 

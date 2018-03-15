@@ -36,14 +36,8 @@
         </div>
 
         <div class="grid-10 tablet-grid-15">
-            <label class="input-label">Height
-                <span class="tooltip-light">
-                    <div class="tooltip-bubble">
-                        <p>Can we stack your pallets? Charges are made based on
-                            <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                    </div>
-                </span>
-            </label>
+            <label class="input-label">Height</label>
+            <span class="tooltip-light tooltip-label" v-tooltip.bottom="tooltipMessages.height"></span>
             <input type="text" placeholder="0" v-model="pallet.height" v-bind:disabled="lock" :name="'height' + index" v-validate.disable="'required|between:1,104'" :class="{'input': true, 'is-danger': errors.has('height' + index) }">
         </div>
 
@@ -58,19 +52,8 @@
         </div>
 
         <div class="grid-15 tablet-grid-15">
-            <label class="input-label optional-label">Class *
-                <span class="tooltip-light">
-                    <div class="tooltip-bubble">
-                        <p>Can we stack your pallets? Charges are made based on
-                            <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                    </div>
-                </span>
-            </label>
-            <!-- <span class="tooltip-light"> 
-						<div class="tooltip-bubble">
-							<p>Can we stack your pallets? Charges are made based on <span>pallet space</span>. One pallet space is 48&ldquo;x40&ldquo; and the entire height of the truck.</p>
-						</div>
-					</span> -->
+            <label class="input-label optional-label">Class *</label>
+
             <select class="dropdown" v-model="pallet.palletClass" :disabled="lock">
                 <option value="0">Select</option>
                 <option value="1">Option 1</option>
@@ -82,8 +65,7 @@
             <span>Stackable?</span>
         </label>
 
-        <span class="manifest-tooltip-light">
-        </span>
+        <span class="manifest-tooltip-light" v-tooltip.bottom="tooltipMessages.stackable"></span>
 
         <button class="delete-manifest-line" v-if="totalNumber > 1 && !lock" v-on:click="deleteLine(index)"></button>
 

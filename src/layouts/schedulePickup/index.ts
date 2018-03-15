@@ -71,9 +71,9 @@ export default class SchedulePickup extends Vue {
         return this.instruction_MaxCharacters - this.instruction_CaractersCount;
     }
 
-    get validPickupDateTime(){
+    get validPickupDateTime() {
         let earlyDate = new Date(this.scheduleData.pickup.earliestPickupDate).toLocaleDateString("en-US");
-        let lateDate = new Date(this.scheduleData.pickup.latestPickupDate).toLocaleDateString("en-US");;
+        let lateDate = new Date(this.scheduleData.pickup.latestPickupDate).toLocaleDateString("en-US");
 
         let earlyTime = this.scheduleData.pickup.earliestPickupTime;
         let lateTime = this.scheduleData.pickup.latestPickupTime;
@@ -100,7 +100,7 @@ export default class SchedulePickup extends Vue {
     }
 
 
-    //methods
+    // methods
     async validate() {
 
         let result = await this.$validator.validateAll();
@@ -112,7 +112,7 @@ export default class SchedulePickup extends Vue {
             window.location.href = "#/schedulepickup/shipment";
         }
         else {
-           
+
         }
 
     }
@@ -120,8 +120,8 @@ export default class SchedulePickup extends Vue {
 
     getTimeOptions() {
 
-        let interval = 30; //in minute
-        let M = 60; //60 mintue in a hour
+        let interval = 30; // in minute
+        let M = 60; // 60 mintue in a hour
 
         let startingHour = 0;
         let endingHour = 24;
@@ -132,8 +132,8 @@ export default class SchedulePickup extends Vue {
         let startingMinute = startingHour * M;
 
         for (let i = startingMinute; i < totalMinute; i += interval) {
-            let currentMinute = i
-            let hour = Math.floor(currentMinute / M)
+            let currentMinute = i;
+            let hour = Math.floor(currentMinute / M);
             let remainder = currentMinute % M;
 
 
@@ -145,7 +145,7 @@ export default class SchedulePickup extends Vue {
 
             let formatted = date.toLocaleTimeString("en-us", options);
 
-            times.push(formatted);     
+            times.push(formatted);
         }
 
         return times;
@@ -153,7 +153,7 @@ export default class SchedulePickup extends Vue {
 
 
 
-    // Modal 
+    // Modal
     modalName: string = "cancelScheduleModal";
     modalTitle: string = "Cancel Schedule Pickup";
     modalMessage: string = `Are you sure you want to cancel scheduling this pickup? Canceled pickups will be reverted back to a "Saved Quote"`;

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import { Component, Prop, Provide, Watch, Inject } from "vue-property-decorator";
 import * as Logger from "js-logger";
-import template from "./ShippingDetail.vue";
+import template from "./shippingDetail.vue";
 import bus from "../../bus";
 import { Validator } from "vee-validate";
 
@@ -17,11 +17,18 @@ export default class ShippingDetail extends Vue {
 
   calculateUnitPalletSpace = this.$store.getters.quoteData.calculateUnitPalletSpace;
 
+  getPalletSpace = this.$store.getters.quoteData.getPalletSpace;
+
   palletSpaceCalculationSettings = this.$store.getters.quoteData.palletSpaceCalculationSettings;
 
   shipmentDescription_CharacterLimit: number = 50;
 
   isStackable: boolean = true;
+
+  tooltipMessages: any = {
+    height: "height",
+    stackable: "stackable"
+  };
   // Data
 
 
@@ -42,7 +49,7 @@ export default class ShippingDetail extends Vue {
   requireDescription: boolean;
   // Properties
 
-  //inject the validator from parent, parent and child will now share the same validator instance
+  // inject the validator from parent, parent and child will now share the same validator instance
   @Inject()
   $validator: Validator;
 
@@ -106,11 +113,11 @@ export default class ShippingDetail extends Vue {
     if (this.pallet.width > 0 && this.pallet.length > 0 && this.pallet.height > 0 && this.pallet.quantity > 0) {
       let maxHeight = this.palletSpaceCalculationSettings.maxHeight;
 
-      let unitPalletSpace = this.getPalletSpace(this.pallet.width, this.pallet.length, this.pallet.height);
+      let unitPalletSpace = this.getPalletSpace(this.pallet.width, this.pallet.length, this.pallet.quantity);
       let heightDivisor = Math.floor(maxHeight / this.pallet.height);
       let stackable = this.pallet.stackable && this.pallet.quantity > 1 ? heightDivisor : 1;
 
-      let palletSpace = Math.ceil(unitPalletSpace * this.pallet.quantity / stackable);
+      let palletSpace = Math.ceil(unitPalletSpace / stackable);
 
       if (palletSpace > 0) {
         this.pallet.palletSpace = palletSpace;
@@ -132,33 +139,33 @@ export default class ShippingDetail extends Vue {
     this.$store.dispatch("deleteLine", index);
   }
 
-  getPalletSpace(width: any, length: any, height: any) {
+  // getPalletSpace(width: any, length: any, height: any) {
 
-    if (width > 0 && length > 0) {
-      let x = parseInt(width);
-      let y = parseInt(length);
+  //   if (width > 0 && length > 0) {
+  //     let x = parseInt(width);
+  //     let y = parseInt(length);
 
-      let result1 = this.calculateUnitPalletSpace(x, y);
-      let result2 = this.calculateUnitPalletSpace(y, x);
+  //     let result1 = this.calculateUnitPalletSpace(x, y);
+  //     let result2 = this.calculateUnitPalletSpace(y, x);
 
-      if (result1 == -1 && result2 == -1) {
-        return -1;
-      }
-      else if (result1 == -1 && result2 != -1) {
-        return result2;
-      }
-      else if (result1 != -1 && result2 == -1) {
-        return result1;
-      }
-      else {
-        return result1 < result2 ? result1 : result2;
-      }
-    }
-    else {
-      return 0;
-    }
+  //     if (result1 == -1 && result2 == -1) {
+  //       return -1;
+  //     }
+  //     else if (result1 == -1 && result2 != -1) {
+  //       return result2;
+  //     }
+  //     else if (result1 != -1 && result2 == -1) {
+  //       return result1;
+  //     }
+  //     else {
+  //       return result1 < result2 ? result1 : result2;
+  //     }
+  //   }
+  //   else {
+  //     return 0;
+  //   }
 
-  }
+  // }
 
 
 

@@ -131,8 +131,13 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
-        overflow: hidden;
+        overflow: inherit;
         background-color: #15223d;
+        position: fixed;
+        width: 100%;
+        top: -1px;
+        left: -1px;
+        height: 70px;
     }
     
     li {
@@ -143,7 +148,7 @@
         display: block;
         color: white;
         text-align: center;
-        padding: 26px 30px;
+        padding: 24px 30px;
         text-decoration: none;
         text-transform: uppercase;
     }
@@ -156,4 +161,19 @@
         color: #f7b020;
     }
 }
+
+.navbar-content {
+	display: none;
+	position: absolute;
+	background-color: #ffffff;
+	min-width: 160px;
+	padding: 5px 20px;
+	z-index: 1;
+	box-shadow: 0 2px 4px 0 #656565;
+}
+
+.navbar-header li:hover .navbar-content {
+	display: block;
+}
+
 

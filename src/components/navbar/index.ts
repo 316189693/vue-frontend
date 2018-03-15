@@ -1,12 +1,9 @@
 import Vue from "vue";
 import { Component, Prop, Provide } from "vue-property-decorator";
-import * as Logger from "js-logger";
 import template from "./navbar.vue";
-import store from "../../store";
 
 @Component({
-  mixins: [template],
-  store
+  mixins: [template]
 })
 export default class NavBar extends Vue {
 
@@ -15,32 +12,43 @@ export default class NavBar extends Vue {
   me: "me";
   isLoggedIn: "loggedIn";
 
-  @Provide()
-  navbarTab:number = this.$store.getters.main;
-  
- 
- 
-  collapse () {
+  navbarTab: number = this.$store.getters.main;
+
+  currentPage: string = 'home';
+
+
+
+  collapse() {
     this.collapsed = !this.collapsed;
   }
 
-  onClickLogin () {
+  onClickLogin() {
     this.$store.commit("OPEN_DIALOG", "LoginModal", {});
   }
-   
-  logout(){
+
+  logout() {
     this.$store.dispatch("logout");
   }
   // ...mapActions({
   //   getAccount: 'getAccount'
   // })
 
-  created () {
-    // this.isLoggedIn && this.getAccount({id: 'me'})
-    // .catch(() => {});
+  mounted() {
+
+    setTimeout(() => {
+      this.changeTab();
+    }, 500);
+
+
+    window.addEventListener('hashchange', () => {
+      this.changeTab();
+    });
   }
 
-  changeTab(){
 
+  changeTab() {
+    let router = this.$router as any;
+
+    this.currentPage = router.app._route.name; // cast it to any type to avoid typescript error on _route
   }
 }

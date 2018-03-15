@@ -11,6 +11,21 @@ import template from "./home.vue";
 })
 export default class Home extends Vue {
 	items: any = {};
+  test(item:any = {}){
+    if(item.active == 'hidden'){
+      item.active = 'visible';
+    }
+    else{
+      item.active = 'hidden';
+    }
+  }
+
+   orderReview(order:any, event:any){
+      if (!event || !event.target || event.target.className === 'actions') {
+          return;
+      }
+      this.$router.push({name:'orderReview', params:{'order':order}});
+    }
 
 	async search() {
         let res = await this.$store.getters.getOrders(localStorage.getItem('UserID'));

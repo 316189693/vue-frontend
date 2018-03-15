@@ -4,7 +4,7 @@ const schedulePickupValidation = {
     pickupCompany: {
         required: Config.default_Required_Message,
     },
-    pickupAddress1:{
+    pickupAddress1: {
         required: Config.default_Required_Message,
     },
     pickupEmail: {
@@ -18,7 +18,7 @@ const schedulePickupValidation = {
     deliveryCompany: {
         required: Config.default_Required_Message,
     },
-    deliveryAddress1:{
+    deliveryAddress1: {
         required: Config.default_Required_Message,
     },
     deliveryEmail: {
@@ -29,7 +29,7 @@ const schedulePickupValidation = {
         required: Config.default_Required_Message,
         numeric: Config.default_Numeric_Message
     },
-    
-}
+
+};
 
 export default schedulePickupValidation;

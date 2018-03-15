@@ -40,6 +40,12 @@ const mutations = {
                 stage.currentStage = pageOptions.scheduleReviewPage;
                 break;
         }
+    },
+
+    setQuote(state: any, data: any) {
+        state.quote.pickup = data.pickup;
+        state.quote.delivery = data.delivery;
+        state.quote.pallets = data.pallets;
     }
 
 
@@ -57,6 +63,51 @@ const actions = {
 
     changeQuotePageStage(store: any, page: string) {
         store.commit("changeStage", page);
+    },
+
+    search(store: any, quoteNumber: string) {
+
+
+        let data = {
+            pickup: {
+                locationType: 1,
+                zipCode: 91745,
+                state: "CA",
+                city: "City of Industry",
+                liftGate: true,
+                limitedAccess: true,
+                palletJack: true,
+            },
+            delivery: {
+                locationType: 2,
+                zipCode: 91303,
+                state: "CA",
+                city: "Los Angeles",
+                liftGate: true,
+                limitedAccess: false,
+                palletJack: false,
+            }
+            ,
+            pallets: [{
+                palletType: 1,
+                width: 40,
+                length: 48,
+                height: 48,
+                quantity: 20,
+                totalWeight: 20,
+                palletClass: 20,
+                stackable: false,
+                palletSpace: 5,
+                isHazardous: false,
+                description: undefined
+            }]
+        };
+
+
+
+
+
+        store.commit("setQuote", data);
     }
 
 };
@@ -82,6 +133,6 @@ const getQuoteModule = {
     mutations,
     actions,
     getters
-}
+};
 
 export default getQuoteModule;

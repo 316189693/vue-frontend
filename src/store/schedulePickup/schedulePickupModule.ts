@@ -9,17 +9,17 @@ const state = {
 
 // mutations are operations that actually mutates the state.
 const mutations = {
-   
+
 
 };
 
 // use actions to commit mutations
 const actions = {
-   
+
 };
 
 const getters = {
-    
+
     scheduleData(state: any) {
         return state.schedule;
     }
@@ -32,6 +32,6 @@ const schedulePickupModule = {
     mutations,
     actions,
     getters
-}
+};
 
 export default schedulePickupModule;

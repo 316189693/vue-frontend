@@ -1,11 +1,7 @@
 import Vue from "vue";
-import VModal from "vue-js-modal";
 import { Component, Prop, Provide, Watch } from "vue-property-decorator";
-import * as Logger from "js-logger";
 import template from "./messageModel.vue";
 
-
-Vue.use(VModal);
 
 
 @Component({
@@ -15,7 +11,7 @@ Vue.use(VModal);
   },
 
 })
-export default class messageModel extends Vue {
+export default class MessageModel extends Vue {
 
   @Prop()
   modalName: string;
@@ -26,10 +22,13 @@ export default class messageModel extends Vue {
   @Prop()
   message: string;
 
-  @Prop({ default: "20%" })
+  @Prop({ default: "green" })
+  titleColor: string;
+
+  @Prop({ default: 150})
   height: string | number;
 
-  @Prop({ default: "22%" })
+  @Prop({ default: 400 })
   width: string | number;
 
   @Prop({ default: 400 })
@@ -41,27 +40,28 @@ export default class messageModel extends Vue {
   @Prop({ default: 0.35 })
   yPosition: string | number;
 
-  @Provide()
-  preventClose = true;
+  @Prop({ default: false })
+  clickToClose: boolean;
 
-  @Prop({default:2000})
-  waitMillsSecondsToClose:number;
+  @Prop({ default: 2000 })
+  waitMillsSecondsToClose: number;
+  @Prop()
+  closeAction: Function;
 
-
-  async closeModelAfterSecond(){
+  async closeModelAfterSecond() {
     await this.waitSeconds(this.waitMillsSecondsToClose);
     this.$modal.hide(this.modalName);
   }
-  
-  closeModel(){
+
+  closeModel() {
     this.$modal.hide(this.modalName);
   }
 
-  waitSeconds(time:number){
+  waitSeconds(time: number) {
     return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-            resolve();
-        }, time);
-    })
+      setTimeout(function () {
+        resolve();
+      }, time);
+    });
   }
 }

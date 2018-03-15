@@ -38,42 +38,42 @@ export default class SchedulePickupShipment extends Vue {
     quoteData = this.$store.getters.quoteData;
     scheduleData = this.$store.getters.scheduleData;
 
-    get pickupLocationType(){
+    get pickupLocationType() {
         let locationTypeOptions = this.quoteData.locationTypeOptions;
         let locationType = this.quoteData.pickup.locationType;
 
         for (let i = 0; i < locationTypeOptions.length; i++) {
 
-            if(locationType == locationTypeOptions[i].key){
+            if (locationType == locationTypeOptions[i].key) {
                 return locationTypeOptions[i].value;
-            }         
+            }
         }
     }
 
-    get deliveryLocationType(){
+    get deliveryLocationType() {
         let locationTypeOptions = this.quoteData.locationTypeOptions;
         let locationType = this.quoteData.delivery.locationType;
 
         for (let i = 0; i < locationTypeOptions.length; i++) {
 
-            if(locationType == locationTypeOptions[i].key){
+            if (locationType == locationTypeOptions[i].key) {
                 return locationTypeOptions[i].value;
-            }         
+            }
         }
     }
 
 
-    get pickupAddress(){
+    get pickupAddress() {
         let address1 = this.scheduleData.pickup.address1;
         let address2 = this.scheduleData.pickup.address2 || "";
-       
+
 
         let address = `${address1} ${address2}`;
 
         return address;
     }
 
-    get pickupCityState(){
+    get pickupCityState() {
         let city = this.quoteData.pickup.city;
         let state = this.quoteData.pickup.state;
         let zip = this.quoteData.pickup.zipCode;
@@ -83,7 +83,7 @@ export default class SchedulePickupShipment extends Vue {
         return cityState;
     }
 
-    get deliveryAddress(){
+    get deliveryAddress() {
         let address1 = this.scheduleData.delivery.address1;
         let address2 = this.scheduleData.delivery.address2 || "";
 
@@ -93,7 +93,7 @@ export default class SchedulePickupShipment extends Vue {
         return fullAddress;
     }
 
-    get deliveryCityState(){
+    get deliveryCityState() {
         let city = this.quoteData.delivery.city;
         let state = this.quoteData.delivery.state;
         let zip = this.quoteData.delivery.zipCode;
@@ -111,7 +111,7 @@ export default class SchedulePickupShipment extends Vue {
         return total;
     }
 
-    
+
     get allTotalWeight() {
 
         let sum = 0;
@@ -121,20 +121,26 @@ export default class SchedulePickupShipment extends Vue {
         return sum;
     }
 
-    getpalletDimensionsOptions(type:number){
+    getpalletDimensionsOptions(type: number) {
         let options = this.quoteData.palletDimensionsOptions;
         for (let i = 0; i < options.length; i++) {
-            if(type == options[i].type){
+            if (type == options[i].type) {
                 return options[i].title;
-            }          
+            }
         }
     }
 
 
-    redirectToSchedulePickup(){
-        window.location.href="#/schedulepickup";
+    redirectToSchedulePickup() {
+        window.location.href = "#/schedulepickup";
     }
-    
+
+    redirectToScheduleShipment() {
+        window.location.href = "#/schedulepickup/shipment";
+    }
+
+
+
 
 
 
@@ -154,11 +160,14 @@ export default class SchedulePickupShipment extends Vue {
         this.$modal.hide(this.modalName);
     }
 
-    confirm() {
-        alert("confirm");
+    getAnotherQuote() {
+        window.location.href = "#/getquote";
     }
 
-    cancel() {
-        alert("cancel");
+    backToHome() {
+        window.location.href = "#/home";
     }
+
+
+
 }

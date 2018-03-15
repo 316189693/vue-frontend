@@ -6,20 +6,20 @@
             <div class="grid-100 tablet-grid-100 container message-container">
                 <p>5 pallet spaces</p>
                 <p class="text-disclosure">6 pallets @ 5 pallets spaces @ $65 per pallet, discount for Pallet 3-5
-                    <span>$200</span>
+                    <span>${{estimateQuote.palletSpaceCharge}}</span>
                 </p>
 
                 <p>Fuel Surcharge</p>
                 <p class="text-disclosure">5% based on DOE PADD5 Price of $3.58/gallon
-                    <span>$10</span>
+                    <span>${{estimateQuote.fuelCharge}}</span>
                 </p>
 
                 <p>California Compliance Charge
-                    <span>$4.95</span>
+                    <span>${{estimateQuote.complianceCharge}}</span>
                 </p>
 
                 <p>Total
-                    <span class="input-label">$214.95</span>
+                    <span class="input-label">${{estimateQuote.total}}</span>
                 </p>
             </div>
 
@@ -31,7 +31,7 @@
 
             <div class="grid-100 tablet-grid-100 container">
                 <div class="grid-33 tablet-grid-33">
-                    <button class="button-standard-medium">Edit Quote</button>
+                    <button class="button-standard-medium" @click="editQuote">Edit Quote</button>
                 </div>
 
                 <div class="grid-33 tablet-grid-33">

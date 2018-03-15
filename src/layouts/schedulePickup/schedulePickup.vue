@@ -205,7 +205,7 @@
         </div>
 
         <MainButtonSet :rightBtnAction="validate" :leftBtnAction="showModal"></MainButtonSet>
-        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" :rightBtnAction="confirmModal" :leftBtnAction="closeModal"></DefaultModal>
+        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" @rightBtnAction="confirmModal" @leftBtnAction="closeModal"></DefaultModal>
     </div>
 
 </template>

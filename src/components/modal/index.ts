@@ -1,11 +1,7 @@
 import Vue from "vue";
-import VModal from "vue-js-modal";
+
 import { Component, Prop, Provide, Watch } from "vue-property-decorator";
-import * as Logger from "js-logger";
 import template from "./modal.vue";
-
-
-Vue.use(VModal);
 
 
 @Component({
@@ -20,10 +16,10 @@ export default class DefaultModal extends Vue {
   @Prop()
   modalName: string;
 
-  @Prop()
+  @Prop({ default: "Title" })
   title: string;
 
-  @Prop()
+  @Prop({ default: "Message" })
   message: string;
 
   @Prop({ default: "Yes" })
@@ -32,29 +28,44 @@ export default class DefaultModal extends Vue {
   @Prop({ default: "No" })
   leftBtnText: string;
 
-  @Prop()
-  rightBtnAction: Function;
 
-  @Prop()
-  leftBtnAction: Function;
+  rightBtnAction() {
+    this.$emit("rightBtnAction");
+  }
 
-  @Prop({ default: "50%" })
+  leftBtnAction() {
+    this.$emit("leftBtnAction");
+  }
+
+  @Prop({ default: "auto" })
   height: string | number;
 
   @Prop({ default: "80%" })
   width: string | number;
 
   @Prop({ default: 700 })
-  maxWidth: string | number;
+  maxWidth: number;
 
-  @Prop({ default: 300 })
-  maxHeight: string | number;
+  @Prop({ default: 500 })
+  maxHeight: number;
 
   @Prop({ default: 0.3 })
-  yPosition: string | number;
+  yPosition: number;
 
-  @Provide()
-  preventClose = true;
+  @Prop({ default: 0.5 })
+  xPosition: number;
+
+  @Prop()
+  rightBtnStyle: any;
+
+  @Prop()
+  leftBtnStyle: any;
+
+  @Prop({ default: false })
+  clickToClose: boolean;
+
+  @Prop({ default: false })
+  noButtons: boolean;
 
 
 

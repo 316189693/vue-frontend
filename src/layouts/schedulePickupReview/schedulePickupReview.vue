@@ -179,8 +179,8 @@
                                             <td>Pallets</td>
                                             <td>{{item.quantity}} {{getpalletDimensionsOptions(item.palletType)}}</td>
                                             <td>
-                                                <input type="checkbox" id="test5" :checked="item.stackable" disabled>
-                                                <label class="checkbox" for="test5">
+                                                <input type="checkbox" :checked="item.stackable" disabled>
+                                                <label class="checkbox">
                                                     <span>Stackable?</span>
                                                 </label>
                                             </td>
@@ -232,7 +232,7 @@
                         </div>
 
                         <div class="grid-25 tablet-grid-40">
-                            <button class="button-standard-small edit" disabled="">Edit</button>
+                            <button class="button-standard-small edit">Edit</button>
                         </div>
                     </div>
 
@@ -241,7 +241,7 @@
                 <div class="grid-100 tablet-grid-100 container margin-bottom-40">
                     <div class="grid-50 tablet-grid-50">
                         <div class="grid-25 tablet-grid-40">
-                            <button class="button-standard-small edit" disabled=""> Edit</button>
+                            <button class="button-standard-small edit" @click="redirectToScheduleShipment">Edit</button>
                         </div>
                     </div>
                 </div>
@@ -250,7 +250,7 @@
 
         <MainButtonSet :rightBtnAction="showModal" :leftBtnAction="cancel"></MainButtonSet>
 
-        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" :rightBtnText="modalConfirmText" :rightBtnAction="closeModal" :leftBtnText="modalCancelText"></DefaultModal>
+        <DefaultModal :modalName="modalName" :title="modalTitle" :message="modalMessage" :rightBtnText="modalConfirmText" :leftBtnText="modalCancelText" @rightBtnAction="backToHome" @leftBtnAction="getAnotherQuote" ></DefaultModal>
     </div>
 
 </template>

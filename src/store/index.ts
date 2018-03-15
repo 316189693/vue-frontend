@@ -6,7 +6,7 @@ import trackModule from "./track/trackModule";
 import mainModule from "./main/mainModule";
 import loginModule from "./login/loginModule";
 import homeModule from "./home/homeModule";
-
+import orderReviewModule from "./orderReview/orderReviewModule";
 Vue.use(Vuex);
 
 
@@ -18,7 +18,8 @@ export default new Vuex.Store({
     schedulePickupModule,
     trackModule,
     loginModule,
-    homeModule
+    homeModule,
+    orderReviewModule
   }
   // strict: true
 });

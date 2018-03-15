@@ -80,10 +80,15 @@
 }
 
 .help.is-danger {
-	color: red;
-	
+	position: relative;
+    top: -15px;
+	font-family: 'AvenirNext-Demibold';
+	font-size: 0.8125rem;
+	color:  #b21717 !important;
+	letter-spacing: 0.4px;
 }
 
-.input.is-danger{
-	border:solid 2px red !important
+.input.is-danger {
+	background-color: rgba(178, 23, 23, 0.2);
+	border: solid 2px #b21717 !important;
 }

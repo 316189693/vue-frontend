@@ -2,6 +2,8 @@
 
     <div id="sitecontent">
 
+    
+
         <!-- <header class="new_header">
     <span></span>
 
@@ -85,24 +87,21 @@
                                         <label class="checkbox" for="checkbox_liftgate_pickup">
                                             <span>Lift Gate Required</span>
                                         </label>
-                                        <span class="tooltip-light ">
-                                            <div class="tooltip-bubble">
-                                                <p>Can we stack your pallets? Charges are made based on
-                                                    <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                                            </div>
-                                        </span>
+                                        <div class="tooltip-light " v-tooltip.bottom="'abc'"></div>
                                     </li>
-                                    <li><input type="checkbox" class="checkbox" id="checkbox_limited_pickup" disabled="">
+                                    <li>
+                                        <input type="checkbox" class="checkbox" id="checkbox_limited_pickup" disabled="">
                                         <label class="checkbox" for="checkbox_limited_pickup">
                                             <span>Limited Access</span>
                                         </label>
-                                        <span class="tooltip-light">
-                                        </span>
+                                        <div class="tooltip-light" v-tooltip.bottom="'cde'"></div>
                                     </li>
-                                    <li class="tooltip-light"><input type="checkbox" class="checkbox" id="checkbox_jack_pickup">
+                                    <li>
+                                        <input type="checkbox" class="checkbox" id="checkbox_jack_pickup">
                                         <label class="checkbox" for="checkbox_jack_pickup">
                                             <span>Pallet Jack Required</span>
                                         </label>
+                                        <div class="tooltip-light" v-tooltip.bottom="'efg'"></div>
                                     </li>
                                 </ul>
                             </div>
@@ -153,20 +152,26 @@
 
                             <div class="grid-100 tablet-grid-100 container">
                                 <ul class="checkbox-list">
-                                    <li class="tooltip-light"><input type="checkbox" id="checkbox_liftgate_delivery">
+                                    <li>
+                                        <input type="checkbox" id="checkbox_liftgate_delivery">
                                         <label class="checkbox" for="checkbox_liftgate_delivery">
                                             <span>Lift Gate Required</span>
                                         </label>
+                                        <div class="tooltip-light "></div>
                                     </li>
-                                    <li class="tooltip-light"><input type="checkbox" class="checkbox" id="checkbox_limited_delivery">
+                                    <li>
+                                        <input type="checkbox" class="checkbox" id="checkbox_limited_delivery">
                                         <label class="checkbox" for="checkbox_limited_delivery">
                                             <span>Limited Access</span>
                                         </label>
+                                        <div class="tooltip-light "></div>
                                     </li>
-                                    <li class="tooltip-light"><input type="checkbox" class="checkbox" id="checkbox_jack_delivery">
+                                    <li>
+                                        <input type="checkbox" class="checkbox" id="checkbox_jack_delivery">
                                         <label class="checkbox" for="checkbox_jack_delivery">
                                             <span>Pallet Jack Required</span>
                                         </label>
+                                        <div class="tooltip-light "></div>
                                     </li>
                                 </ul>
                             </div>
@@ -206,12 +211,7 @@
 
                         <div class="grid-10 tablet-grid-15">
                             <label class="input-label">Height</label>
-                            <span class="tooltip-light tooltip-label">
-                                <div class="tooltip-bubble">
-                                    <p>Can we stack your pallets? Charges are made based on
-                                        <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                                </div>
-                            </span>
+                            <span class="tooltip-light tooltip-label"></span>
                             <input type="text" placeholder="40">
                         </div>
 
@@ -226,14 +226,7 @@
                         </div>
 
                         <div class="grid-15 tablet-grid-15">
-                            <label class="input-label optional-label">Class *
-                                <span class="tooltip-light">
-                                    <div class="tooltip-bubble">
-                                        <p>Can we stack your pallets? Charges are made based on
-                                            <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                                    </div>
-                                </span>
-                            </label>
+                            <label class="input-label optional-label">Class *</label>
 
                             <select class="dropdown">
                                 <option></option>
@@ -246,12 +239,7 @@
                             <span>Stackable?</span>
                         </label>
 
-                        <span class="manifest-tooltip-light">
-                            <div class="tooltip-bubble">
-                                <p>Can we stack your pallets? Charges are made based on
-                                    <span>pallet space</span>. One pallet space is 48“x40“ and the entire height of the truck.</p>
-                            </div>
-                        </span>
+                        <span class="manifest-tooltip-light"></span>
 
                         <button class="delete-manifest-line"></button>
                     </div>
@@ -608,8 +596,8 @@
                 </div>
 
                 <div class="grid-100 tablet-grid-100 container">
-                    <div class="grid-40 tablet-grid-60 info-container">
-                        <div class="grid-50 tablet-grid-50">
+                    <div class="grid-45 tablet-grid-65 info-container">
+                        <div class="grid-45 tablet-grid-40">
                             <p>Total Pallets:
                                 <span class="text-bold">9</span>
                             </p>
@@ -621,9 +609,9 @@
                             </p>
                         </div>
 
-                        <div class="grid-50 tablet-grid-50">
+                        <div class="grid-55 tablet-grid-60">
                             <label class="input-label optional-label">Order Reference #
-                                <span class="tooltip-light"></span>
+                                <span class="tooltip-dark"></span>
                             </label>
                             <input type="text"></div>
                     </div>
@@ -686,9 +674,7 @@
                         </div>
 
                         <div class="grid-15 tablet-grid-15">
-                            <label class="input-label optional-label">Class *
-                                <span class="tooltip-light"></span>
-                            </label>
+                            <label class="input-label optional-label">Class *</label>
                             <select class="dropdown" disabled="">
                                 <option></option>
                                 <option>Option 1</option>
@@ -1045,12 +1031,22 @@
                             <td>Irvine, CA</td>
                             <td>3</td>
                             <td>1,314</td>
-                            <td class="actions">
-                                <div class="speech-bubble">
-                                    <p>BOL</p>
-                                    <p>POD</p>
-                                    <p>Shipping Labels</p>
-                                </div>
+                            <td>
+                            <v-popover offset="0" :auto-hide="true">
+                                <button class="actions"></button>
+                                <template slot="popover">        
+                                    <p>
+                                        BOL
+                                    </p> 
+                                    <p>
+                                        POD
+                                    </p>
+                                    <p>
+                                        Shipping Label
+                                    </p>
+                                    <!-- <a v-close-popover>Close</a> -->
+                                </template>
+                            </v-popover>                                
                             </td>
                         </tr>
                         <tr>
@@ -1068,12 +1064,8 @@
                             <td>Irvine, CA</td>
                             <td>3</td>
                             <td>1,314</td>
-                            <td class="actions">
-                                <div class="speech-bubble">
-                                    <p>BOL</p>
-                                    <p>POD</p>
-                                    <p>Shipping Labels</p>
-                                </div>
+                            <td>
+                                <button class="actions"></button>
                             </td>
                         </tr>
                         <tr>
@@ -1119,9 +1111,125 @@
             </div>
         </div>
 
+        <div class="grid-container">
+            <div class="grid-100 tablet-grid-100">
+                <div class="grid-parent grid-100 tablet-grid-100 container">
+                    <h1 class="title">Saved Quotes</h1>
+                </div>
+            </div>
+
+            <div class="grid-100 tablet-grid-100 container">
+                <div class="grid-20 tablet-grid-30">
+                    <button class="button-yellow-medium">Schedule a Pickup</button>
+                </div>
+            </div>
+            
+            <div class="grid-100 tablet-grid-100">
+                <table class="table-client">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>PU #</th>
+                            <th>PRO #</th>
+                            <th>Status</th>
+                            <th>Pickup Date</th>
+                            <th>Origin</th>
+                            <th>Delivery Date</th>
+                            <th>Destination</th>
+                            <th>Pallets</th>
+                            <th>Weight</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="radio" id="radio11" name="radio">
+                                <label class="radio" for="radio11">
+                                </label>
+                            </td>
+                            <td>203839400</td>
+                            <td>1110156551</td>
+                            <td>Order created</td>
+                            <td>02/19/2018</td>
+                            <td>City of Industry, CA</td>
+                            <td>02/20/2018</td>
+                            <td>Irvine, CA</td>
+                            <td>3</td>
+                            <td>1,314</td>
+                            <td>
+                                <button class="edit-row"></button>
+                                <button class="delete-row"></button>
+                            </td>
+                        </tr>
+                        <tr class="selected-row">
+                            <td>
+                                <input type="radio" id="radio22" name="radio" checked>
+                                <label class="radio" for="radio22">
+                                </label>
+                            </td>
+                            <td>203839400</td>
+                            <td>1110156551</td>
+                            <td>Order created</td>
+                            <td>02/19/2018</td>
+                            <td>City of Industry, CA</td>
+                            <td>02/20/2018</td>
+                            <td>Irvine, CA</td>
+                            <td>3</td>
+                            <td>1,314</td>
+                            <td>
+                                <button class="edit-row"></button>
+                                <button class="delete-row"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" id="radio33" name="radio">
+                                <label class="radio" for="radio33">
+                                </label>
+                            </td>
+                            <td>203839400</td>
+                            <td>1110156551</td>
+                            <td>Order created</td>
+                            <td>02/19/2018</td>
+                            <td>City of Industry, CA</td>
+                            <td>02/20/2018</td>
+                            <td>Irvine, CA</td>
+                            <td>3</td>
+                            <td>1,314</td>
+                            <td>
+                                <button class="edit-row"></button>
+                                <button class="delete-row"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" id="radio44" name="radio">
+                                <label class="radio" for="radio44">
+                                </label>
+                            </td>
+                            <td>203839400</td>
+                            <td>1110156551</td>
+                            <td>Order created</td>
+                            <td>02/19/2018</td>
+                            <td>City of Industry, CA</td>
+                            <td>02/20/2018</td>
+                            <td>Irvine, CA</td>
+                            <td>3</td>
+                            <td>1,314</td>
+                            <td>
+                                <button class="edit-row"></button>
+                                <button class="delete-row"></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <!--- Track Shipments TMS-491 -->
 
-        <div class="grid-container" style="margin-top: 175px;">
+        <div class="grid-container">
             <div class="grid-100 tablet-grid-100">
                 <div class="grid-100 tablet-grid-100 container title">
                     <h1 class="title">Track Shipments</h1>
@@ -1388,6 +1496,7 @@
                             <ul class="file-list">
                                 <li>
                                     <div class="file">
+                                        <p class="file-category">BOL</p>
                                         <a href="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg" target="_BLANK">
                                             <img src="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg">
                                         </a>
@@ -1395,13 +1504,13 @@
                                 </li>
                                 <li>
                                     <div class="file">
-                                        <a href="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg" target="_BLANK">
-                                            <img src="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg">
-                                        </a>
+                                        <p class="file-category">POD</p>
+                                        <div class="missing-file"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="file">
+                                        <p class="file-category">Shipping Label</p>
                                         <a href="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg" target="_BLANK">
                                             <img src="https://files.fr8taxi.com/uploader/files/2017/12/05/fruity-llama.jpg">
                                         </a>
@@ -1494,6 +1603,171 @@
             </div>
         </div>
 
-    </div>
+        <div class="grid-container">
+            <div class="grid-100 tablet-grid-100">
+                <div class="grid-100 tablet-grid-100 container title">
+                    <h1 class="title">My Account</h1>
+                    <p class="sub-header sub-title">Editing Mode</p>
+                </div>
 
+                <div class="grid-100 tablet-grid-100 container">
+                    <div class="grid-50 tablet-grid-50">
+                        <div class="grid-100 tablet-grid-100 container">
+                            <h1 class="section-header">Account Information</h1>
+                        </div>
+
+                        <div class="grid-parent grid-100 tablet-grid-100">
+                            <div class="grid-50 tablet-grid-70 container">
+                                <label class="input-label">Company</label>
+                                <input type="text" value="Freshzim" disabled>
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Name</label>
+                                <input type="text" value="Connie Smith">
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Address 1</label>
+                                <input type="text" value="325 Main St">
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Address 2 </label>
+                                <input type="text" value="#505">
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 container">
+                                <div class="grid-40 tablet-grid-40">
+                                    <label class="input-label">City</label>
+                                    <input type="text" value="Los Angeles">
+                                </div>
+
+                                <div class="grid-20 tablet-grid-40">
+                                    <label class="input-label">State</label>
+                                    <select class="dropdown">
+                                        <option>CA</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid-20 tablet-grid-40">
+                                    <label class="input-label">Zip Code</label>
+                                    <input type="text" value="90014">
+                                </div>
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Email</label>
+                                <input type="text" value="connie@abccompany.com">
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 container">
+                                <div class="grid-40 tablet-grid-50">
+                                    <label class="input-label">Phone</label>
+                                    <input type="text" value="213-529-0000">
+                                </div>
+
+                                <div class="grid-40 tablet-grid-50">
+                                    <label class="input-label optional-label">Fax</label>
+                                    <input type="text">
+                                </div>
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 container">
+                                <div class="grid-30 tablet-grid-40">
+                                    <button class="button-standard-small">Save Updates</button>
+                                </div>
+
+                                <div class="grid-40 tablet-grid-60">
+                                    <button class="button-standard-small">Change Password</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-50 tablet-grid-50">
+                        <div class="grid-100 tablet-grid-100 container">
+                            <h1 class="section-header">Billing Information</h1>
+                        </div>
+
+                        <div class="grid-parent grid-100 tablet-grid-100">
+                            <div class="grid-50 tablet-grid-70 container">
+                                <label class="input-label">Payment Type</label>
+                                <select class="dropdown" disabled>
+                                    <option>Net Term Days</option>
+                                </select>   
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Address 1</label>
+                                <input type="text" value="325 Main St">
+                            </div>
+
+                            <div class="grid-80 tablet-grid-100 container">
+                                <label class="input-label">Address 2 </label>
+                                <input type="text" value="#505">
+                            </div>
+
+                            <div class="grid-100 tablet-grid-100 container">
+                                <div class="grid-40 tablet-grid-40">
+                                    <label class="input-label">City</label>
+                                    <input type="text" value="Los Angeles">
+                                </div>
+
+                                <div class="grid-20 tablet-grid-40">
+                                    <label class="input-label">State</label>
+                                    <select class="dropdown">
+                                        <option>CA</option>
+                                    </select>
+                                </div>
+
+                                <div class="grid-20 tablet-grid-40">
+                                    <label class="input-label">Zip Code</label>
+                                    <input type="text" value="90014">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-100 tablet-grid-100">
+            <div class="grid-100 tablet-grid-100 container title">
+                <h1 class="title">NavBar</h1>
+            </div>
+
+            <div class="grid-100 table-grid-100">
+                <div class="navbar-header">
+                    <ul>                   
+                        <li>
+                            <a>Logout</a>
+                        </li>
+                        <li>
+                            <a>My Account</a>
+                            <div class="navbar-content">
+                                <p>Test 1</p>
+                                <p>Test 2</p>
+                                <p>Test 3</p>
+                            </div>    
+                        </li>       
+                        <li>
+                            <a>Track</a>
+                            <div class="navbar-content">
+                                <p>Test 1</p>
+                            </div>
+                        </li>
+                        <li>
+                            <a>Quote & Ship</a>
+                            <div class="navbar-content">
+                                <p>Test 1</p>
+                                <p>Test 2</p>
+                            </div>
+                        </li>
+                        <li><a>Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

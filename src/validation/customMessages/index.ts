@@ -6,7 +6,7 @@ import loginValidation from "./login";
 const customMessage = {
     dictionary: {
         en: {
-            messages:{
+            messages: {
                 // overwrite the default message for required valiation
                 required: () => Config.default_Required_Message
             },
@@ -15,7 +15,7 @@ const customMessage = {
                 ...quoteValidation,
                 ...schedulePickupValidation,
                 ...loginValidation,
-            }       
+            }
         }
     }
 };

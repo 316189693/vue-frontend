@@ -1,5 +1,5 @@
 const schedule = {
-    pickup:{
+    pickup: {
         company: null,
         address1: null,
         address2: null,

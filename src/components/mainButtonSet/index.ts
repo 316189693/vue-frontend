@@ -6,23 +6,22 @@ import template from "./mainButtonSet.vue";
 
 @Component({
     mixins: [template],
-    components: {},
-  
+    components: {}
 })
 export default class MainButtonSet extends Vue {
 
-    @Prop({default:"Continue"})
-    rightBtnText:string;
+    @Prop({default: "Continue"})
+    rightBtnText: string;
 
-    @Prop({default:"Cancel"})
-    leftBtnText:string;
+    @Prop({default: "Cancel"})
+    leftBtnText: string;
 
-
-    @Prop()
-    rightBtnAction:Function;
 
     @Prop()
-    leftBtnAction:Function;
+    rightBtnAction: Function;
 
- 
+    @Prop()
+    leftBtnAction: Function;
+
+
 }

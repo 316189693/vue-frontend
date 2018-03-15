@@ -7,13 +7,12 @@
 		"indent": [true,
 			"spaces"
 		],
-		"linebreak-style": [true, "LF"],
 		"one-line": [true,
 			"check-open-brace",
 			"check-whitespace"
 		],
 		"no-var-keyword": true,
-		"quotemark": [true,
+		"quotemark": [false,
 			"double",
 			"avoid-escape"
 		],
@@ -35,6 +34,6 @@
 		}],
 		"no-internal-module": true,
 		"no-trailing-whitespace": true,
-		"no-null-keyword": true
+		"no-null-keyword": false
 	}
 }

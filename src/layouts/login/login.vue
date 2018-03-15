@@ -20,7 +20,7 @@
 						<div class="grid-100 tablet-grid-100 mobile-grid-100 container">
                             <div class="grid-50 tablet-grid-50">
                                 <label class="input-label" for="password_input">PASSWORD</label>
-		                        <input class="input-class"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" v-on:input="inputChangeEvent" name="passWord" v-model='formData.passWord' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
+		                        <input class="input-class input"  @keyup.enter.stop.prevent = "signIn" type="password" id="password_input" v-on:input="inputChangeEvent" name="passWord" v-model='formData.passWord' v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('passWord')|formData.loginFail }" >
 		                        <pre v-if="errors.has('passWord')" class="help is-danger">{{ errors.first('passWord') }}</pre>
 		                        <pre v-if="formData.loginFail" class="help is-danger">{{formData.loginFailMsg}}</pre>
                             </div>
@@ -67,7 +67,7 @@
                 </div>
                 <div class="grid-100 tablet-grid-100 container ">
                     <div class="grid-50 tablet-grid-50">
-                         <label class ="input-label" for="pro_input">REFERENCE # OR PRO #</label>
+                         <label class ="input-label" for="pro_input">PRO #</label>
                          <input v-model="formData.proNumber" @keyup.enter.stop.prevent = "trackShipment" v-on:input="clearTrackErrorMsg"  class="input-class" type="text" id="pro_input" :class="{'input': true, 'is-danger': formData.trackFail }"/>
 	 
                         <span v-if="formData.trackFail" class="help is-danger">{{formData.trackResultMsg}}
@@ -172,13 +172,9 @@
             </div>
             </div>
    </div>
-    <transition name="fade">
-       <messageModel :modalName="messageModel.messageName" :title="messageModel.messageModelTitle" :message="messageModel.messageModelMessage">
-		
-       </messageModel>
-   </transition>
-      <transition name="fade">
-   <DefaultModal :modalName="modalName" :title="modalTitle" :width="width" :maxWidth="maxWidth" :height="height" :maxHeight="maxHeight"  :message="modalMessage" :rightBtnText="modalConfirmText" :leftBtnText="modalCancelText" :rightBtnAction="confirmModal" :leftBtnAction="closeModal">
+
+     
+   <DefaultModal :modalName="modalName" :title="modalTitle" :width="width" :maxWidth="maxWidth" :height="height" :maxHeight="maxHeight"  :message="modalMessage" :rightBtnText="modalConfirmText" :leftBtnText="modalCancelText" @rightBtnAction="confirmModal" @leftBtnAction="closeModal">
 			<!--test elment-->
 			<!-- <a href="/">you can place customized elements</a> -->
 			<slot>
@@ -187,7 +183,7 @@
 				 <pre v-if="formData.sendForgotEmailstaus === -1" class="help is-danger">{{formData.sendForgotEmailMsg}}</pre>
 			</slot>
     </DefaultModal>
-	   </transition>
+
 </div>
 
 </template>

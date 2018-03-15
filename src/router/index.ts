@@ -4,6 +4,7 @@ import * as Logger from "js-logger";
 
 import Home from "../layouts/home";
 import GetQuote from "../layouts/getQuote";
+import SavedQuote from "../layouts/savedQuote";
 import SchedulePickup from "../layouts/schedulePickup";
 import SchedulePickupShipment from "../layouts/schedulePickupShipment";
 import SchedulePickupReview from "../layouts/schedulePickupReview";
@@ -11,6 +12,8 @@ import Demo from "../layouts/demo";
 import Track from "../layouts/track";
 import NotFound from "../layouts/not-found";
 import Login from "../layouts/login";
+import OrderReview from "../layouts/orderReview";
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -27,33 +30,43 @@ export default new VueRouter({
     },
     {
       path: "/getQuote",
-      name: "getQuote",
+      name: "GetQuote",
       component: GetQuote
     },
     {
+      path: "/savedQuote",
+      name: "SavedQuote",
+      component: SavedQuote
+    },
+    {
       path: "/schedulePickup",
-      name: "schedulePickup",
+      name: "SchedulePickup",
       component: SchedulePickup
     },
     {
       path: "/schedulePickup/Shipment",
-      name: "schedulePickupShipment",
+      name: "SchedulePickupShipment",
       component: SchedulePickupShipment
     },
     {
       path: "/schedulePickup/Review",
-      name: "schedulePickupReview",
+      name: "SchedulePickupReview",
       component: SchedulePickupReview
     },
     {
       path: "/demo",
-      name: "demo",
+      name: "Demo",
       component: Demo
     },
     {
       path: "/track",
-      name: "track",
+      name: "Track",
       component: Track
+    },
+    {
+      path: "/orderReview",
+      name: "orderReview",
+      component: OrderReview
     },
     {
       path: "*",
@@ -62,8 +75,8 @@ export default new VueRouter({
   ],
   mode: "hash",
   linkActiveClass: "active",
-  //scroll to top
+  // scroll to top
   scrollBehavior (to, from, savedPosition) {
-    return { x: 0, y: 0 }
+    return { x: 0, y: 0 };
   }
 });

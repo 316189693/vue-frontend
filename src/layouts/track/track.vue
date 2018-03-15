@@ -7,14 +7,14 @@
 
                 <div class="grid-100 tablet-grid-100 container tracking-container">
                     <div class="grid-80 tablet-grid-80">
-                        <label class="input-label">PRO #</label>
-                        <input type="text" placeholder="Search by PRO #" 
-                                :class="{'input-search': true, 'track-search': true, 'input-search-error': showNotFound}" v-model="proNumber"
+                        <label class="input-label">REFERENCE # OR PRO #</label>
+                        <input type="text" placeholder="Search by REFERENCE # OR PRO #"
+                                :class="{'input-search': true, 'track-search': true, 'input-client-error': trackData.showNotFound}" v-model="proNumber"
                                 @change="changeKeyWord">
-                        <span v-if="showTerms" class="text-disclosure">By clicking "Track" you are agreeing to the
+                        <span v-if="trackData.showTerms" class="text-disclosure">By clicking "Track" you are agreeing to the
                             <span class="text-bold">Terms & Conditions</span>
                         </span>
-                        <span v-if="showNotFound" class="search-error-text">Could not find shipment with this PRO #</span>
+                        <span v-if="trackData.showNotFound" class="error-message"><p>Could not find shipment with this PRO # or Reference #</p></span>
                     </div>
 
                     <div class="grid-15 tablet-grid-20" style="margin-top: 15px;">
@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <template v-if="showTrack">
+                <template v-if="trackData.showTrack">
                     <div class="tracking-process">
                         <ul class="tracking-status-text">
                             <li>
@@ -63,8 +63,8 @@
                             <li></li>
 
                             <li>
+                                <span class="details">{{trackData.destinationDate}}</span>
                                 <span class="details">{{trackData.destinationLocation}}</span>
-                                <span class="details"></span>
                             </li>
                         </ul>
                     </div>
@@ -81,7 +81,7 @@
                             <tbody>
                                 <template v-for="(items,date) in trackData.details">
                                     <tr>
-                                        <td colspan="3" class="date">{{date}}</td>
+                                        <td colspan="3" class="date text-bold">{{date}}</td>
                                     </tr>
                                     <template v-for="detail in items">
                                         <tr>

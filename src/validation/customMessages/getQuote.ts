@@ -12,7 +12,7 @@ const quoteValidation = {
         required: Config.default_Required_Message,
         digits: "5 digits"
     },
-}
+};
 
 
 export default quoteValidation;

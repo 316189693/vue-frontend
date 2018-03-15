@@ -35,8 +35,11 @@ export default class SchedulePickupShipment extends Vue {
         }
     }
 
-    @Provide()
     quoteData = this.$store.getters.quoteData;
+
+    tooltipMessages = {
+        reference: "reference"
+    };
 
 
     get allTotalWeight() {
@@ -58,7 +61,7 @@ export default class SchedulePickupShipment extends Vue {
 
 
     confirm() {
-        this.$store.dispatch("changeQuotePageStage","scheduleReviewPage");
+        this.$store.dispatch("changeQuotePageStage", "scheduleReviewPage");
         window.location.href = "#/schedulepickup/review";
     }
 

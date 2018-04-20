@@ -1245,7 +1245,10 @@
   }
 
   .tablet-grid-80 {
-    float: left;
+    // float: left;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    clear: both !important;
     width: 80%;
     /* <IE7> */
     *width: expression(Math.floor(0.8 * (this.parentNode.offsetWidth - parseFloat(this.parentNode.currentStyle.paddingLeft) - parseFloat(this.parentNode.currentStyle.paddingRight))) + 'px');

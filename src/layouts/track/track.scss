@@ -1,0 +1,37 @@
+.info-message-title{
+  font-family: 'AvenirNext-Medium';
+  height:22px;
+  font-size: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #15223d;
+
+}
+.info-messag-body{
+  font-family: 'AvenirNext-Regular';
+  margin-top:10px;
+  height: 44px;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: #15223d;
+}
+
+.ui-button {
+  width: 21px;
+  height: 21px;
+  color:#656565;
+  background-color: rgba(255, 255, 255, 0);
+  background-color: var(--white-0);
+  float:right;
+  font-size:17px;
+  padding-bottom: 5px;
+}

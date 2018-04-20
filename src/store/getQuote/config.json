@@ -3,7 +3,7 @@
         {
             "type": 1,
             "title": "Pallets: Standard (40\" x 48\")",
-            "width":40,
+            "width": 40,
             "length": 48,
             "editable": false
         },
@@ -32,34 +32,42 @@
     "locationTypeOptions": [
         {
             "key": 1,
+            "code": null,
             "value": "Business"
         },
         {
             "key": 2,
+            "code": "CON",
             "value": "Construction Site"
         },
         {
             "key": 3,
+            "code": "SHOW",
             "value": "Convention Center"
         },
         {
             "key": 4,
+            "code": null,
             "value": "Freight Carrier Terminal"
         },
         {
             "key": 5,
+            "code": "RES",
             "value": "Home/Residential"
         },
         {
             "key": 6,
+            "code": null,
             "value": "Military Base"
         },
         {
             "key": 7,
+            "code": null,
             "value": "Self Storage/Mini Storage"
         },
         {
             "key": 8,
+            "code": null,
             "value": "Religious Institution"
         }
     ],

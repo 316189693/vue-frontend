@@ -1,12 +1,13 @@
 <template>
-  <div id="message_model">
-    <modal :name="modalName" :adaptive="true" :waitMillsSecondsToClose="waitMillsSecondsToClose" :pivot-y="yPosition" :width="width" :height="height" :max-width="maxWidth" :max-height="maxHeight" @closed="closeAction" @opened="closeModelAfterSecond" :clickToClose="clickToClose">    
-      <h1 id="pre_message_title" class ="default-message-title" :style="{color:titleColor}">{{title}}</h1>
-      <p id="pre_message_message">{{message}}</p>
+    <modal :name="modalName"  :adaptive="true" :reset="reset" :waitMillsSecondsToClose="waitMillsSecondsToClose" :pivot-y="yPosition" :width="width" :height="height" :max-width="maxWidth" :max-height="maxHeight" @closed="closeAction" @opened="closeModelAfterSecond" :clickToClose="clickToClose">
+      <h1 class="h1-model-class" :style="{color:titleColor}">{{title}}</h1>
+      <p class="p-model-class">{{message}}</p>
       <slot></slot>
+      <div v-if = "showCloseBtn" class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <div class="ui-dialog-buttonset">
+          <button type="button" class="btn ui-button btn-default"  @click="closeModel">{{btnText}}</button>
+        </div>
+      </div>
     </modal>
-
-  </div>
-
 </template>
 <style lang="scss" src="./messageModel.scss" scoped></style>

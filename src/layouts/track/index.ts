@@ -8,14 +8,15 @@ import template from "./track.vue";
     mixins: [template]
 })
 export default class Track extends Vue {
-    proNumber: number;
+    proNumber: string = "";
     @Provide()
     trackData: any = this.$store.getters.trackData;
 
     created() {
         this.trackData.showTrack = false;
-        this.trackData.showTerms = true;
+        // this.trackData.showTerms = true;
         this.trackData.showNotFound = false;
+        this.trackData.multiOrder = false;
         this.trackData.status = "";
         this.trackData.originDate = "";
         this.trackData.originLocation = "";
@@ -45,9 +46,13 @@ export default class Track extends Vue {
         this.$store.dispatch("searchTrack", this.proNumber);
     }
 
+    closeInfoMessage() {
+        this.trackData.multiOrder = false;
+    }
+
     changeKeyWord() {
         this.trackData.showNotFound = false;
-        this.trackData.showTerms = true;
+        // this.trackData.showTerms = true;
     }
 
 }

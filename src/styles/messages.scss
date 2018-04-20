@@ -88,6 +88,24 @@
 	letter-spacing: 0.4px;
 }
 
+.datepicker.is-past-date {
+	position: relative;
+    top: -2px;
+	font-family: 'AvenirNext-Demibold';
+	font-size: 0.8125rem;
+	color:  #b21717 !important;
+	letter-spacing: 0.4px;
+}
+
+.timepicker.is-past-time {
+	position: relative;
+    top: -14px;
+	font-family: 'AvenirNext-Demibold';
+	font-size: 0.8125rem;
+	color:  #b21717 !important;
+	letter-spacing: 0.4px;
+}
+
 .input.is-danger {
 	background-color: rgba(178, 23, 23, 0.2);
 	border: solid 2px #b21717 !important;

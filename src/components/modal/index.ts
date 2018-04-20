@@ -16,10 +16,10 @@ export default class DefaultModal extends Vue {
   @Prop()
   modalName: string;
 
-  @Prop({ default: "Title" })
+  @Prop({ default: "" })
   title: string;
 
-  @Prop({ default: "Message" })
+  @Prop({ default: "" })
   message: string;
 
   @Prop({ default: "Yes" })
@@ -28,6 +28,9 @@ export default class DefaultModal extends Vue {
   @Prop({ default: "No" })
   leftBtnText: string;
 
+  closeModal() {
+    this.$modal.hide(this.modalName);
+  }
 
   rightBtnAction() {
     this.$emit("rightBtnAction");
@@ -40,10 +43,10 @@ export default class DefaultModal extends Vue {
   @Prop({ default: "auto" })
   height: string | number;
 
-  @Prop({ default: "80%" })
+  @Prop({ default: "70%" })
   width: string | number;
 
-  @Prop({ default: 700 })
+  @Prop({ default: 460 })
   maxWidth: number;
 
   @Prop({ default: 500 })
@@ -67,6 +70,8 @@ export default class DefaultModal extends Vue {
   @Prop({ default: false })
   noButtons: boolean;
 
+  @Prop({ default: true })
+  closeButton: boolean;
 
 
 }

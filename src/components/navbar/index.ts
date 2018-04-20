@@ -6,17 +6,20 @@ import template from "./navbar.vue";
   mixins: [template]
 })
 export default class NavBar extends Vue {
-
   collapsed: boolean = true;
 
   me: "me";
   isLoggedIn: "loggedIn";
 
+  menuItems: any = JSON.parse(
+    localStorage.getItem("ParentMenuOrder") || '{ "items":[] }'
+  );
+  subMenuItems: any = JSON.parse(
+    localStorage.getItem("UserMenu") || '{ "items":[] }'
+  );
+
   navbarTab: number = this.$store.getters.main;
-
-  currentPage: string = 'home';
-
-
+  currentPage: string = "home";
 
   collapse() {
     this.collapsed = !this.collapsed;
@@ -29,26 +32,34 @@ export default class NavBar extends Vue {
   logout() {
     this.$store.dispatch("logout");
   }
-  // ...mapActions({
-  //   getAccount: 'getAccount'
-  // })
+
+  openPDF() {
+    let host = window.location.hostname;
+
+    if (host == "localhost") {
+      host = "https://clientdev.com";
+    } else {
+      host = "";
+    }
+    window.open(host + "/tms_delivery_estimation_sheet.php");
+  }
+
+  searchLink(links: any) {
+    let link_list = links.split(",");
+    return link_list.indexOf(this.currentPage) >= 0;
+  }
 
   mounted() {
-
     setTimeout(() => {
       this.changeTab();
-    }, 500);
+    }, 1000);
 
-
-    window.addEventListener('hashchange', () => {
+    window.addEventListener("hashchange", () => {
       this.changeTab();
     });
   }
 
-
   changeTab() {
-    let router = this.$router as any;
-
-    this.currentPage = router.app._route.name; // cast it to any type to avoid typescript error on _route
+    this.currentPage = this.$route.name as string;
   }
 }

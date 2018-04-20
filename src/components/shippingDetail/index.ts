@@ -1,8 +1,6 @@
 import Vue from "vue";
 import { Component, Prop, Provide, Watch, Inject } from "vue-property-decorator";
-import * as Logger from "js-logger";
 import template from "./shippingDetail.vue";
-import bus from "../../bus";
 import { Validator } from "vee-validate";
 
 
@@ -26,9 +24,17 @@ export default class ShippingDetail extends Vue {
   isStackable: boolean = true;
 
   tooltipMessages: any = {
-    height: "height",
-    stackable: "stackable"
+    width: `Pallet width must be under 96".`,
+    length: `Pallet length must be under 96".`,
+    height: `Pallet height must be under 108". Don't know the height of your pallets? Since most pallets are on average 48\" in height, we have set this as the default height. Feel free to change it if you know the height of your pallets.`,
+    quantity: "Total pallet positions must be under 15.",
+    totalWeight: "Average weight of each pallet position per line must be under 1,800 lbs.",
+    stackable: "Can we stack your pallets on top of each other during pickup and/or delivery? We will automatically calculate the number of spaces required.",
+    // hazardousMaterial: "Does your shipment contain commodities that are hazardous as defined in the code of Federal Regulation, Title 49, by the US Department of Transportation? If so, you will be charged an additional fee and one of our representatives will contact you to get more information about the contents of the shipment."
   };
+  palletClass: Array<string> = [
+    "50", "55", "60", "65", "70", "77", "85", "92", "100", "110", "125", "150", "175", "200", "250", "300", "400", "500"
+  ];
   // Data
 
 
@@ -47,6 +53,9 @@ export default class ShippingDetail extends Vue {
 
   @Prop({ default: false })
   requireDescription: boolean;
+
+  @Prop({ default: false })
+  validationStarted: boolean;
   // Properties
 
   // inject the validator from parent, parent and child will now share the same validator instance
@@ -65,6 +74,20 @@ export default class ShippingDetail extends Vue {
       }
     }
 
+  }
+
+  get overWeight() {
+    let palletSpace = parseInt(this.pallet.palletSpace);
+    let weight = parseFloat(this.pallet.totalWeight);
+
+    if (palletSpace > 0) {
+      let result = weight / palletSpace > 1800;
+      this.pallet.overWeight = result;
+      return result;
+    }
+    else {
+      return false;
+    }
   }
 
   // life cycle methods
@@ -108,7 +131,7 @@ export default class ShippingDetail extends Vue {
   @Watch("pallet.quantity")
   @Watch("pallet.stackable")
   onPalletWidthChanged() {
-
+    
     // calculate pallet space
     if (this.pallet.width > 0 && this.pallet.length > 0 && this.pallet.height > 0 && this.pallet.quantity > 0) {
       let maxHeight = this.palletSpaceCalculationSettings.maxHeight;
@@ -139,6 +162,22 @@ export default class ShippingDetail extends Vue {
     this.$store.dispatch("deleteLine", index);
   }
 
+  
+  addLineValidate(num: any) {
+  
+    if(num == '' || num == null){
+      return 'Required';
+    }else{
+      var check = num.search(/[^a-zA-Z]+$/);
+      if(check != 0){
+        return 'Invalid Format';
+      }
+      console.log(check);
+    }
+
+    return '';
+  }
+  
   // getPalletSpace(width: any, length: any, height: any) {
 
   //   if (width > 0 && length > 0) {

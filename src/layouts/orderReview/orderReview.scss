@@ -1,0 +1,18 @@
+.order-review-address-textOverflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    width:165px;
+}
+
+
+#grid-container {
+	max-width: 1200px !important;
+    clear: none;
+    height: 100%;
+    overflow: auto;
+    padding: 72px 1.5% 80px;
+    transition: width .2s ease 0s;
+    margin-right: auto;
+    margin-left: auto;
+}

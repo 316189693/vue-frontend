@@ -2,15 +2,39 @@
 <nav class="component-navbar navbar navbar-default navbar-static-top">
   <div class="container">
     <div class="navbar-header">
-      <ul>                   
-          <li><a @click="logout" class="active_tab">Logout</a></li>
-        <li><a href="#" v-bind:class="{active_tab : currentPage == 'notSetYet'}" >My Account</a></li>       
-        <li><a href="#/track" v-bind:class="{active_tab : currentPage == 'Track'}" >Track</a></li>
-        <li><a href="#/getquote" v-bind:class="{active_tab : currentPage == 'GetQuote' || currentPage == 'SavedQuote' || currentPage == 'SchedulePickup' || currentPage == 'SchedulePickupShipment' || currentPage == 'SchedulePickupReview'}" >Quote & Ship</a></li>
-        <li><a href="#/home" v-bind:class="{active_tab : currentPage == 'Home'}" >Home</a></li>
+      <ul>
+        <li>
+          <a v-bind:class="{active_tab : currentPage == 'myAccount' || currentPage == 'myAccountEdit'}" >My Account</a>
+          <div class="navbar-content">
+            <a href="#/myAccount">My Account</a>
+            <a @click="logout">Logout</a>
+          </div>
+        </li>
+        <li v-for="item in menuItems" :key="item.id">
+            <a v-bind:class="{active_tab : searchLink(item.class) }">
+            {{ item.name }}
+            </a>
+            <div class="navbar-content">
+              <template v-for="subitem in subMenuItems">
+                <template v-if="subitem.menu_name == 'Delivery Estimation Sheet'">
+                    <a :key="subitem.menu_id" href="javascript:;" @click='openPDF' v-if="item.id === subitem.menu_category_id"> 
+                      {{ subitem.menu_name }}
+                    </a>
+                </template>
+                <template v-else>
+                    <a :key="subitem.menu_id" v-bind:href="subitem.menu_link" v-if="item.id === subitem.menu_category_id"> 
+                      {{ subitem.menu_name }}
+                    </a>
+                </template>
+              </template>
+            </div>
+        </li> 
+        <li>
+          <a href="#/home" v-bind:class="{active_tab : currentPage == 'Home'}">Home</a>
+        </li> 
+
       </ul>
     </div>
-    
   </div>
 </nav>
 </template>

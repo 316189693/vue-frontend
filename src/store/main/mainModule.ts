@@ -16,13 +16,27 @@ const mutations = {
         state.main.messageModel.isShowMessageModel = messageModel.isShowMessageModel;
         state.main.messageModel.messageModelTitle = messageModel.messageModelTitle || state.main.messageModel.messageModelTitle;
         state.main.messageModel.messageModelMessage = messageModel.messageModelMessage || state.main.messageModel.messageModelMessage;
-        state.main.messageModel.width = messageModel.width ||  state.main.messageModel.width;
-        state.main.messageModel.height = messageModel.height ||  state.main.messageModel.height;
+        state.main.messageModel.width = messageModel.width || 400;
+        state.main.messageModel.height = messageModel.height ||  150;
         state.main.messageModel.yPosition = messageModel.yPosition ||  state.main.messageModel.yPosition;
-        state.main.messageModel.maxWidth = messageModel.maxWidth ||  state.main.messageModel.maxWidth;
-        state.main.messageModel.maxHeight = messageModel.maxHeight || state.main.messageModel.maxHeight;
+        state.main.messageModel.maxWidth = messageModel.maxWidth ||  600;
+        state.main.messageModel.maxHeight = messageModel.maxHeight;
         state.main.messageModel.titleColor = messageModel.titleColor ||  state.main.messageModel.titleColor;
-        state.main.messageModel.waitMillsSecondsToClose = messageModel.waitMillsSecondsToClose || state.main.messageModel.waitMillsSecondsToClose;
+        if (messageModel.clickToClose) {
+            state.main.messageModel.clickToClose = true;
+        } else {
+            state.main.messageModel.clickToClose = false;
+        }
+        if (messageModel.waitMillsSecondsToClose === 0) {
+            state.main.messageModel.waitMillsSecondsToClose = 0;
+        } else {
+            state.main.messageModel.waitMillsSecondsToClose = messageModel.waitMillsSecondsToClose || state.main.messageModel.waitMillsSecondsToClose;
+        }
+        if (messageModel.callbackAfterClose) {
+            state.main.messageModel.callbackAfterClose = messageModel.callbackAfterClose;
+        } else {
+            state.main.messageModel.callbackAfterClose = function() { };
+        }
     }
 
 };

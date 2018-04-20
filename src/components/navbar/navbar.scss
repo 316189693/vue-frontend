@@ -144,32 +144,55 @@
         float: right;
     }
     
-    li a {
+    li > a {
         display: block;
         color: white;
         text-align: center;
         padding: 24px 30px;
         text-decoration: none;
         text-transform: uppercase;
+        cursor: pointer;
     }
     
-    li a:hover {
-        background-color: #111;
+    li > a:hover {
+        color: #f7b020;
+
+        &:not(p) {
+            background-color: #111;
+        } 
     }
 
     .active_tab{
+        font-family: 'AvenirNext-Demibold';
         color: #f7b020;
+        text-decoration: underline;
     }
 }
 
 .navbar-content {
 	display: none;
 	position: absolute;
-	background-color: #ffffff;
-	min-width: 160px;
-	padding: 5px 20px;
-	z-index: 1;
-	box-shadow: 0 2px 4px 0 #656565;
+    background-color: #15223d;
+    /*width: 170px;*/
+    max-width: 270px;
+    min-width: 160px;
+	padding: 5px 0px;
+    z-index: 1;
+    top: 70px;
+
+    a {
+        display: block;
+        font-size: .875rem;
+        color: #ffffff;
+        text-align: left;
+        padding: 10px 30px;
+        text-decoration: none;
+        cursor: pointer;
+
+        &:hover {
+            color: #f7b020;
+        }
+	}
 }
 
 .navbar-header li:hover .navbar-content {

@@ -1,176 +1,207 @@
 <template>
-   <div id="sitecontent">
-            <div class="grid-100 tablet-grid-100">
-                <div class="grid-100 tablet-grid-100 container title">
-                    <h1 class="title">PRO #: 111934922</h1>
-                    <p class="sub-title sub-header">Reference #: 2922010101</p>
-                </div>
+    <div id="grid-container">
+        <div class="grid-100 tablet-grid-100">
+            <div class="grid-100 tablet-grid-100 container title">
+                <h1 class="title">PRO #: {{formData.proNumber}}</h1>
+                <p class="sub-title sub-header" v-if="formData.referenceNumber">Reference #: {{formData.referenceNumber}}</p>
+            </div>
 
-                <div class="grid-100 tablet-grid-100 container">
-                    <div class="grid-50 tablet-grid-50">
-                        <div class="grid-100 tablet-grid-100">
-                            <h1 class="step-header">
-                                <span class="label-number-summary">1</span>Where are we picking up?</h1>
-                        </div>
-
-                        <div class="grid-100 tablet-grid-100 container">
-                            <table class="table-details">
-                                <tbody>
-                                    <tr>
-                                        <td>Type</td>
-                                        <td>Business</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address</td>
-                                        <td>Freshzim <br> 1218 Brannon Street<br> Los Angeles, CA 90014
-                                        </td>
-                                        <td>
-                                            <input type="checkbox" id="test1" checked="" disabled="">
-                                            <label class="checkbox" for="test1">
-                                                <span>Lift Gate Required</span>
-                                            </label>
-                                            <br>
-                                            <input type="checkbox" id="test2" checked="" disabled="">
-                                            <label class="checkbox" for="test2">
-                                                <span>Pallet Jack Required</span>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ready for Pickup</td>
-                                        <td>02/06/2018<br> 12:00 (12:00 PM) to 17:00 (5:00 PM)
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="grid-100 tablet-grid-100 container">
+                <div class="grid-50 tablet-grid-50">
+                    <div class="grid-100 tablet-grid-100">
+                        <h1 class="step-header">
+                            <span class="label-number-summary">1</span>Where are we picking up?</h1>
                     </div>
 
-                    <div class="grid-50 tablet-grid-50">
-                        <div class="grid-100 tablet-grid-100">
-                            <h1 class="step-header">
-                                <span class="label-number-summary">2</span>Where are we delivering?</h1>
-                        </div>
-
-                        <div class="grid-100 tablet-grid-100 container">
-                            <table class="table-details">
-                                <tbody>
-                                    <tr>
-                                        <td>Type</td>
-                                        <td>Business</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address</td>
-                                        <td>Freshzim <br> 1218 Brannon Street<br> Los Angeles, CA 90014
-                                        </td>
-                                        <td>
+                    <div class="grid-100 tablet-grid-100 container">
+                        <table class="table-details">
+                            <tbody>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>{{formData.pickup.locationTypeText}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>
+                                        <span class="order-review-address-textOverflow" :title="formData.pickup.shipper">{{formData.pickup.shipper}}</span>
+                                        <br>
+                                        <span class="order-review-address-textOverflow" :title="formData.pickup.street">{{formData.pickup.street}}</span><br>
+                                        <span class="order-review-address-textOverflow" v-if="formData.pickup.street2" :title="formData.pickup.street2">{{formData.pickup.street2}}</span><br v-if="formData.pickup.street2">
+                                        <span class="order-review-address-textOverflow" :title="PickupCityState"> {{PickupCityState}}</span>
+                                    </td>
+                                    <td>
+                                        <template v-if="formData.pickup.liftGate">
                                             <input type="checkbox" id="test3" checked="" disabled="">
                                             <label class="checkbox" for="test3">
                                                 <span>Lift Gate Required</span>
                                             </label>
-                                            <br>
+                                             <div ></div>
+                                        </template>
+                                        <template v-if="formData.pickup.limitedAccess">
+                                            <input type="checkbox" id="test4" checked="" disabled="">
+                                            <label class="checkbox" for="test4">
+                                                <span>Limited Access</span>
+                                            </label>
+
+                                            <div v-if="formData.pickup.limitedAccess && formData.pickup.palletJack"></div>
+                                        </template>
+                                        <template v-if="formData.pickup.palletJack">
                                             <input type="checkbox" id="test4" checked="" disabled="">
                                             <label class="checkbox" for="test4">
                                                 <span>Pallet Jack Required</span>
                                             </label>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ready for Pickup</td>
+                                    <td>{{formData.pickup.pickupDate}}<br> {{formData.pickup.pickupStr}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="grid-100 tablet-grid-100 container">
-                    <div class="grid-50 tablet-grid-50">
-                        <div class="grid-100 tablet-grid-100">
-                            <h1 class="step-header">
-                                <span class="label-number-summary">3</span>What are we carrying?</h1>
-                        </div>
+                <div class="grid-50 tablet-grid-50">
+                    <div class="grid-100 tablet-grid-100">
+                        <h1 class="step-header">
+                            <span class="label-number-summary">2</span>Where are we delivering?</h1>
+                    </div>
 
-                        <div class="grid-100 tablet-grid-100 container">
-                            <table class="table-details">
-                                <tbody>
+                    <div class="grid-100 tablet-grid-100 container">
+                        <table class="table-details">
+                            <tbody>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>{{formData.delivery.locationTypeText}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td>
+                                        <span class="order-review-address-textOverflow" :title="formData.delivery.consignee">{{formData.delivery.consignee}}</span>
+                                        <br>
+                                        <span  class="order-review-address-textOverflow" :title="formData.delivery.street">{{formData.delivery.street}}</span><br>
+                                         <span class="order-review-address-textOverflow"  v-if="formData.delivery.street2" :title="formData.delivery.street2">{{formData.delivery.street2}}</span><br v-if="formData.delivery.street2">
+                                        <span class="order-review-address-textOverflow" :title="DeliveryCityState"> {{DeliveryCityState}}</span>
+                                    </td>
+                                    <td>
+                                        <template v-if="formData.delivery.liftGate">
+                                            <input type="checkbox" id="test3" checked="" disabled="">
+                                            <label class="checkbox" for="test3">
+                                                <span>Lift Gate Required</span>
+                                            </label>
+                                              <div ></div>
+                                        </template>
+                                        <template v-if="formData.delivery.limitedAccess">
+                                            <input type="checkbox" id="test4" checked="" disabled="">
+                                            <label class="checkbox" for="test4">
+                                                <span>Limited Access</span>
+                                            </label>
+                                            <div v-if=" formData.delivery.limitedAccess && formData.delivery.palletJack"></div>
+
+                                        </template>
+                                        <template v-if="formData.delivery.palletJack">
+                                            <input type="checkbox" id="test4" checked="" disabled="">
+                                            <label class="checkbox" for="test4">
+                                                <span>Pallet Jack Required</span>
+                                            </label>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-100 tablet-grid-100 container">
+                <div class="grid-50 tablet-grid-50">
+                    <div class="grid-100 tablet-grid-100">
+                        <h1 class="step-header">
+                            <span class="label-number-summary">3</span>What are we carrying?</h1>
+                    </div>
+
+                    <div class="grid-100 tablet-grid-100 container">
+                        <table class="table-details">
+                            <tbody>
+                                <template v-for="(item,index) in formData.carry.pallets">
                                     <tr>
                                         <td>Description</td>
-                                        <td>Cellphones</td>
+                                        <td>{{item.description}}
+                                        </td>
                                         <td>
-                                            <div class="manifest-line-count">1</div>
+                                            <div class="manifest-line-count">{{index+1}}</div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Pallets</td>
-                                        <td>12 Pallets (Standard: 40 x 48)</td>
+                                        <td>{{item.quantity}} Pallets (Standard: {{item.width}}″ x {{item.length}}″)</td>
                                         <td>
-                                            <input type="checkbox" id="test5" checked="" disabled="">
-                                            <label class="checkbox" for="test5">
+                                            <input type="checkbox" :id="input_stackble_index" checked="" disabled="" v-if="item.stackable">
+                                            <label class="checkbox" :for="input_stackble_index" v-if="item.stackable">
                                                 <span>Stackable?</span>
                                             </label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>Description</td>
-                                        <td>Women's Clothing</td>
-                                        <td>
-                                            <div class="manifest-line-count">2</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pallets</td>
-                                        <td>1 Pallet (40 x 40)</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <span class="line"></span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total Pallets</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr>
                                         <td>Class</td>
-                                        <td>55</td>
+                                        <td>{{item.palletClass}}</td>
+                                        <td></td>
                                     </tr>
-                                    <tr>
-                                        <td>Total Weight</td>
-                                        <td>1,300 lbs</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pallet Spaces</td>
-                                        <td>5</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                </template>
+
+                                <tr v-if="formData.carry.pallets">
+                                    <td colspan="3">
+                                        <span class="line"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Pallets</td>
+                                    <td>{{formData.carry.totalPallets}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Weight</td>
+                                    <td>{{formData.carry.totalWeight}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Pallet Spaces</td>
+                                    <td>{{formData.carry.palletSpaces}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="grid-50 tablet-grid-50">
+                    <div class="grid-100 tablet-grid-100">
+                        <h1 class="step-header">
+                            <span class="label-number-summary">4</span>Documents</h1>
                     </div>
 
-                    <div class="grid-50 tablet-grid-50">
-                        <div class="grid-100 tablet-grid-100">
-                            <h1 class="step-header">
-                                <span class="label-number-summary">4</span>Documents</h1>
-                        </div>
-
-                        <div class="grid-100 tablet-grid-100 container" v-if="hasDocument">
-                            <ul class="file-list">
-                             <template v-for="document in formData.documents">
-                                 <li>
+                    <div class="grid-100 tablet-grid-100 container" v-if="hasDocument">
+                        <ul class="file-list">
+                            <template v-for="document in formData.documents">
+                                <li>
                                     <div class="file">
                                         <p class="file-category">{{document.file_category_name}}</p>
-                                        
+
                                         <a :href="document.file_original_url" target="_BLANK" v-if="document.file_thumbnail_url">
                                             <img :src="document.file_thumbnail_url">
                                         </a>
-                                        <div class="missing-file" v-if="!document.file_thumbnail_url"></div>
+
                                     </div>
                                 </li>
-                             </template>
-                            </ul>
-                        </div>
+                            </template>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+     <div style="margin-top:30px;">
+                <EstimatedQuote v-if="formData.quoteId"></EstimatedQuote>
+     </div>
+    </div>
+
 </template>
 <style lang="scss" src="./orderReview.scss" scoped></style>

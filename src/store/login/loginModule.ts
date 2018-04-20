@@ -353,6 +353,8 @@ const actions = {
 
                     localStorage.setItem("ParentMenuOrder", JSON.stringify(row["menu_category"]));
 
+                    localStorage.setItem("UserGroupName", row["customerGroupName"]);
+
                     let remeberMe = formData.remeberMe;
 
 
@@ -473,7 +475,7 @@ const actions = {
 
 function clearLocalStorage(str: string) {
     localStorage.setItem("ErrorMessage", "Your session has expired. Please login again.");
-    socketIO.sendPushToRoom("room_msg", "DEV", "ClearCache " + str + " site " + window.location.href + " token " + localStorage.getItem("UserToken") + " user " + localStorage.getItem("UserID"), 1);
+    // socketIO.sendPushToRoom("room_msg", "DEV", "ClearCache " + str + " site " + window.location.href + " token " + localStorage.getItem("UserToken") + " user " + localStorage.getItem("UserID"), 1);
     localStorage.removeItem("UserToken");
     localStorage.removeItem("UserID");
     localStorage.removeItem("UserCustomer");
@@ -483,6 +485,7 @@ function clearLocalStorage(str: string) {
     localStorage.removeItem("UserMenu");
     localStorage.removeItem("ParentMenuOrder");
     localStorage.removeItem("ErrorMessage");
+    localStorage.removeItem("UserGroupName");
 }
 
 

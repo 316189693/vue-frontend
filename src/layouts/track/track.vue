@@ -11,9 +11,17 @@
                         <input type="text" placeholder="Search by REFERENCE # OR PRO #"
                                 :class="{'input-search': true, 'track-search': true, 'input-client-error': trackData.showNotFound}" v-model="proNumber"
                                 @change="changeKeyWord">
+                        <!--
                         <span v-if="trackData.showTerms" class="text-disclosure">By clicking "Track" you are agreeing to the
                             <span class="text-bold">Terms & Conditions</span>
-                        </span>
+                        </span>-->
+                         <div class="info-container" id = "track_error_msg" v-if="trackData.multiOrder">
+                             <p>
+                                  <span class="info-message-title">Can't find your order? </span> <button class="close-modal-x"  @click="closeInfoMessage"></button></h1>
+                             </p>
+
+                             <p class="info-messag-body">Your Reference # might have multiple orders associated to it. Please try searching for the order by PRO #.</p>
+                         </div>
                         <span v-if="trackData.showNotFound" class="error-message"><p>Could not find shipment with this PRO # or Reference #</p></span>
                     </div>
 

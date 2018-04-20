@@ -12,8 +12,9 @@ const state = {
 const mutations = {
     updateTrackData(state: any, res: any) {
         if (res == -1 || res == 0) {
+            state.track.trackData.multiOrder = false;
             state.track.trackData.showTrack = false;
-            state.track.trackData.showTerms = false;
+            // state.track.trackData.showTerms = false;
             state.track.trackData.showNotFound = true;
             state.track.trackData.status = "";
             state.track.trackData.originDate = "";
@@ -31,6 +32,12 @@ const mutations = {
             trackData.originLocation = originLocation;
             trackData.destinationDate = destinationDate;
             trackData.destinationLocation = destinationLocation;
+            if (res["count"] && res["count"] > 1) {
+                state.track.trackData.multiOrder = true;
+            } else {
+                state.track.trackData.multiOrder = false;
+            }
+
             let histories = res.history;
             let details = {};
 
@@ -75,7 +82,7 @@ const mutations = {
             }
             trackData.details = details;
             state.track.trackData.showTrack = true;
-            state.track.trackData.showTerms = true;
+            // state.track.trackData.showTerms = true;
             state.track.trackData.showNotFound = false;
             state.track.trackData.status = trackData.status;
             state.track.trackData.originDate = trackData.originDate;

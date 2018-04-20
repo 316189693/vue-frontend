@@ -1,6 +1,6 @@
 declare module '*.vue' {
-  import Vue from 'vue'
-  export default Vue
+  import Vue from 'vue';
+  export default Vue;
 }
 declare module "*.json" {
   const value: any;
@@ -18,16 +18,27 @@ declare module 'v-tooltip' {
   const vtooltip: any;
   export = vtooltip;
 }
+declare module 'vue-visible' {
+  const vuevisible: any;
+  export = vuevisible;
+}
 declare module 'scriptjs' {
   const scriptjs: any;
   export = scriptjs;
 }
-declare module 'vuejs-datepicker'{
+declare module 'vuejs-datepicker' {
   const datepicker: any;
   export = datepicker;
 }
-declare module 'socket.io'{
-  const socketio:any;
+declare module 'socket.io' {
+  const socketio: any;
   export = socketio;
 }
-
+declare module 'vue-json-excel' {
+  const vueJsonExcel: any;
+  export = vueJsonExcel;
+}
+declare module 'di-vue-mask' {
+  const VueMask: any;
+  export = VueMask;
+}

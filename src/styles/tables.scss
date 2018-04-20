@@ -1,4 +1,34 @@
 // Tables
+.table-client {
+	margin-top: 40px;
+
+	thead {
+		th {
+			letter-spacing: .7px;
+
+			&:first-of-type {
+				padding-left: 0px;
+			}
+
+			&:last-of-type {
+				padding-right: 0px;
+			}
+		}
+	}
+	
+	tbody {
+		td {
+			&:first-of-type {
+				padding-left: 0px;
+			}
+
+			&:last-of-type {
+				padding-right: 0px;
+			}
+		}
+	}
+}
+
 .table {
 	border-collapse: collapse;
 	width: 100%;
@@ -8,7 +38,7 @@
 		font-size: .75rem;
 		
 		th {
-			letter-spacing: .4px;
+			letter-spacing: .7px;
 		}
 	}
 
@@ -70,4 +100,9 @@
 .tablesorter-default thead .sorter-false {
     background-image: none;
     cursor: default;
+}
+
+.table-client, .table-tracking {
+	width: 100%;
+	border-collapse: collapse !important;
 }

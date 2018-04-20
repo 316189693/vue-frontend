@@ -1,6 +1,6 @@
 <template>
 
-    <modal :name="modalName" :adaptive="true" :pivot-x="xPosition" :pivot-y="yPosition" :width="width" :height="height" :max-width="maxWidth" :max-height="maxHeight" :clickToClose="clickToClose || noButtons">    
+    <modal :name="modalName" :adaptive="true" :pivot-x="xPosition" :pivot-y="yPosition" :width="width" :height="height" :max-width="maxWidth" :max-height="maxHeight" :clickToClose="true">    
       <h1 class="h1-model-class">{{title}}</h1>
       <p class="p-model-class">{{message}}</p>
       <div class="slot_section">

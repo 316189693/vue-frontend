@@ -1,27 +1,33 @@
 import Vue from "vue";
 import { Component, Prop, Provide, Watch } from "vue-property-decorator";
-import * as Logger from "js-logger";
 import template from "./mainButtonSet.vue";
 
 
 @Component({
-    mixins: [template],
-    components: {}
+    mixins: [template]
 })
 export default class MainButtonSet extends Vue {
 
-    @Prop({default: "Continue"})
+    @Prop({ default: "Continue" })
     rightBtnText: string;
 
-    @Prop({default: "Cancel"})
+    @Prop({ default: "Cancel" })
     leftBtnText: string;
 
 
-    @Prop()
-    rightBtnAction: Function;
+    // @Prop()
+    // rightBtnAction: Function;
 
-    @Prop()
-    leftBtnAction: Function;
+    // @Prop()
+    // leftBtnAction: Function;
+
+    rightBtnAction() {
+        this.$emit("rightBtnAction");
+    }
+
+    leftBtnAction() {
+        this.$emit("leftBtnAction");
+    }
 
 
 }

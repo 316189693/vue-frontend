@@ -1,7 +1,7 @@
 import axiosService from "../../services/axios/axiosService";
 import qs from "qs";
 
-const baseUrl = process.env.NODE_ENV === "production" ? "https://client.freightapp.com/" : "https://clientdev.freightapp.com/";
+const baseUrl = process.env.NODE_ENV === "production" ? "https://client.com/" : "https://clientdev.com/";
 
 const stageArray = [
     {
@@ -63,8 +63,9 @@ const stageArray = [
 ];
 
 const trackData = {
+    multiOrder: false,
     showTrack: false,
-    showTerms: true,
+    // showTerms: true,
     showNotFound: false,
     status: "",
     originDate: "",

@@ -10,13 +10,16 @@ import SchedulePickupShipment from "../layouts/schedulePickupShipment";
 import SchedulePickupReview from "../layouts/schedulePickupReview";
 import Demo from "../layouts/demo";
 import Track from "../layouts/track";
+import MyAccount from "../layouts/myAccount";
+import MyAccountEdit from "../layouts/myAccountEdit";
 import NotFound from "../layouts/not-found";
 import Login from "../layouts/login";
 import OrderReview from "../layouts/orderReview";
-
+import CustomerSignup from "../layouts/customerSignup";
 Vue.use(VueRouter);
 
 export default new VueRouter({
+
   routes: [
     {
       path: "/",
@@ -35,7 +38,7 @@ export default new VueRouter({
     },
     {
       path: "/savedQuote",
-      name: "SavedQuote",
+      name: "SavedQuotes",
       component: SavedQuote
     },
     {
@@ -54,19 +57,34 @@ export default new VueRouter({
       component: SchedulePickupReview
     },
     {
+      path: "/customerSignup",
+      name: "Signup",
+      component: CustomerSignup
+    },
+    {
       path: "/demo",
       name: "Demo",
       component: Demo
     },
     {
       path: "/track",
-      name: "Track",
-      component: Track
+      name: "TrackShipment",
+      component: Track,
     },
     {
       path: "/orderReview",
       name: "orderReview",
       component: OrderReview
+    },
+    {
+      path: "/myAccount",
+      name: "myAccount",
+      component: MyAccount
+    },
+    {
+      path: "/myAccount/edit",
+      name: "myAccountEdit",
+      component: MyAccountEdit
     },
     {
       path: "*",
@@ -80,3 +98,4 @@ export default new VueRouter({
     return { x: 0, y: 0 };
   }
 });
+

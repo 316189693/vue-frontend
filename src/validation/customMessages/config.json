@@ -1,5 +1,6 @@
 {
-    "default_Required_Message": "This is a required field.",
-    "default_Email_Message": "Not a valid email.",
-    "default_Numeric_Message": "Only numeric"
+    "default_Required_Message": "Required",
+    "default_Email_Message": "Not a valid email",
+    "default_Numeric_Message": "Only numeric",
+    "default_EmailFormat_Message": "Invalid email"
 }

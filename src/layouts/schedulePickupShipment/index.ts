@@ -38,7 +38,7 @@ export default class SchedulePickupShipment extends Vue {
     quoteData = this.$store.getters.quoteData;
 
     tooltipMessages = {
-        reference: "reference"
+        reference: "Enter your reference number for this order to help you track this shipment."
     };
 
 

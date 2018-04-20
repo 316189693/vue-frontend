@@ -9,7 +9,7 @@
 
         <div class="grid-100 tablet-grid-100 container">
             <div class="grid-20 tablet-grid-30">
-                <button class="button-yellow-medium">Schedule a Pickup</button>
+                <button class="button-yellow-medium" @click="goToSchedule" :disabled="activeRadio < 0">Schedule a Pickup</button>
             </div>
         </div>
 
@@ -18,107 +18,47 @@
                 <thead>
                     <tr>
                         <th></th>
-                        <th>PU #</th>
-                        <th>PRO #</th>
-                        <th>Status</th>
-                        <th>Pickup Date</th>
-                        <th>Origin</th>
-                        <th>Delivery Date</th>
-                        <th>Destination</th>
-                        <th>Pallets</th>
-                        <th>Weight</th>
+                        <th>Quote ID</th>
+                        <th>Created Date</th>
+                        <th>Shipper</th>
+                        <th>Consignee</th>
+                        <th>Quote</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <input type="radio" id="radio11" name="radio">
-                            <label class="radio" for="radio11">
-                            </label>
-                        </td>
-                        <td>203839400</td>
-                        <td>1110156551</td>
-                        <td>Order created</td>
-                        <td>02/19/2018</td>
-                        <td>City of Industry, CA</td>
-                        <td>02/20/2018</td>
-                        <td>Irvine, CA</td>
-                        <td>3</td>
-                        <td>1,314</td>
-                        <td>
-                            <button class="edit-row"></button>
-                            <button class="delete-row"></button>
-                        </td>
-                    </tr>
-                    <tr class="selected-row">
-                        <td>
-                            <input type="radio" id="radio22" name="radio" checked>
-                            <label class="radio" for="radio22">
-                            </label>
-                        </td>
-                        <td>203839400</td>
-                        <td>1110156551</td>
-                        <td>Order created</td>
-                        <td>02/19/2018</td>
-                        <td>City of Industry, CA</td>
-                        <td>02/20/2018</td>
-                        <td>Irvine, CA</td>
-                        <td>3</td>
-                        <td>1,314</td>
-                        <td>
-                            <button class="edit-row"></button>
-                            <button class="delete-row"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" id="radio33" name="radio">
-                            <label class="radio" for="radio33">
-                            </label>
-                        </td>
-                        <td>203839400</td>
-                        <td>1110156551</td>
-                        <td>Order created</td>
-                        <td>02/19/2018</td>
-                        <td>City of Industry, CA</td>
-                        <td>02/20/2018</td>
-                        <td>Irvine, CA</td>
-                        <td>3</td>
-                        <td>1,314</td>
-                        <td>
-                            <button class="edit-row"></button>
-                            <button class="delete-row"></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="radio" id="radio44" name="radio">
-                            <label class="radio" for="radio44">
-                            </label>
-                        </td>
-                        <td>203839400</td>
-                        <td>1110156551</td>
-                        <td>Order created</td>
-                        <td>02/19/2018</td>
-                        <td>City of Industry, CA</td>
-                        <td>02/20/2018</td>
-                        <td>Irvine, CA</td>
-                        <td>3</td>
-                        <td>1,314</td>
-                        <td>
-                            <button class="edit-row"></button>
-                            <button class="delete-row"></button>
-                        </td>
-                    </tr>
+                <tbody name="list" is="transition-group">
+                    <template v-for="(item,key) in savedQuoteData">
+                        <tr :class="{'selected-row': key == activeRadio}" :key="item.tms_quote_id">
+                            <td>
+                                <input type="radio" :id="'radio' + key" name="radio">
+                                <label class="radio" :for="'radio' + key" @click="setActiveRadio(key)" :title="key == activeRadio ? 'Click to deselect' : ''">
+                                </label>
+                            </td>
+                            <td>{{item.tms_quote_id}}</td>
+                            <td>{{item.tms_quote_created_date | date_MDY_Slash}}</td>
+                            <td>{{item.tms_quote_client_city | capitalizeEach}}</td>
+                            <td>{{item.tms_quote_consignee_city | capitalizeEach}}</td>
+                            <td>{{item.total_amount | dollar}}</td>
+                            <td>
+                                <button class="edit-row" @click="goToEdit(key)" v-visible="!quoteSelected" title="edit"></button>
+                                <button class="delete-row" @click="deleteQuote(key,item.tms_quote_id)" v-visible="!quoteSelected" title="delete"></button>
+                            </td>
+                        </tr>
+                    </template>
                 </tbody>
             </table>
         </div>
+
+    
+      <DefaultModal :modalName="deleteModal" :title="'Delete Saved Quote'" :rightBtnText="'Yes, Delete Quote'" :leftBtnText="'Nevermind'" @rightBtnAction="rightBtnDeleteModal" @leftBtnAction="leftBtnDeleteModal">
+          <slot>
+              <p>Are you sure you want to delete this quote?</p>
+              <p>Deleted quotes cannot be restored.</p>
+          </slot>
+      </DefaultModal>
+
+      <MessageModal :modalName="errorMessage" :title="'Failed'" :message="'Deletion Failed'"></MessageModal>
+
     </div>
-    <!-- <div>
-        <div>Saved Quote</div>
-        <button type="button" @click="goTo">Go to</button>
-        <button type="button" @click="getQuote">Get Quote</button>
-    </div> -->
 
 </template>

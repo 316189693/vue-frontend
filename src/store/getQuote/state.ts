@@ -4,6 +4,7 @@ import Config from "../getQuote/config.json";
 const palletDimensionsOptions = Config.palletDimensionsOptions;
 const locationTypeOptions = Config.locationTypeOptions;
 const palletSpaceCalculationSettings = Config.palletSpaceCalculation;
+let loopCounter = 0;
 
 
 function getPalletTypeDimension(type: number) {
@@ -30,18 +31,22 @@ function getPallet() {
     let dimension = getPalletTypeDimension(type);
 
     let pallet = {
+        key: loopCounter,
         palletType: type,
         width: dimension.width,
         length: dimension.length,
         height: 48,
-        quantity: 0,
-        totalWeight: 0,
+        quantity: null,
+        totalWeight: null,
         palletClass: 0,
         stackable: false,
         palletSpace: 0,
         isHazardous: false,
-        description: undefined
+        description: null,
+        overWeight: false
     };
+
+    loopCounter++;
 
     return pallet;
 }
@@ -129,48 +134,73 @@ enum stageEnum {
     scheduleReviewPage = 4
 }
 
+function getQuoteObj() {
+    const quote = {
+        quoteId: null,
+        billto_id: 0,
+        shipper_id: 0,
+        pickup: {
+            locationType: 1,
+            zipCode: null,
+            state: "",
+            city: "",
+            liftGate: false,
+            limitedAccess: false,
+            palletJack: false,
+        },
+        delivery: {
+            locationType: 1,
+            zipCode: null,
+            state: "",
+            city: "",
+            liftGate: false,
+            limitedAccess: false,
+            palletJack: false,
+        },
+        estimate: {
+            palletSpaceCharge: 0,
+            fuelCharge: 0,
+            complianceCharge: 0,
+            total: 0,
+            pickup: {
+                liftGate: 0,
+                limitedAccess: 0,
+                palletJack: 0,
+                constructionSite: 0,
+                conventionCenter: 0,
+                residential: 0,
+            },
+            delivery: {
+                liftGate: 0,
+                limitedAccess: 0,
+                palletJack: 0,
+                constructionSite: 0,
+                conventionCenter: 0,
+                residential: 0,
+            }
+        },
+        stage: {
+            stageEnum: stageEnum,
+            currentStage: stageEnum.quoteStartPage,
+        },
+        hasHazardous: false,
+        hasQuote: false,
+        orderReference: null,
+        locationTypeOptions,
+        palletDimensionsOptions,
+        pallets: [getPallet()],
+        palletSpaces: 0,
+        getPalletTypeDimension,
+        getPallet,
+        calculateUnitPalletSpace,
+        getPalletSpace,
+        palletSpaceCalculationSettings
 
-const quote = {
-    pickup: {
-        locationType: 1,
-        zipCode: undefined,
-        state: "",
-        city: "",
-        liftGate: false,
-        limitedAccess: false,
-        palletJack: false,
-    },
-    delivery: {
-        locationType: 1,
-        zipCode: undefined,
-        state: "",
-        city: "",
-        liftGate: false,
-        limitedAccess: false,
-        palletJack: false,
-    },
-    estimate: {
-        palletSpaceCharge: 0,
-        fuelCharge: 0,
-        complianceCharge: 0,
-        total: 0,
-    },
-    stage: {
-        stageEnum: stageEnum,
-        currentStage: stageEnum.quoteStartPage,
-    },
-    locationTypeOptions,
-    palletDimensionsOptions,
-    pallets: [getPallet()],
-    palletSpaces: 0,
-    getPalletTypeDimension,
-    getPallet,
-    calculateUnitPalletSpace,
-    getPalletSpace,
-    palletSpaceCalculationSettings
+    };
+
+    return quote;
+}
 
 
-};
 
-
-export default quote;
+export default getQuoteObj;

@@ -5,8 +5,8 @@ export default class GoogleAutoComplete {
     private componentForm = {
         street_number: "long_name",
         route: "long_name",
-        locality: "long_name", //city
-        administrative_area_level_1: "long_name", //state
+        locality: "long_name", // city
+        administrative_area_level_1: "long_name", // state
         country: "long_name",
         postal_code: "long_name"
     };
@@ -16,8 +16,15 @@ export default class GoogleAutoComplete {
         componentRestrictions: { country: ["us"] }
     };
 
+    private autoComplete: any;
+
     constructor(el_id: string) {
         this.elementId = el_id;
+
+        let input = document.getElementById(this.elementId) as HTMLInputElement;
+
+        this.autoComplete = new google.maps.places.Autocomplete(input, this.options);
+
     }
 
     setAllShortName() {
@@ -41,17 +48,14 @@ export default class GoogleAutoComplete {
     }
 
     searchResult() {
-        let input = document.getElementById(this.elementId) as HTMLInputElement;
 
-
-        let autoComplete = new google.maps.places.Autocomplete(input, this.options);
 
 
         let result = {
             street_number: null,
             route: null,
-            locality: null, //city
-            administrative_area_level_1: null, //state
+            locality: null, // city
+            administrative_area_level_1: null, // state
             country: null,
             postal_code: null
         };
@@ -59,8 +63,8 @@ export default class GoogleAutoComplete {
 
         let promise = new Promise((resolve, reject) => {
 
-            autoComplete.addListener('place_changed', () => {
-                let place = autoComplete.getPlace();
+            this.autoComplete.addListener('place_changed', () => {
+                let place = this.autoComplete.getPlace();
 
                 // map response from api to result
                 for (let i = 0; i < place.address_components.length; i++) {
@@ -73,8 +77,8 @@ export default class GoogleAutoComplete {
                 let locationData = {
                     street_number: result.street_number,
                     route: result.route,
-                    city: result.locality, //city
-                    state: result.administrative_area_level_1, //state
+                    city: result.locality, // city
+                    state: result.administrative_area_level_1, // state
                     country: result.country,
                     postal_code: result.postal_code
                 };

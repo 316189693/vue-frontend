@@ -103,3 +103,23 @@
       transition: opacity .15s;
     }
   }
+
+  @media (max-width: 1024px) { 
+    &[x-placement^="bottom"] {
+      margin-top: 35px !important;
+
+      .tooltip-arrow {
+        display: none;
+      }
+    }
+
+    .tooltip .tooltip-inner {
+      min-width: 125px;
+      position: absolute !important;
+      right: -38px;
+      top: -27px;
+      padding: 10px 15px 10px;
+      width: auto;
+      white-space: nowrap;
+    }
+  }

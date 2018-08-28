@@ -1,5 +1,5 @@
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
-    float: right;
+    float: left;
 }
 
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset .ui-button {
@@ -45,8 +45,9 @@
     display:inline-block;
     width:200px;
     height:45px;
-    float:right;
-    margin-right: 24px;
+    float:left;
+    margin-left:30px;
+
     margin-bottom:32px;
     color: #15223d !important;
     background-color: #ffffff !important;

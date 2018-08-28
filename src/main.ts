@@ -66,11 +66,13 @@ router.beforeEach(function (to, from, next) {
   store.dispatch("changeHideForLogin", to.path);
   let userId = localStorage.getItem("UserID") ? parseInt(String(localStorage.getItem("UserID"))) : undefined;
   let UserToken = localStorage.getItem("UserToken") ? localStorage.getItem("UserToken") : "";
-  if (to.name !== "Login" && !store.getters.formData.isLogin) {
+  if (to.name !== "Login" && to.name !== "Blank") {
     if (userId && userId > 0 && UserToken) {
-      store.dispatch("checkLogin").then(function (isLogin: boolean) {
-        if (isLogin) {
+      store.dispatch("checkLogin").then(function (rst: string) {
+        if (rst === 'true') {
           next();
+        } else if (rst === '-9999') {
+            next("Blank");
         } else {
           store.dispatch("changeHideForLogin", "/");
           next("/");
@@ -142,6 +144,7 @@ class App extends Vue {
     this.messageModel.isShowMessageModel = false;
     this.messageModel.messageModelTitle = "";
     this.messageModel.messageModelMessage = "";
+    this.messageModel.backToHome = false;
     this.$store.dispatch("updateMessageModel", this.messageModel);
   }
 

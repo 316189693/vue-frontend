@@ -6,9 +6,9 @@
                 </div>
 
                 <div class="grid-100 tablet-grid-100 container tracking-container">
-                    <div class="grid-80 tablet-grid-80">
-                        <label class="input-label">REFERENCE # OR PRO #</label>
-                        <input type="text" placeholder="Search by REFERENCE # OR PRO #"
+                    <div class="grid-80 tablet-grid-70 mobile-grid-70">
+                        <label class="input-label">Reference # or PRO # or PU #</label>
+                        <input type="text" placeholder="Search by Reference # or PRO # or PU #"
                                 :class="{'input-search': true, 'track-search': true, 'input-client-error': trackData.showNotFound}" v-model="proNumber"
                                 @change="changeKeyWord">
                         <!--
@@ -22,60 +22,50 @@
 
                              <p class="info-messag-body">Your Reference # might have multiple orders associated to it. Please try searching for the order by PRO #.</p>
                          </div>
-                        <span v-if="trackData.showNotFound" class="error-message"><p>Could not find shipment with this PRO # or Reference #</p></span>
+                        <span v-if="trackData.showNotFound" class="error-message"><p>Could not find a shipment with this Reference #, PRO#, or PU#</p></span>
                     </div>
 
-                    <div class="grid-15 tablet-grid-20" style="margin-top: 15px;">
+                    <div class="grid-15 tablet-grid-25" style="margin-top: 15px; margin-bottom: 20px; padding-right: 0px;">
                         <button @click="search" class="button-yellow-medium">Track</button>
+                    </div>
+
+                    <div v-if="trackData.showMultiOrder" class="grid-parent grid-100 tablet-grid-100">
+                        <div class="grid-80 tablet-grid-100 card-table-container margin-bottom-40">
+                            <div class="grid-parent grid-100 tablet-grid-100 container multi-pu-header">
+                                <p>This PU# has multiple orders associated with it. </p>
+                                <p>Please select the order you wish to track:</p>
+                            </div>
+
+                            <table class="table-client">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>PRO #</th>
+                                        <th>Reference #</th>
+                                        <th>Delivery Date</th>
+                                        <th>Pallets</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr :id="'orderRow'+index" v-for="(order, index) in trackData.orders">
+                                        <td>
+                                            <input type="radio" :id="'radio'+index" name="radio">
+                                            <label :for="'radio'+index" title="" class="radio" @click="showOrder(index)"></label>
+                                        </td>
+                                        <td>{{order.pro}}</td>
+                                        <td>{{order.ref}}</td>
+                                        <td>{{order.deliveryDate}}</td>
+                                        <td>{{order.pallet}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <template v-if="trackData.showTrack">
-                    <div class="tracking-process">
-                        <ul class="tracking-status-text">
-                            <li>
-                                <p :class="{ complete: isOrignComplete }">Origin</p>
-                            </li>
 
-                            <li>
-                                <p :class="{ complete: isInTransit }">In Transit</p>
-                            </li>
-
-                            <li>
-                                <p :class="{ complete: isDeliveryComplete }">Destination</p>
-                            </li>
-                        </ul>
-
-                        <ul class="tracking-status-icon">
-                            <li id="status-pick-up" data-status="pick-up">
-                                <span :class="{circle: true, complete: isOrignComplete}"></span>
-                            </li>
-
-                            <li id="status-transit" data-status="transit">
-                                <span :class="{line: true, complete: isInTransit}"></span>
-                                <span :class="{circle: true, complete: isInTransit}"></span>
-                            </li>
-
-                            <li id="status-delivered" data-status="delivered">
-                                <span :class="{line: true, complete: isDeliveryComplete}"></span>
-                                <span :class="{circle: true, complete: isDeliveryComplete}"></span>
-                            </li>
-                        </ul>
-
-                        <ul class="tracking-status-text">
-                            <li>
-                                <span class="details">{{trackData.originDate}}</span>
-                                <span class="details">{{trackData.originLocation}}</span>
-                            </li>
-
-                            <li></li>
-
-                            <li>
-                                <span class="details">{{trackData.destinationDate}}</span>
-                                <span class="details">{{trackData.destinationLocation}}</span>
-                            </li>
-                        </ul>
-                    </div>
+                    <TrackProgressBar :stage="processStage" :originDate="trackData.originDate" :originLocation="trackData.originLocation" :destinationDate="trackData.destinationDate" :destinationLocation="trackData.destinationLocation"></TrackProgressBar>
 
                     <div class="grid-100 tablet-grid-100 container title">
                         <table class="table-tracking">

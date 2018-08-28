@@ -1,3 +1,132 @@
 .is-locked {
     pointer-events: none;
 }
+
+.hidden {
+    display: none;
+}
+
+.padding-right {
+    padding-right: 2px;
+}
+
+.margin-top {
+    margin-top: -20px;
+}
+
+.tablet-row-3 {
+    padding-right: 0px;
+    margin-left: -15px;
+    width: 32%;
+}
+
+.remove-padding-left {
+    padding-right: 20px;
+}
+
+.padding-adjustments {
+    padding-left: 0px;
+    padding-right: 20px;
+}
+
+.tablet-row-4 {
+    position: absolute;
+    right: 145px;
+}
+
+.tablet-row-1 {
+    margin-bottom: 15px;
+}
+
+.manifest-tooltip-light {
+    right: -5px;
+}
+
+.delete-manifest-line {
+    right: -85px;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    .manifest-line-container {
+        min-width: 0px !important;
+        max-width: 1024px !important;
+    }
+
+    .delete-manifest-line {
+        right: 20px;
+        position: absolute;
+        bottom: -30px;
+        top: initial;
+    }
+
+    .manifest-line-container:not(:first-child) {
+       margin-top: 45px; 
+    }
+
+    .line-details {
+        margin-left: 20px;
+    }
+
+    .hidden, .dimensions-line {
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .padding-adjustments:last-of-type {
+        padding-right: 20px;
+    }
+
+    .remove-padding-left {
+        padding-left: 0px;
+    }
+
+    .margin-top {
+        margin-top: -5px;
+    }
+
+    .margin-left {
+        margin-left: 13px;
+    }
+
+    .stackable-tooltip {
+        float: initial;
+        left: 10px;
+    }
+
+    .delete-manifest-line {
+        position: absolute;
+        right: 50px;
+        left: 10px;
+        top: 23px;
+    }
+
+    .tablet-row-3, .tablet-row-2 {
+        margin-bottom: 15px;
+    }
+
+    .tablet-row-2 {
+        padding-left: 0px;
+    }
+
+    .tablet-row-3 {
+        width: 100%;
+        margin-left: 0px;
+    }
+
+    .tablet-row-4 {
+        right: initial;
+        bottom: -35px;
+    }
+
+    .tablet-row-5 {
+        position: absolute;
+        right: 55px;
+        bottom: 25px; 
+    }
+}
+
+@media (width: 1024px) {
+    .margin-left {
+        margin-left: 1.5%;
+    }
+}

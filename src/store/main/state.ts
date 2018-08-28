@@ -6,7 +6,8 @@ const messageModel = {
     yPosition: 0.35,
     titleColor: "#15223d",
     waitMillsSecondsToClose: 2500,
-    reset: true
+    reset: true,
+    backToHome: false
 };
 
 

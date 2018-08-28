@@ -1,20 +1,36 @@
 import axios from 'axios';
+import qs from 'qs';
 
 let host = window.location.hostname;
 let domain;
 
-if (host == "localhost" || host == "clientdev.com") {
-    domain = "dev.com";
+if (host == "localhost" || host == "clientdev..com") {
+    domain = "dev..com";
 }
-else if (host == "clientstage.com") {
-    domain = "staging.com";
+else if (host == "clientstage..com" || host == "shipstage.unisco.com") {
+    domain = "staging..com";
+}
+else if (host == "client..com" || host == "ship.unisco.com") {
+    domain = "tms..com";
 }
 
+axios.defaults.transformRequest = function (data: any) {
+    const UserToken = localStorage.getItem("UserToken");
+    const UserID = localStorage.getItem("UserID");
+    let parseData = qs.parse(data);
+    let requestData = qs.stringify({
+        UserID: UserID,
+        UserToken: UserToken,
+        ...parseData
+    });
+
+    return requestData;
+};
 
 
 let instance = axios.create({
     baseURL : `https://${domain}`,
-    timeout: 5000,
+    timeout: 10000,
     headers: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8'}
 });
 

@@ -6,3 +6,38 @@ input[type="radio"].is-danger + .radio:after{
   margin-top:55px;
 
 }
+
+.margin-top-155 {
+  margin-top: -155px;
+}
+
+@media (max-width: 1024px) and (min-width: 768px)  {
+  .margin-top-155 {
+    margin-top: 0px;
+  }
+
+  .footer-button {
+    right: 25px;
+  }
+
+  .step-header > .checkbox {
+    margin-left: 0px;
+    right: 0;
+  }
+
+  .back-button {
+    margin-left: 75px !important;
+    margin-top: 20px !important;
+  }
+
+  .add-margin-40 {
+    margin-bottom: 40px;
+  }
+}
+
+@media (width: 1024px)  {
+  .landscape-width {
+    width: 15% !important;
+  }
+}
+

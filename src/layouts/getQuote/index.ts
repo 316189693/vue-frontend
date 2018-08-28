@@ -50,8 +50,23 @@ export default class GetQuote extends Vue {
   hasQuote: boolean = this.$store.getters.quoteData.hasQuote;
   myAccountData: any = this.$store.getters.myAccountData;
   calculating: boolean = false;
+  creditLimit: number = 0;
 
   isEditMode: boolean = false;
+
+  // Error Modal
+  errorNoCreditModal: string = "getQuoteError";
+  errorWidth: number = 423;
+  errorNoCreditModalTitle: string = "Error";
+  closeNoCreditErrorModal() {
+      this.$modal.hide(this.errorNoCreditModal);
+  }
+  errorOverCreditModal: string = "getOverCreditError";
+  errorOverCreditModalTitle: string = "Error";
+  closeOverCreditErrorModal() {
+      this.$modal.hide(this.errorOverCreditModal);
+  }
+  showXBtn: boolean = false;
 
   tooltipMessages: any = {
     wherePickup:
@@ -307,6 +322,7 @@ export default class GetQuote extends Vue {
         messageModel["waitMillsSecondsToClose"] = 3000;
         messageModel["clickToClose"] = true;
         this.$store.dispatch("updateMessageModel", messageModel);
+        window.location.href = "#/savedQuote"; // redirect
     }, (error: any) => {
         let messageModel = {};
         messageModel["isShowMessageModel"] = true;
@@ -321,10 +337,29 @@ export default class GetQuote extends Vue {
   }
 
   async schedulePickup() {
-    this.keepQuote = true;
-    this.savedQuote();
-    this.$store.dispatch("changeQuotePageStage", "schedulePage");
-    window.location.href = "#/schedulepickup";
+    this.getCreditLimit();
+  }
+
+  async getCreditLimit() {
+    try {
+      let bill_to = { billto_id: this.myAccountData.billing.locationId, current_amount: this.quoteData.estimate.total };
+      let response = await clientService.post("write/get_credit_limit_balance.php", bill_to);
+      this.creditLimit = response.data;
+      if (this.creditLimit == -1) {
+        this.$modal.show(this.errorOverCreditModal);
+      }
+      else if (this.creditLimit == -2) {
+        this.$modal.show(this.errorNoCreditModal);
+      }
+      else if (this.creditLimit == 1) {
+        this.keepQuote = true;
+        this.savedQuote();
+        this.$store.dispatch("changeQuotePageStage", "schedulePage");
+        window.location.href = "#/schedulepickup";
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
 
   async deleteQuote() {

@@ -1,6 +1,7 @@
 import Config from "./config.json";
 
 const schedulePickupValidation = {
+
     pickupCompany: {
         required: Config.default_Required_Message,
     },
@@ -40,10 +41,9 @@ const schedulePickupValidation = {
         length: "It must have 10 digits"
     },
 
-    orderReference:{
+    orderReference: {
         alpha_num: 'The order reference field may only contain alpha-numeric characters.'
     }
-
 };
 
 export default schedulePickupValidation;

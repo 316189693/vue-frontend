@@ -66,6 +66,12 @@ const formData = {
     hasTrackTableRows: false,
     trackFail: false,
     trackResultMsg: "",
+    showMultiOrder: false,
+    orders: [],
+    pro: "",
+    ref: "",
+    deliveryDate: "",
+    pallet: ""
 };
 
 const messageModel = {

@@ -17,7 +17,7 @@ const config = {
     //     pristine: 'pristine', // control has not been interacted with
     //     dirty: 'dirty' // control has been interacted with
     // },
-    // events: 'input|blur',
+    events: '',
     // inject: true,
     // validity: false,
     // aria: true,

@@ -1,0 +1,85 @@
+.margin-left-button {
+    margin-left: 3%;
+}
+
+.padding-top {
+    padding-top: 15px;
+}
+
+#break-word {
+    display: contents;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .padding-top {
+        padding-top: 0px;
+    }
+
+    .checkbox-list .tooltip-light {
+        margin-right: -75px;
+        position: relative;
+    }
+
+    .add-margin-bottom {
+        margin-bottom: 40px;
+    }
+
+    .tablet-checkbox span {
+        margin-left: 30px !important;
+        position: absolute;
+        white-space: nowrap;
+
+        .tooltip-light {
+            margin-left: 0px;
+            right: -5px;
+        }
+    }
+
+    .step-header>.checkbox>span {
+        margin-left: 30px !important;
+    }
+
+    #break-word {
+        display: block;
+        margin-left: 0px !important;
+    }
+
+    .pallets-count-container {
+        margin-top: 40px !important;
+        margin-left: 7%;
+    }
+
+    .margin-left-button {
+        margin-left: 7%;
+    }
+
+    .add {
+        background: url(../../styles/svg/add_item.svg) no-repeat 21px 6.5px;
+        background-size: 8%;
+    }
+
+    .add:hover {
+        background: url(../../styles/svg/add_item_hover.svg) no-repeat 21px 6.5px;
+        background-size: 9%;
+    }
+}
+
+@media (width: 1024px) {
+    .pallets-count-container, .margin-left-button {
+        margin-left: 5%;
+    }
+
+    .add {
+        background: url(../../styles/svg/add_item.svg) no-repeat 36px 5px;
+        width: 95%;
+    }
+
+    .add:hover {
+        background: url(../../styles/svg/add_item_hover.svg) no-repeat 36px 5px;
+        width: 95%;
+    }
+}

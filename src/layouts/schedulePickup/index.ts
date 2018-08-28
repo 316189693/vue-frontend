@@ -32,14 +32,27 @@ export default class SchedulePickup extends Vue {
       window.location.href = "#/getquote";
     } else {
       this.$store.dispatch("changeQuotePageStage", "schedulePage");
+      this.$store.dispatch("getAddressBookData");
     }
   }
 
-  mounted() {}
+  mounted() {
+    if (this.scheduleData.pickup.locationId > 0) {
+      this.disableAddressPickUp = true;
+    }
+    if (this.scheduleData.delivery.locationId > 0) {
+      this.disableAddressDelivery = true;
+    }
+  }
+
+  beforeMount() {
+    this.scheduleData.pickup.latestPickupTime = this.getOneHourAdvanceTime(this.scheduleData.pickup.earliestPickupTime);
+  }
 
   // Data
   scheduleData = this.$store.getters.scheduleData;
   quoteData = this.$store.getters.quoteData;
+  addressBookData = this.$store.getters.addressBookData;
 
   instruction_MaxCharacters: number = 150;
 
@@ -47,7 +60,7 @@ export default class SchedulePickup extends Vue {
 
   dateFormat: string = "MM/dd/yyyy";
 
-  validationStarted: boolean = true;
+  validationStarted: boolean = false;
 
   showPickupToolMsg: boolean = false;
 
@@ -66,6 +79,20 @@ export default class SchedulePickup extends Vue {
   };
   validPickupAddress: boolean = false;
   validDeliveryAddress: boolean = false;
+  disableSelectAddressBookPickUp: boolean = false;
+  disableSelectAddressBookDelivery: boolean = false;
+  disableSaveAddressBookPickUp: boolean = true;
+  disableSaveAddressBookDelivery: boolean = true;
+  addressList: any = [];
+  selectaddressRadio: number = 0;
+  addressBookrightBtnStyle: any = {
+    "background-color": "#15223d !important",
+    color: "#fff !important"
+  };
+  disableAddressPickUp: boolean = false;
+  disableAddressDelivery: boolean = false;
+  selectedIdentityType: string = "";
+
   // Data
 
   // computed properties
@@ -204,7 +231,7 @@ export default class SchedulePickup extends Vue {
       !this.isLatestPickupDateInvalid();
 
     if (result && this.validPickupDateTime && validDateTime) {
-      let dataString =
+      let dataStringPickup =
         "street=" +
         pickup_street +
         "&city=" +
@@ -214,8 +241,8 @@ export default class SchedulePickup extends Vue {
         "&postcode=" +
         pickup_zip +
         "&region=NA";
-      this.validateLocation(dataString, "pickup");
-      dataString =
+
+      let dataStringDelivery =
         "street=" +
         delivery_street +
         "&city=" +
@@ -225,7 +252,19 @@ export default class SchedulePickup extends Vue {
         "&postcode=" +
         delivery_zip +
         "&region=NA";
-      this.validateLocation(dataString, "delivery");
+
+      if (
+        this.scheduleData.pickup.locationId > 0 &&
+        this.scheduleData.delivery.locationId > 0
+      ) {
+        // if both address select from address book
+        // redirect to schedule review
+        this.$store.dispatch("changeQuotePageStage", "scheduleReviewPage");
+        window.location.href = "#/schedulepickup/review";
+      } else {
+        this.validateLocation(dataStringPickup, "pickup");
+        this.validateLocation(dataStringDelivery, "delivery");
+      }
     } else {
     }
   }
@@ -234,7 +273,7 @@ export default class SchedulePickup extends Vue {
     try {
       let response = await clientService.get(
         "https://pcmiler.alk.com/apis/rest/v1.0/Service.svc/locations?" +
-          dataString,
+        dataString,
         { headers: { authorization: "9A4DC5EC2EFCEA4C8917545360589148" } }
       );
       if (identity == "pickup") {
@@ -252,11 +291,98 @@ export default class SchedulePickup extends Vue {
           this.suggestedDelivery = response.data[0].Address;
         }
       }
-      if (!this.validPickupAddress && !this.validDeliveryAddress) {
+
+      if (
+        !this.validPickupAddress &&
+        this.scheduleData.pickup.locationId == 0 &&
+        (!this.validDeliveryAddress &&
+          this.scheduleData.delivery.locationId == 0)
+      ) {
+        // show suggestion modal both pickup & delivery
+        this.pickupModalrightBtnText = "Next";
         this.showPickupModal();
+      } else {
+        if (
+          !this.validPickupAddress &&
+          this.scheduleData.pickup.locationId > 0 &&
+          (!this.validDeliveryAddress &&
+            this.scheduleData.delivery.locationId == 0)
+        ) {
+          // show suggestion modal delivery only
+          this.showDeliveryModal();
+        } else if (
+          !this.validPickupAddress &&
+          this.scheduleData.pickup.locationId == 0 &&
+          (!this.validDeliveryAddress &&
+            this.scheduleData.delivery.locationId > 0)
+        ) {
+          // show suggestion modal pickup only
+          this.pickupModalrightBtnText = "Submit";
+          this.showPickupModal();
+        }
       }
     } catch (error) {
     } finally {
+    }
+  }
+
+  async changeKeyWord(identity: string) {
+    if (identity == "pickup") {
+      if (this.scheduleData.pickup.company && this.scheduleData.pickup.address1 && this.scheduleData.pickup.phone) {
+        this.disableSaveAddressBookPickUp = false;
+      } else {
+        this.disableSaveAddressBookPickUp = true;
+      }
+    } else if (identity == "delivery") {
+      if (this.scheduleData.delivery.company && this.scheduleData.delivery.address1 && this.scheduleData.delivery.phone) {
+        this.disableSaveAddressBookDelivery = false;
+      } else {
+        this.disableSaveAddressBookDelivery = true;
+      }
+    }
+  }
+
+  saveToAddressBook(identity: string) {
+    if (identity == "pickup") {
+      this.scheduleData.pickup.address_book = 1;
+      this.disableSelectAddressBookPickUp = true;
+      this.disableSaveAddressBookPickUp = true;
+    } else {
+      this.scheduleData.delivery.address_book = 1;
+      this.disableSelectAddressBookDelivery = true;
+      this.disableSaveAddressBookDelivery = true;
+    }
+  }
+
+  selectCompany() {
+    let companyData =
+      this.selectedIdentityType == "pickup"
+        ? this.scheduleData.pickup
+        : this.scheduleData.delivery;
+    if (this.selectaddressRadio > 0) {
+      let companyList = this.addressList;
+      for (let i in companyList) {
+        let row = companyList[i];
+        if (row["location_id"] == this.selectaddressRadio) {
+          companyData.locationId = row["location_id"];
+          companyData.company = row["location_name"];
+          companyData.address1 = row["location_street"];
+          companyData.address2 = row["location_street2"];
+          companyData.phone = row["location_phone"];
+          companyData.email = row["location_email"];
+          companyData.fax = row["location_fax"];
+        }
+      }
+
+      if (this.selectedIdentityType == "pickup") {
+        this.disableAddressPickUp = true;
+        this.disableSaveAddressBookPickUp = true;
+      } else {
+        this.disableAddressDelivery = true;
+        this.disableSaveAddressBookDelivery = true;
+      }
+
+      this.$modal.hide(this.addressBookModal);
     }
   }
 
@@ -296,6 +422,8 @@ export default class SchedulePickup extends Vue {
   modalName: string = "cancelScheduleModal";
   pickupModal: string = "pickupModal";
   deliveryModal: string = "deliveryModal";
+  addressBookModal: string = "addressBookModal";
+  pickupModalrightBtnText: string = "Next";
 
   showModal() {
     this.$modal.show(this.modalName);
@@ -320,8 +448,16 @@ export default class SchedulePickup extends Vue {
   }
 
   showDeliveryModal() {
-    this.$modal.show(this.deliveryModal);
+    // if pick up has manually inputted address && delivery address select from address book
+    // redirect to schedule review
+    if (this.pickupModalrightBtnText == "Submit") {
+      this.confirmDeliveryModal();
+    } else {
+      // if both pick up & delivery manually inputted address
+      this.$modal.show(this.deliveryModal);
+    }
   }
+
   closeDeliveryModal() {
     this.$modal.hide(this.deliveryModal);
     this.$modal.hide(this.pickupModal);
@@ -345,6 +481,32 @@ export default class SchedulePickup extends Vue {
 
     this.$store.dispatch("changeQuotePageStage", "scheduleReviewPage");
     window.location.href = "#/schedulepickup/review";
+  }
+
+  closeAddressBookModal() {
+    this.$modal.hide(this.addressBookModal);
+  }
+
+  async selectAddressBookModal(type: string) {
+    this.selectedIdentityType = type;
+    this.addressList = [];
+    let pickup_zip = this.quotePageData.pickup.zipCode;
+    let pickup_location_type = this.quotePageData.pickup.locationType;
+    let delivery_zip = this.quotePageData.delivery.zipCode;
+    let delivery_location_type = this.quotePageData.delivery.locationType;
+    let zip = (type == "pickup") ? pickup_zip : delivery_zip;
+    let location_type = (type == "pickup") ? pickup_location_type : delivery_location_type;
+
+    let addressBook = this.addressBookData;
+    for (let i in addressBook.addressList) {
+      let row = addressBook.addressList[i];
+      if (zip == row["location_zip"] && location_type == row['fk_location_type_id']) {
+        this.addressList.push(row);
+      }
+    }
+    if (await this.addressList) {
+      this.$modal.show(this.addressBookModal);
+    }
   }
   // Modal
 
@@ -375,6 +537,28 @@ export default class SchedulePickup extends Vue {
       "-" +
       (eDay < 10 ? "0" + eDay : eDay)
     );
+  }
+
+  getOneHourAdvanceTime(val: string) {
+    let timeOptions = this.getTimeOptions();
+    let currentIndex = timeOptions.indexOf(val);
+    let time = timeOptions.length > 0 ? timeOptions[0] : "";
+
+    if (currentIndex > -1) {
+      if (currentIndex == (timeOptions.length - 1)) {
+        time = timeOptions[1];
+      } else if (currentIndex == (timeOptions.length - 2)) {
+        time = timeOptions[0];
+      } else {
+        time = timeOptions[currentIndex + 2];
+      }
+    }
+
+    return time;
+  }
+
+  setAdvancedLatestPickupTime() {
+    this.scheduleData.pickup.latestPickupTime = this.getOneHourAdvanceTime(this.scheduleData.pickup.earliestPickupTime);
   }
 
   isDateFromPast(val: string) {

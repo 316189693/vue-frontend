@@ -1,15 +1,15 @@
 import axios from 'axios';
 import qs from 'qs';
-// var baseURL = process.env.NODE_ENV === 'production' ? 'https://client.com/':'https://clientdev.com/';
+// var baseURL = process.env.NODE_ENV === 'production' ? 'https://client..com/':'https://clientdev..com/';
 
 let host = window.location.hostname;
 
-if (host === "localhost" || host === "shipdev.com") {
-    host = "clientdev.com";
-} else if (host == "shipstage.com") {
-    host = "clientstage.com";
-} else if (host === "ship.com") {
-    host = "client.com";
+if (host === "localhost" || host === "shipdev.unisco.com") {
+    host = "clientdev..com";
+} else if (host == "shipstage.unisco.com") {
+    host = "clientstage..com";
+} else if (host === "ship.unisco.com") {
+    host = "client..com";
 }
 
 axios.defaults.transformRequest = function (data: any) {
@@ -19,7 +19,7 @@ axios.defaults.transformRequest = function (data: any) {
     let requestData = qs.stringify({
         UserID: UserID,
         UserToken: UserToken,
-        .parseData
+        ...parseData
     });
 
     return requestData;
@@ -27,7 +27,7 @@ axios.defaults.transformRequest = function (data: any) {
 
 let instance = axios.create({
     baseURL: `https://${host}`,
-    timeout: 5000,
+    timeout: 10000,
     headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8" }
 });
 

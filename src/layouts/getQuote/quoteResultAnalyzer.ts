@@ -15,8 +15,9 @@ export default class QuoteResultAnalyzer {
         if (!Array.isArray(this.quoteResult.quote_lines)) {
             this.quoteResult.quote_lines = Object.keys(this.quoteResult.quote_lines).map(i => this.quoteResult.quote_lines[i]);
         }
-        for (const {items, index} of this.quoteResult.quote_lines.map((items: any, index: any) => ({ items, index }))) {
+        for (const { items, index } of this.quoteResult.quote_lines.map((items: any, index: any) => ({ items, index }))) {
             for (const item of items.lines) {
+
                 if (item.rate_type == "CHARGE-BASE") { // base charge
                     this.analysis['baseCharge'] = item;
                 }
@@ -24,7 +25,9 @@ export default class QuoteResultAnalyzer {
                     this.analysis[`fuelCharge`] = item;
                 }
                 else if (item.rate_type == "CHARGE-ACC") { // accessorial charge
+
                     switch (item.tms_acc_name_code) {
+
                         case "CAsurcharge":
                             this.analysis[`CAsurcharge`] = item;
                             break;
@@ -70,7 +73,7 @@ export default class QuoteResultAnalyzer {
 
 
     public mapEstimate(input: any) {
-         // map estimate quote amount with result
+        // map estimate quote amount with result
         let result = this.analysis;
 
          input.total = result.total || 0;
@@ -91,6 +94,7 @@ export default class QuoteResultAnalyzer {
          input.delivery.constructionSite = result.COND && result.COND.rate_amount_total;
          input.delivery.conventionCenter = result.SHOWD && result.SHOWD.rate_amount_total;
          input.delivery.residential = result.RESD && result.RESD.rate_amount_total;
+
     }
 
 

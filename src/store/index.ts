@@ -9,6 +9,8 @@ import loginModule from "./login/loginModule";
 import homeModule from "./home/homeModule";
 import orderReviewModule from "./orderReview/orderReviewModule";
 import customerSignupModule from "./customerSignup/customerSignupModule";
+import addressBookModule from "./addressBook/addressBookModule";
+import myCustomerModule from "./myCustomer/myCustomerModule";
 
 Vue.use(Vuex);
 
@@ -24,7 +26,9 @@ export default new Vuex.Store({
     loginModule,
     homeModule,
     orderReviewModule,
-    customerSignupModule
+    customerSignupModule,
+    addressBookModule,
+    myCustomerModule
   }
   // strict: true
 });

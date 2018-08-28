@@ -6,12 +6,14 @@ import StageHeader from "../../components/stageHeader";
 
 import template from "./demo.vue";
 import MainButtonSet from "../../components/mainButtonSet";
+import TrackProgressBar from "../../components/trackProgressBar";
 
 @Component({
     mixins: [template],
     components: {
         StageHeader,
-        MainButtonSet
+        MainButtonSet,
+        TrackProgressBar
     }
 
 })

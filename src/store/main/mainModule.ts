@@ -27,6 +27,11 @@ const mutations = {
         } else {
             state.main.messageModel.clickToClose = false;
         }
+        if (messageModel.backToHome) {
+            state.main.messageModel.backToHome = true;
+        } else {
+            state.main.messageModel.backToHome = false;
+        }
         if (messageModel.waitMillsSecondsToClose === 0) {
             state.main.messageModel.waitMillsSecondsToClose = 0;
         } else {

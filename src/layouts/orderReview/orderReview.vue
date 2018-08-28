@@ -1,13 +1,20 @@
 <template>
     <div id="grid-container">
         <div class="grid-100 tablet-grid-100">
-            <div class="grid-100 tablet-grid-100 container title">
-                <h1 class="title">PRO #: {{formData.proNumber}}</h1>
-                <p class="sub-title sub-header" v-if="formData.referenceNumber">Reference #: {{formData.referenceNumber}}</p>
+            <div class="grid-100 tablet-grid-80 container title">
+                <div class="grid-80 tablet-grid-70">
+                    <h1 class="title">PRO #: {{formData.proNumber}}</h1>
+                    <p class="sub-title sub-header" v-if="formData.referenceNumber">Reference #: {{formData.referenceNumber}}</p>
+                </div>
+                <div class="grid-20 tablet-grid-30">
+                    <h1 class="title">
+                        <button class="button-yellow-medium" @click="trackShipment">Track Shipment</button>
+                    </h1>
+                </div>
             </div>
 
             <div class="grid-100 tablet-grid-100 container">
-                <div class="grid-50 tablet-grid-50">
+                <div class="grid-parent grid-50 tablet-grid-80 container step-container add-margin-bottom">
                     <div class="grid-100 tablet-grid-100">
                         <h1 class="step-header">
                             <span class="label-number-summary">1</span>Where are we picking up?</h1>
@@ -63,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="grid-50 tablet-grid-50">
+                <div class="grid-parent grid-50 tablet-grid-80 container step-container add-margin-bottom">
                     <div class="grid-100 tablet-grid-100">
                         <h1 class="step-header">
                             <span class="label-number-summary">2</span>Where are we delivering?</h1>
@@ -116,7 +123,7 @@
             </div>
 
             <div class="grid-100 tablet-grid-100 container">
-                <div class="grid-50 tablet-grid-50">
+                <div class="grid-parent grid-50 tablet-grid-80 container step-container add-margin-bottom">
                     <div class="grid-100 tablet-grid-100">
                         <h1 class="step-header">
                             <span class="label-number-summary">3</span>What are we carrying?</h1>
@@ -173,7 +180,7 @@
                     </div>
                 </div>
 
-                <div class="grid-50 tablet-grid-50">
+                <div class="grid-parent grid-50 tablet-grid-80 container step-container add-margin-bottom">
                     <div class="grid-100 tablet-grid-100">
                         <h1 class="step-header">
                             <span class="label-number-summary">4</span>Documents</h1>
@@ -185,11 +192,16 @@
                                 <li>
                                     <div class="file">
                                         <p class="file-category">{{document.file_category_name}}</p>
-
-                                        <a :href="document.file_original_url" target="_BLANK" v-if="document.file_thumbnail_url">
-                                            <img :src="document.file_thumbnail_url">
-                                        </a>
-
+                                        <template v-if="document.file_category_name == 'Invoice'">
+                                            <a :href="document.file_original_url" target="_BLANK" v-if="document.file_thumbnail_url">
+                                                <img src="../../assets/images/pdf-icon.png">
+                                            </a>
+                                        </template>
+                                        <template v-else>
+                                            <a :href="document.file_original_url" target="_BLANK" v-if="document.file_thumbnail_url">
+                                                <img :src="document.file_thumbnail_url">
+                                            </a>
+                                        </template>
                                     </div>
                                 </li>
                             </template>

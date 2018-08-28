@@ -15,3 +15,16 @@
   	text-align: center;
   	color: #15223d;
 }
+.get-started{
+  margin-top:50px; 
+  min-height: 300px
+}
+@media (max-width: 1024px) {
+  .get-started {
+    margin-top: 222px;
+    min-height: 180px;
+  }
+  .inline-pro{
+    margin-left: 26px;
+  }
+}

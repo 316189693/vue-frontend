@@ -5,7 +5,7 @@
 
             <div class="grid-100 tablet-grid-100 container message-container">
                 <div v-if="parseFloat(quoteData.estimate.palletSpaceCharge) > 0">
-                    <p>{{quoteData.palletSpaces}} Pallet Position{{quoteData.palletSpaces > 1 ? "s" : ""}}
+                    <p>{{quoteData.palletSpaces}} Pallet Space{{quoteData.palletSpaces > 1 ? "s" : ""}}
                         <span>{{quoteData.estimate.palletSpaceCharge | dollar}}</span>
                     </p>
                     <p class="text-disclosure">{{quoteData.estimate.palletSpaceChargeText}}</p>
@@ -82,20 +82,20 @@
 
             <p class="textfield-text">Note: This is just an estimate. Actual price may vary depending on charges incurred at pickup or delivery.</p>
 
-            <p class="textfield-text-medium">All quotes are valid for 30 days subject to the Department of Energy Diesel FCS PADD 5 weekly adjustment.</p>
+            <p class="textfield-text-medium">All quotes are valid for 30 days. Department of Energy Diesel FSC adjusted weekly.</p>
 
             <p class="textfield-text-medium">All shipments are subject to California Compliance Fee - {{quoteData.estimate.complianceCharge | dollar}}.</p>
 
             <div class="grid-100 tablet-grid-100 container flex-justify-content" v-if="isShowButtons">
-                <div class="grid-33 tablet-grid-33">
+                <div class="grid-33">
                     <button class="button-standard-medium" @click="editQuote">Edit Quote</button>
                 </div>
 
-                <div class="grid-33 tablet-grid-33" v-show="!(isEditMode || isScheduleMode)">
+                <div class="grid-33" v-show="!(isEditMode || isScheduleMode)">
                     <button class="button-standard-medium" @click="saveQuote">Save Quote</button>
                 </div>
 
-                <div class="grid-33 tablet-grid-33">
+                <div class="grid-33">
                     <button class="button-yellow-medium" @click="schedulePickup">Schedule Pickup</button>
                 </div>
             </div>

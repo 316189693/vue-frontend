@@ -229,7 +229,8 @@ button {
 		}
 	}
 
-	&.actions {
+	&.actions, 
+	&.card-actions {
 		background: url(./styles/svg/actions_icon.svg) no-repeat;
 		background-color: transparent;
 		width: 10px;

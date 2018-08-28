@@ -4,6 +4,7 @@ import schedulePickupValidation from "./schedulePickup";
 import loginValidation from "./login";
 import myAccountValidation from "./myAccount";
 import customerSignupValidation from "./customerSignup";
+import addressBookValidation from "./addressBook";
 
 const dictionary = {
     en: {
@@ -17,7 +18,8 @@ const dictionary = {
             ...schedulePickupValidation,
             ...loginValidation,
             ...myAccountValidation,
-            ...customerSignupValidation
+            ...customerSignupValidation,
+            ...addressBookValidation,
         }
     }
 };

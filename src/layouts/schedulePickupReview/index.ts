@@ -25,9 +25,9 @@ import DefaultModal from "../../components/modal";
 
 })
 export default class SchedulePickupShipment extends Vue {
-
     @Provide()
     modalConfirmText: string = "Place Order";
+    warehouse_id: number;
 
     // vue life cycle method
     beforeCreate() {
@@ -57,6 +57,7 @@ export default class SchedulePickupShipment extends Vue {
     quoteData = this.$store.getters.quoteData;
     scheduleData = this.$store.getters.scheduleData;
     isProcessing = false;
+    orderPageLink: any = "";
     orderId: number = 0;
     // Data
 
@@ -157,7 +158,8 @@ export default class SchedulePickupShipment extends Vue {
         let time2_12hour = this.scheduleData.pickup.latestPickupTime;
         let time2_24hour = moment(`2018-1-1 ${time2_12hour}`).format("HH:mm");
 
-        return `${time1_24hour} (${time1_12hour}) to ${time2_24hour} (${time2_12hour})`;
+        // return `${time1_24hour} (${time1_12hour}) to ${time2_24hour} (${time2_12hour})`;
+        return `${time1_12hour} to ${time2_12hour}`;
     }
     // end of computed properties
 
@@ -180,6 +182,22 @@ export default class SchedulePickupShipment extends Vue {
         window.location.href = "#/schedulepickup/shipment";
     }
 
+    createTmsLink(link: any) {
+        let host = window.location.hostname;
+        let domain;
+
+        if (host == "localhost" || host == "clientdev..com") {
+            domain = "https://dev..com";
+        }
+        else if (host == "clientstage..com" || host == "shipstage.unisco.com") {
+            domain = "https://staging..com";
+        }
+        else if (host == "client..com" || host == "ship.unisco.com") {
+            domain = "https://tms..com";
+        }
+        return domain + link;
+    }
+
     async accept() {
 
         this.isProcessing = true;
@@ -196,7 +214,9 @@ export default class SchedulePickupShipment extends Vue {
             zip: qp.zipCode,
             email: sp.email && sp.email.trim(),
             phone: sp.phone,
-            fax: sp.fax
+            fax: sp.fax,
+            address_book: sp.address_book,
+            location_type: qp.locationType
         };
 
         let sd = this.scheduleData.delivery;
@@ -211,18 +231,26 @@ export default class SchedulePickupShipment extends Vue {
             zip: qd.zipCode,
             email: sd.email && sd.email.trim(),
             phone: sd.phone,
-            fax: sd.fax
+            fax: sd.fax,
+            address_book: sd.address_book,
+            location_type: qd.locationType
         };
 
-        let pickupLocationPromise = this.getLocationPromise(pickupJson);
+        let pickupLocationPromise: any =  {};
+        let deliveryLocationPromise: any  = {};
 
-        let deliveryLocationPromise = this.getLocationPromise(deliveryJson);
+        if (sp.locationId == 0) {
+            pickupLocationPromise = this.getLocationPromise(pickupJson);
+        }
+        if (sd.locationId == 0) {
+            deliveryLocationPromise = this.getLocationPromise(deliveryJson);
+        }
 
         try {
             let response = await Promise.all([pickupLocationPromise, deliveryLocationPromise]);
 
-            let pickupLocationId = response[0].data.location_id;
-            let deliveryLocationId = response[1].data.location_id;
+            let pickupLocationId = (sp.locationId == 0) ? response[0].data.location_id : sp.locationId;
+            let deliveryLocationId = (sd.locationId == 0) ? response[1].data.location_id : sd.locationId;
 
             if (parseInt(pickupLocationId) > 0 && parseInt(deliveryLocationId) > 0) {
                 this.postAcceptQuote(pickupLocationId, deliveryLocationId);
@@ -242,6 +270,12 @@ export default class SchedulePickupShipment extends Vue {
     private async postAcceptQuote(pickupLocationId: number, deliveryLocationId: number) {
         let url = "write_new/write_tms_quote_accept.php";
 
+        if (localStorage.getItem("company_id") == "26") {
+            this.warehouse_id = 56011;
+        } else {
+           this.warehouse_id = 2809;
+        }
+
         let json = {
             quote_id: this.quoteData.quoteId,
             ref_number: this.quoteData.orderReference,
@@ -255,18 +289,20 @@ export default class SchedulePickupShipment extends Vue {
             UserID: localStorage.UserID,
             UserToken: localStorage.UserToken,
             pageName: "ltlShedulePickupReview",
+            ltlClientPortalPU: 1,
+            warehouse_id1: this.warehouse_id,
         };
 
         try {
             let result = await tmsService.post(url, json);
+            let order_id = parseInt(result.data.order_id);
+            let pickup_id = parseInt(result.data.pickup_id);
 
-            let data = parseInt(result.data);
-
-
-            if (data > 0) {
-                this.orderId = data;
+            if (order_id > 0) {
+                this.orderId = order_id;
                 this.$modal.show(this.modalName);
-
+                let link = "#/orderReview?pu=" + pickup_id + "&order=" + order_id + "&isShowButtons=false";
+                this.orderPageLink = link;
                 this.isProcessing = false;
                 this.$store.dispatch("changeQuotePageStage", "quoteStartPage");
             }
@@ -337,8 +373,11 @@ export default class SchedulePickupShipment extends Vue {
 
 
     private getLocationRequestJson(input: any) {
+
         let data = {
             rec_id: 0,
+            input_location_type_id: input.location_type,
+            input_location_address_book : input.address_book,
             input_name: input.companyName,
             input_fax: input.fax,
             input_invoice_id: 0,

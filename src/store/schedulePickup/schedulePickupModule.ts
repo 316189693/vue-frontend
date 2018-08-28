@@ -15,6 +15,7 @@ const mutations = {
      // have to clear one by one. if clear using getScheduleObj. it will mess up the pointer to the state on other pages
     resetSchedule(state: any) {
         let s = state.schedule;
+        s.pickup.locationId = 0;
         s.pickup.company = null;
         s.pickup.address1 = null;
         s.pickup.address2 = null;
@@ -28,11 +29,14 @@ const mutations = {
         s.pickup.latestPickupDate = new Date();
         s.pickup.earliestPickupTime = moment(new Date()).add(1, "hour").format("h:00 A");
         s.pickup.latestPickupTime = moment(new Date()).add(1, "hour").format("h:00 A");
+        s.pickup.address_book = 0;
+        s.delivery.locationId = 0;
         s.delivery.company = null;
         s.delivery.address1 = null;
         s.delivery.email = null;
         s.delivery.phone = null;
         s.delivery.fax = null;
+        s.delivery.address_book = 0;
     },
 
 };

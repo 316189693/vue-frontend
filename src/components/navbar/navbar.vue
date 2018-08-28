@@ -4,9 +4,13 @@
     <div class="navbar-header">
       <ul>
         <li>
-          <a v-bind:class="{active_tab : currentPage == 'myAccount' || currentPage == 'myAccountEdit'}" >My Account</a>
+          <a v-bind:class="{active_tab : currentPage == 'myAccount' || currentPage == 'myAccountEdit' || currentPage == 'myCustomers' || currentPage == 'addressBook'}" >My Account</a>
           <div class="navbar-content">
-            <a href="#/myAccount">My Account</a>
+            <a href="#/myAccount"><p><span class="text-bold">{{fullName}}</span></p>View My Account</a>
+            <a href="#/addressBook">Address Book</a>
+              <template v-if="group_name == 'SALES'">
+                  <a  href="#/myCustomers" >My Customers</a>
+              </template>
             <a @click="logout">Logout</a>
           </div>
         </li>

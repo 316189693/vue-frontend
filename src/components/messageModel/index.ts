@@ -8,31 +8,25 @@ import * as $ from "jquery";
   mixins: [template]
 })
 export default class MessageModel extends Vue {
+  @Prop() modalName: string;
 
-  @Prop()
-  modalName: string;
+  @Prop() title: string;
 
-  @Prop()
-  title: string;
-
-  @Prop()
-  message: string;
+  @Prop() message: string;
 
   @Prop({ default: "#15223d" })
   titleColor: string;
-    @Prop({ default: "auto" })
-    height: string | number;
+  @Prop({ default: "auto" })
+  height: string | number;
 
-    @Prop({ default: 400 })
-    width: string | number;
+  @Prop({ default: 400 })
+  width: string | number;
 
-    @Prop({ default: 600 })
-    maxWidth: number;
+  @Prop({ default: 600 })
+  maxWidth: number;
 
-    @Prop({ default: 500 })
-    maxHeight: number;
-
-
+  @Prop({ default: 500 })
+  maxHeight: number;
 
   @Prop({ default: 0.35 })
   yPosition: string | number;
@@ -41,7 +35,10 @@ export default class MessageModel extends Vue {
   clickToClose: boolean;
 
   @Prop({default: false})
-  reset:boolean;
+  reset: boolean;
+
+  @Prop({default: false})
+  backToHome: boolean;
 
   @Prop({ default: 2000 })
   waitMillsSecondsToClose: number;
@@ -53,22 +50,27 @@ export default class MessageModel extends Vue {
   @Prop({ default: "Close" })
   btnText: string;
 
-  @Provide()
-  showCloseBtn: boolean = false;
+  @Provide() showCloseBtn: boolean = false;
 
   async closeModelAfterSecond() {
-    if (this.waitMillsSecondsToClose === 0) { this.showCloseBtn = true; return; }
+    if (this.waitMillsSecondsToClose === 0) {
+      this.showCloseBtn = true;
+      return;
+    }
     await this.waitSeconds(this.waitMillsSecondsToClose);
     this.$modal.hide(this.modalName);
   }
 
   closeModel() {
     this.$modal.hide(this.modalName);
+    if (this.backToHome) {
+        window.location.href = "index.html#/home";
+    }
   }
 
   waitSeconds(time: number) {
-    return new Promise(function (resolve, reject) {
-      setTimeout(function () {
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
         resolve();
       }, time);
     });

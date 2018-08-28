@@ -49,7 +49,7 @@ const mutations = {
     let shipping = res["shipping"];
     let user = res["user"];
 
-    if (billing) { 
+    if (billing) {
       state.myAccount.myAccountData.billing.locationId = billing["location_id"];
       state.myAccount.myAccountData.billing.locationName =
         billing["location_name"];

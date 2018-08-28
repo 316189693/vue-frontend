@@ -1,6 +1,7 @@
 import axios from "../../services/axios/axiosService";
 // import qs from "qs";
 
+// const baseUrl = process.env.NODE_ENV === "production" ? "" : "https://clientdev.r.com";
 
 const stageArray = [
     {

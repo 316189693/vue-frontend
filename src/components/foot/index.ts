@@ -23,10 +23,10 @@ export default class Foot extends Vue {
     if (host == "localhost" || host == "clientdev..com") {
       domain = "dev..com";
     }
-    else if (host == "clientstage..com" || host == "shipstage..com") {
+    else if (host == "clientstage..com" || host == "shipstage.unisco.com") {
       domain = "staging..com";
     }
-    else if (host == "client..com" || host == "ship..com") {
+    else if (host == "client..com" || host == "ship.unisco.com") {
       domain = "tms..com";
     }
 

@@ -11,7 +11,7 @@ function createTimeStr(time_from: string, time_to: string) {
     return "";
   }
 
-  return formatTimeStr(time_from) + " to " + formatTimeStr(time_to);
+  return formatTimeStrStandard(time_from) + " to " + formatTimeStrStandard(time_to);
 }
 
 /**
@@ -25,6 +25,21 @@ function formatTimeStr(timeStr: string) {
   let moment_temp = moment("2018-03-20 " + timeStr, "YYYY-MM-DD HH:mm:ss");
   if (moment_temp.isValid()) {
     return moment_temp.format("HH:mm [(]hh:mm A[)]").replace("(12:", "(00:");
+  }
+  return timeStr;
+}
+
+/**
+ * params: timeStr: string   "hh:ss:mm" "13:33:30"
+ * result: string  "1:33 PM"
+ */
+function formatTimeStrStandard(timeStr: string) {
+  if (!timeStr || timeStr === "0") {
+    return "";
+  }
+  let moment_temp = moment("2018-03-20 " + timeStr, "YYYY-MM-DD HH:mm:ss");
+  if (moment_temp.isValid()) {
+    return moment_temp.format("hh:mm A");
   }
   return timeStr;
 }

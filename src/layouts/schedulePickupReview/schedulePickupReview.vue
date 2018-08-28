@@ -224,10 +224,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        <div class="grid-25 tablet-grid-40" style="margin-left: 50px;">
-                            <button class="button-standard-small edit" :disabled="isProcessing">Edit</button>
-                        </div>
                     </div>
                 </div>
 
@@ -303,14 +299,13 @@
         </div>
 
 
-        
+
 
         <DefaultModal :modalName="modalName" :title="'Order Confirmation'" :closeButton="false" :rightBtnText="'Finished'" :leftBtnText="'Get Another Quote'" :rightBtnStyle="rightBtnStyle" @rightBtnAction="backToHome" @leftBtnAction="getAnotherQuote">
-            <p>Your order pickup for Quote #
+            <p>Your order
                 <u>
-                    <strong>{{this.quoteData.quoteId}}</strong>
-                </u> has been placed!</p>
-            <p>An email confirmation has been sent.</p>
+                    <strong><a v-bind:href="this.orderPageLink" target="_blank">#{{this.orderId}}</a></strong>
+                </u> has been placed!</p><br/>
         </DefaultModal>
         <DefaultModal :modalName="cancelScheduleModalName" :title="'Cancel Pickup'" :rightBtnText="'Yes, Cancel Pickup'" :leftBtnText="'Nevermind'" @rightBtnAction="cancelScheduleRightBtnAction" @leftBtnAction="cancelScheduleLeftBtnAction">
             <p>Are you sure you want to cancel this pickup?</p>

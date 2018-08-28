@@ -4,15 +4,13 @@ import router from "../../router";
 import socketIO from "../../services/socketIO/socketIO";
 import { resolve } from "url";
 import qs from "qs";
-
+import  { menu_link_obj } from "../../router/state";
 // state object
 const state = {
 
     login
 
 };
-
-
 // mutations are operations that actually mutates the state.
 const mutations = {
     clearLoginFailMsg(state: any) {
@@ -78,114 +76,213 @@ const mutations = {
         state.login.formData.trackFail = data.trackFail;
         state.login.formData.trackResultMsg = data.trackResultMsg;
     },
-    updateTrackProcess(state: any, data: any) {
-        let originDate = formateDate(data["p_date"]);
-        let destinationDate = data["d_date"] ? "Estimated: " + formateDate(data["d_date"]) : "";
-        let originLocation = formateLocation(data["pickup_city"], data["pickup_state"]);
-        let destinationLocation = formateLocation(data["delivery_city"], data["delivery_state"]);
-        let stage = data["stage"];
-        let status = data["status"];
-        state.login.formData.originDate = originDate;
-        state.login.formData.originLocation = originLocation;
-        state.login.formData.destinationDate = destinationDate;
-        state.login.formData.destinationLocation = destinationLocation;
-        switch (status) {
-            case "1":
-                state.login.formData.originChose = true;
-                state.login.formData.transitChose = false;
-                state.login.formData.destinationChose = false;
-                break;
+    // updateTrackProcess(state: any, data: any) {
+    //     let originDate = formateDate(data["p_date"]);
+    //     let destinationDate = data["d_date"] ? "Estimated: " + formateDate(data["d_date"]) : "";
+    //     let originLocation = formateLocation(data["pickup_city"], data["pickup_state"]);
+    //     let destinationLocation = formateLocation(data["delivery_city"], data["delivery_state"]);
+    //     let stage = data["stage"];
+    //     let status = data["status"];
+    //     state.login.formData.originDate = originDate;
+    //     state.login.formData.originLocation = originLocation;
+    //     state.login.formData.destinationDate = destinationDate;
+    //     state.login.formData.destinationLocation = destinationLocation;
+    //     switch (status) {
+    //         case "1":
+    //             state.login.formData.originChose = true;
+    //             state.login.formData.transitChose = false;
+    //             state.login.formData.destinationChose = false;
+    //             break;
 
-            case "2":
-                state.login.formData.originChose = true;
-                state.login.formData.transitChose = true;
-                state.login.formData.destinationChose = false;
-                break;
+    //         case "2":
+    //             state.login.formData.originChose = true;
+    //             state.login.formData.transitChose = true;
+    //             state.login.formData.destinationChose = false;
+    //             break;
 
-            case "3":
-                state.login.formData.originChose = true;
-                state.login.formData.transitChose = true;
-                state.login.formData.destinationChose = true;
-                break;
+    //         case "3":
+    //             state.login.formData.originChose = true;
+    //             state.login.formData.transitChose = true;
+    //             state.login.formData.destinationChose = true;
+    //             break;
 
-            default:
-                state.login.formData.originChose = false;
-                state.login.formData.transitChose = false;
-                state.login.formData.destinationChose = false;
-                break;
+    //         default:
+    //             state.login.formData.originChose = false;
+    //             state.login.formData.transitChose = false;
+    //             state.login.formData.destinationChose = false;
+    //             break;
 
-        }
-    },
+    //     }
+    // },
     updateTrackTable(state: any, data: any) {
-        if (!data || !data["history"] || data["history"] == 0 || data["history"].length <= 0) {
+        if (data == -1 || data == 0) {
             state.login.formData.trackTable = "";
             state.login.formData.hasTrackTableRows = false;
             state.login.formData.trackFail = true;
+            state.login.formData.showMultiOrder = false;
             state.login.formData.trackResultMsg = "Could not find order";
             return;
         }
-        state.login.formData.hasTrackTableRows = true;
-        state.login.formData.trackFail = false;
-        state.login.formData.trackResultMsg = "";
-        let history = data["history"];
 
-        let trackTable = {};
-        let originLocation = formateLocation(data["pickup_city"], data["pickup_state"]);
-        let destinationLocation = formateLocation(data["delivery_city"], data["delivery_state"]);
-        let destinationDate = data["d_date"] ? "Estimated: " + formateDate(data["d_date"]) : "";
-        for (let i = 0; i < history.length; i++) {
-            let element = history[i];
-
-            let stage = element["tms_order_log_stage"];
-            let stage_text = stage ? state.login.stageText[stage] : "";
-            let outputDate = formateTrackTableDate(element["c_date"]);
-            let outputTime = formateTrackTableTime(element["c_date"]);
-
-            let location = "";
-            let logText = element["tms_order_log_text"] || "";
-            if (logText == "order check-in") {
-                switch (stage) {
-                    case "0":
-                        logText = "Picked Up";
-                        location = originLocation;
-                        break;
-                    case "2":
-                    case "3":
-                    case "4":
-                        logText = "Delivered";
-                        location = destinationLocation;
-                        break;
+        state.login.formData.showMultiOrder = false;
+        let orders = data.orders;
+        if (orders) {
+            if (orders.length == 1) {
+                let order = orders[0];
+                let orderData = getOrderData(state, order);
+                state.login.formData.originChose = orderData.originChose;
+                state.login.formData.originDate = orderData.originDate;
+                state.login.formData.originLocation = orderData.originLocation;
+                state.login.formData.destinationDate = orderData.destinationDate;
+                state.login.formData.destinationLocation = orderData.destinationLocation;
+                state.login.formData.transitChose = orderData.transitChose;
+                state.login.formData.destinationChose = orderData.destinationChose;
+                state.login.formData.hasTrackTableRows = orderData.hasTrackTableRows;
+                state.login.formData.trackFail = orderData.trackFail;
+                state.login.formData.trackResultMsg = orderData.trackResultMsg;
+                state.login.formData.trackTable = orderData.trackTable;
+            } else if (orders.length > 1) {
+                let ordersData = [];
+                for (let i = 0; i < orders.length; i++) {
+                  let order = orders[i];
+                  let orderData = getOrderData(state, order);
+                  ordersData[i] = orderData;
                 }
-            } else if ((logText == "order updated") || (logText == "Delivery Apt - Order Appt. Update")) {
-                logText = "Picked Up";
+                state.login.formData.orders = ordersData;
+                state.login.formData.showMultiOrder = true;
+                state.login.formData.hasTrackTableRows = false;
+                // state.track.trackData.showTrack = false;
             }
-
-            let statusCode = element["tms_order_log_status_code"] || "";
-
-            let seperator = logText && statusCode ? " - " : "";
-            if ((statusCode == "Pending Appointment") && (!destinationDate)) {
-
-                state.login.destinationDate = "Pending Appointment";
-            }
-
-            let obj = {
-                outputTime: outputTime,
-                status: (statusCode + seperator + logText),
-                location: location
-            };
-
-            if (trackTable[outputDate]) {
-                trackTable[outputDate].push(obj);
-            } else {
-                trackTable[outputDate] = [obj];
-            }
-        }
-
-
-        state.login.formData.trackTable = trackTable;
+          } else {
+              let orderData = getOrderData(state, data);
+              state.login.formData.originChose = orderData.originChose;
+              state.login.formData.originDate = orderData.originDate;
+              state.login.formData.originLocation = orderData.originLocation;
+              state.login.formData.destinationDate = orderData.destinationDate;
+              state.login.formData.destinationLocation = orderData.destinationLocation;
+              state.login.formData.transitChose = orderData.transitChose;
+              state.login.formData.destinationChose = orderData.destinationChose;
+              state.login.formData.hasTrackTableRows = orderData.hasTrackTableRows;
+              state.login.formData.trackFail = orderData.trackFail;
+              state.login.formData.trackResultMsg = orderData.trackResultMsg;
+              state.login.formData.trackTable = orderData.trackTable;
+          }
     }
 
 };
+
+function getOrderData(state: any, data: any) {
+  let orderData = data;
+  let originDate = formateDate(data["p_date"]);
+  let destinationDate = data["d_date"] ? "Estimated: " + formateDate(data["d_date"]) : "";
+  let originLocation = formateLocation(data["pickup_city"], data["pickup_state"]);
+  let destinationLocation = formateLocation(data["delivery_city"], data["delivery_state"]);
+  let stage = data["stage"];
+  let status = data["status"];
+  orderData.originDate = originDate;
+  orderData.originLocation = originLocation;
+  orderData.destinationDate = destinationDate;
+  orderData.destinationLocation = destinationLocation;
+  orderData.pro = data.pro;
+  orderData.deliveryDate = data.d_date2;
+  if (data.manifest_ref) {
+    orderData.ref = data.manifest_ref;
+  }
+  if (data.manifest_pallet) {
+    orderData.pallet = data.manifest_pallet;
+  }
+  switch (status) {
+    case "1":
+      orderData.originChose = true;
+      orderData.transitChose = false;
+      orderData.destinationChose = false;
+      break;
+
+    case "2":
+      orderData.originChose = true;
+      orderData.transitChose = true;
+      orderData.destinationChose = false;
+      break;
+
+    case "3":
+      orderData.originChose = true;
+      orderData.transitChose = true;
+      orderData.destinationChose = true;
+      break;
+
+    case "4":
+      orderData.originChose = true;
+      orderData.transitChose = true;
+      orderData.destinationChose = true;
+      break;
+
+    default:
+      orderData.originChose = false;
+      orderData.transitChose = false;
+      orderData.destinationChose = false;
+      break;
+
+  }
+
+  orderData.hasTrackTableRows = true;
+  orderData.trackFail = false;
+  orderData.trackResultMsg = "";
+  let history = data["history"];
+
+  let trackTable = {};
+  for (let i = 0; i < history.length; i++) {
+    let element = history[i];
+
+    let stage = element["tms_order_log_stage"];
+    let stage_text = stage ? state.login.stageText[stage] : "";
+    let outputDate = formateTrackTableDate(element["c_date"]);
+    let outputTime = formateTrackTableTime(element["c_date"]);
+
+    let location = "";
+    let logText = element["tms_order_log_text"] || "";
+    if (logText == "order check-in") {
+      switch (stage) {
+        case "0":
+          logText = "Picked Up";
+          location = originLocation;
+          break;
+        case "2":
+        case "3":
+        case "4":
+          logText = "Delivered";
+          location = destinationLocation;
+          break;
+      }
+    } else if ((logText == "order updated") || (logText == "Delivery Apt - Order Appt. Update")) {
+      logText = "Picked Up";
+    }
+
+    let statusCode = element["tms_order_log_status_code"] || "";
+
+    let seperator = logText && statusCode ? " - " : "";
+    if ((statusCode == "Pending Appointment") && (!destinationDate)) {
+
+      orderData.destinationDate = "Pending Appointment";
+    }
+
+    let obj = {
+      outputTime: outputTime,
+      status: (statusCode + seperator + logText),
+      location: location
+    };
+
+    if (trackTable[outputDate]) {
+      trackTable[outputDate].push(obj);
+    } else {
+      trackTable[outputDate] = [obj];
+    }
+  }
+
+
+  orderData.trackTable = trackTable;
+
+  return orderData;
+}
 
 function formateLocation(city: string, state: string) {
     return (city && state) ? capitalize(city) + ", " + state : "";
@@ -265,8 +362,9 @@ const actions = {
                 data.sendForgotEmailMsg = "Password reset email has been sent to the registered address.";
                 data.sendForgotEmailstaus = (data.sendForgotEmailstaus && data.sendForgotEmailstaus > 0) ? (data.sendForgotEmailstaus + 1) : 1;
                 messageModel["isShowMessageModel"] = true;
-                messageModel["messageModelTitle"] = "sucess";
+                messageModel["messageModelTitle"] = "Success";
                 messageModel["messageModelMessage"] = "Password reset email has been sent to the registered address.";
+                messageModel["titleColor"] = "green";
                 store.dispatch("updateMessageModel", messageModel);
 
             }
@@ -309,8 +407,7 @@ const actions = {
 
         let params = new URLSearchParams();
 
-        axiosService.post("write/get_pro_history.php", qs.stringify({ pro: formData.proNumber })).then(function (res) {
-            store.commit("updateTrackProcess", res.data);
+        axiosService.post("write/get_history.php", qs.stringify({ pro: formData.proNumber, search_ref: false })).then(function (res) {
             store.commit("updateTrackTable", res.data);
         }).catch(function (error) {
             console.log(error);
@@ -344,6 +441,8 @@ const actions = {
                 let UserID = parseInt(row["UserID"]);
                 if (UserID > 0) {
                     localStorage.setItem("UserID", row["UserID"]);
+
+                    localStorage.setItem("UserFirstLast", row["UserFirstLast"]);
 
                     localStorage.setItem("UserToken", row["UserToken"]);
 
@@ -420,17 +519,20 @@ const actions = {
             let userId = localStorage.getItem("UserID") ? parseInt(String(localStorage.getItem("UserID"))) : undefined;
             let UserToken = localStorage.getItem("UserToken") ? localStorage.getItem("UserToken") : "";
             let pageName = location.pathname + location.search;
+            let menu_link_temp = window.location.hash;
+            let menu_link = menu_link_temp.indexOf("?") != -1 ? menu_link_temp.slice(0, menu_link_temp.indexOf("?")).toUpperCase() : menu_link_temp.toUpperCase();
+            for (let key of Object.keys(menu_link_obj)) {
+                if (key.toUpperCase() === menu_link) {
+                    menu_link = menu_link_obj[key]['parent'];
+                    break;
+                }
+            }
             if (userId && userId > 0 && UserToken) {
-                axiosService.post("write/check_user.php", qs.stringify({ pageName: pageName })).then(function (res: any) {
+                axiosService.post("write/check_user.php", qs.stringify({ pageName: pageName, menuLink: menu_link})).then(function (res: any) {
                     let data = res.data;
                     let formLoginData = {};
                     if (!data || String(data) === "-9999" || data == 0) {
-                        clearLocalStorage("check_user fail");
-                        formLoginData["loginFail"] = true;
-                        formLoginData["loginFailMsg"] = "";
-                        formLoginData["isLogin"] = false;
-                        store.commit("updateFormDataLoginInfo", formLoginData);
-                        return resolve(false);
+                        return resolve('-9999');
                     }
 
                     if (data["user_password_require_change"] === 1) {
@@ -440,31 +542,32 @@ const actions = {
                         formLoginData["isLogin"] = false;
                         store.commit("updateFormDataLoginInfo", formLoginData);
                         console.log("change password");
-                        return resolve(false);
+                        return resolve('false');
                     }
 
                     if (data["site_offline"] === 1) {
                         console.log("site offline");
-                        return resolve(false);
+                        return resolve('false');
                     }
                     localStorage.setItem("UserCustomer", data["group_customer"]);
                     localStorage.setItem("UserGroupID", data["group_id"]);
                     localStorage.setItem("UserSuper", data["group_admin"]);
+                    localStorage.setItem("company_id", data["company_id"]);
                     // update user info
                     store.commit("updateUserInfo", data);
                     formLoginData["loginFail"] = false;
                     formLoginData["loginFailMsg"] = "";
                     formLoginData["isLogin"] = true;
                     store.commit("updateFormDataLoginInfo", formLoginData);
-                    return resolve(true);
+                    return resolve('true');
                 }).catch(error => {
                     console.log("check login error");
-                    resolve(false);
+                    resolve('false');
                 });
 
             }
             else {
-                resolve(false);
+                resolve('false');
             }
         });
     },
@@ -478,6 +581,7 @@ function clearLocalStorage(str: string) {
     // socketIO.sendPushToRoom("room_msg", "DEV", "ClearCache " + str + " site " + window.location.href + " token " + localStorage.getItem("UserToken") + " user " + localStorage.getItem("UserID"), 1);
     localStorage.removeItem("UserToken");
     localStorage.removeItem("UserID");
+    localStorage.removeItem("UserFirstLast");
     localStorage.removeItem("UserCustomer");
     localStorage.removeItem("UserGroupID");
     localStorage.removeItem("UserSuper");

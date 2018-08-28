@@ -1,6 +1,7 @@
 import Config from "./config.json";
 
 const quoteValidation = {
+
     pickupDate: {
         required: "Your date is empty" // messages can be strings as well.
     },
@@ -8,29 +9,29 @@ const quoteValidation = {
         required: Config.default_Required_Message,
         digits: "Invalid format. Must be 5 digits."
     },
-    pickupCity:{
+    pickupCity: {
         alpha_spaces: "Invalid format"
     },
-    pickupState:{
+    pickupState: {
         required: Config.default_Required_Message,
-        alpha_spaces: "Invalid format"   
+        alpha_spaces: "Invalid format"
     },
     deliveringZipCode: {
         required: Config.default_Required_Message,
         digits: "Invalid format. Must be 5 digits."
     },
-    deliveryCity:{
-        alpha_spaces: "Invalid format"   
+    deliveryCity: {
+        alpha_spaces: "Invalid format"
     },
-    deliveryState:{
+    deliveryState: {
         required: Config.default_Required_Message,
         alpha_spaces: "Invalid format"
-        //digits: "Invalid format. Must be 5 digits."   
+        // digits: "Invalid format. Must be 5 digits."
     },
-    width:{
+    width: {
         required: "This is required test."
     }
-};
 
+};
 
 export default quoteValidation;

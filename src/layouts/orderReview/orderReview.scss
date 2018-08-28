@@ -7,7 +7,7 @@
 
 
 #grid-container {
-	max-width: 1200px !important;
+    max-width: 1200px !important;
     clear: none;
     height: 100%;
     overflow: auto;
@@ -15,4 +15,18 @@
     transition: width .2s ease 0s;
     margin-right: auto;
     margin-left: auto;
+}
+
+.table-details {
+    margin-bottom: 40px;
+}
+.margin-left-50 {
+    margin-left: 0px !important;
+    margin-top: 40px !important;
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+    .add-margin-bottom {
+        margin-bottom: 40px;
+    }
 }

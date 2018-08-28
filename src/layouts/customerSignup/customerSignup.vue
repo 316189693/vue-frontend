@@ -1,7 +1,7 @@
 <template>
 	<div class="grid-container ">
               <div class=" grid-container">
-                  <div class="grid-100 tablet-grid-100 container">
+                  <div class="grid-100 tablet-grid-80 container">
                       <BreadcrumbStageHeader v-bind="breadcrumbStageHeader"></BreadcrumbStageHeader>
                   </div>
               </div>
@@ -13,7 +13,7 @@
                   <div class="grid-100 tablet-grid-100 container">
                       <div class="grid-100 tablet-grid-100 container step-container">
                           <div class="grid-50 tablet-grid-80 container">
-                              <div class="grid-100 tablet-grid-100 container">
+                              <div class="grid-100 tablet-grid-100 container" style="padding-left: 10px;">
                                   <h1 class="step-header">
                                       <span class="label-number active">1</span>Shipping Information
                                   </h1>
@@ -47,8 +47,8 @@
                                       <label class="input-label">State</label>
                                        <select class="dropdown" v-on:change = "onShippingSameAsAddressInput" v-model = "formData.signupPart.shipInfo.state"  v-validate="'required'"  name="shipState" :class="{'input': true, 'is-danger': errors.has('form-signup.shipState')}" >
                                         <option value="" selected>Select</option>
-                                         <template v-for="(item,index) in stateArray">
-                                             <option :value="item.state_abbr" >{{item.state_text}}</option>
+                                         <template v-for="(item, index) in stateArray">
+                                             <option :value="item.state_abbr">{{item.state_text}}</option>
                                          </template>
                                        </select>
                                       <pre v-if="errors.has('form-signup.shipState') && !errors.has('form-signup.shipCity')" class="help is-danger">{{errors.first('form-signup.shipState')}}</pre>
@@ -74,44 +74,9 @@
                                   </div>
                               </div>
                               <div>&nbsp;</div>
-
-                               <div class="grid-100 tablet-grid-100 container">
-                                  <h1 class="step-header">
-                                      <span class="label-number active">3</span>Account Creation
-                                  </h1>
-                              </div>
-
-                              <div class="grid-80 tablet-grid-100 container">
-                                  <div class="grid-50 tablet-grid-50">
-                                      <label class="input-label">First Name</label>
-                                      <input type="text" v-model = "formData.signupPart.accountCreation.firstName" name="accountFirstName" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountFirstName') }">
-                                      <pre v-if="errors.has('form-signup.accountFirstName')" class="help is-danger">{{ errors.first('form-signup.accountFirstName') }}</pre>
-                                  </div>
-
-                                  <div class="grid-50 tablet-grid-50">
-                                      <label class="input-label">Last Name</label>
-                                      <input type="text" v-model = "formData.signupPart.accountCreation.lastName" name="accountLastName" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountLastName') }">
-                                      <pre v-if="errors.has('form-signup.accountLastName')" class="help is-danger">{{ errors.first('form-signup.accountLastName') }}</pre>
-                                  </div>
-                              </div>
-
-                              <div class="grid-80 tablet-grid-100 container">
-                                  <div class="grid-50 tablet-grid-50">
-                                      <label class="input-label">Email</label>
-                                      <input type="text" v-model = "formData.signupPart.accountCreation.email" name="accountEmail" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountEmail') }">
-                                      <pre v-if="errors.has('form-signup.accountEmail')" class="help is-danger">{{ errors.first('form-signup.accountEmail') }}</pre>
-                                  </div>
-
-                                  <div class="grid-50 tablet-grid-50">
-                                      <label class="input-label">Username</label>
-                                      <input type="text" v-model = "formData.signupPart.accountCreation.userName" name="accountUsername" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountUsername') }">
-                                      <pre v-if="errors.has('form-signup.accountUsername')" class="help is-danger">{{ errors.first('form-signup.accountUsername') }}</pre>
-                                  </div>
-                              </div>
-                              <div>&nbsp;</div>
                           </div>
 
-                          <div class="grid-50 tablet-grid-80">
+                          <div class="grid-parent grid-50 tablet-grid-80">
                               <div class="grid-100 tablet-grid-100 container">
                                   <h1 class="step-header">
                                       <span class="label-number active">2</span>Billing Information
@@ -150,8 +115,8 @@
                                       <label class="input-label">State</label>
                                        <select class="dropdown"  v-model = "formData.signupPart.billInfo.state"  v-validate="'required'"  name="billingState" :class="{'input': true, 'is-danger':formData.signupPart.sameAsShippingAddress? errors.has('form-signup.shipState'): errors.has('form-signup.billingState')  }" :disabled="formData.signupPart.sameAsShippingAddress">
                                         <option value="" selected>Select</option>
-                                         <template v-for="(item,index) in stateArray">
-                                             <option :value="item.state_abbr" >{{item.state_text}}</option>
+                                         <template v-for="(item, index) in stateArray">
+                                             <option :value="item.state_abbr">{{item.state_text}}</option>
                                          </template>
                                        </select>
                                       <pre v-if="formData.signupPart.sameAsShippingAddress? errors.has('form-signup.shipState') && !errors.has('form-signup.shipCity'): errors.has('form-signup.billingState') && !errors.has('form-signup.billingCity')" class="help is-danger">{{ formData.signupPart.sameAsShippingAddress? errors.first('form-signup.shipState'): errors.first('form-signup.billingState') }}</pre>
@@ -182,7 +147,7 @@
 
                               </div>
                               <div class="grid-80 tablet-grid-100 container">
-                                  <div class="grid-60 tablet-grid-60">
+                                  <div class="grid-60 tablet-grid-50">
                                       <label class="input-label">Requested Credit Limit</label>
                                       <input type="text" v-model = "formData.signupPart.billInfo.creditLimit" name="billindCreditLimit" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.billindCreditLimit') }">
                                        <pre v-if="errors.has('form-signup.billindCreditLimit')" class="help is-danger">{{ errors.first('form-signup.billindCreditLimit') }}</pre>
@@ -191,13 +156,49 @@
 
                               <div class="grid-80 tablet-grid-100 container">
                                   <div class="info-container">
-                                      <p>
-                                          <span class="text-bold">Note: </span> Many customers will be granted an immediate $500 credit limit.</p>
+                                      <p><span class="text-bold">Note: </span> Many customers will be granted an immediate $500 credit limit.</p>
+                                  </div>
+                              </div>
+                          </div>
+                       </div>
+                  </div>
+
+                    <div class="grid-100 tablet-grid-100">
+                        <div class="grid-parent grid-50 tablet-grid-100 margin-top-155">
+                          <div class="grid-50 tablet-grid-80 container">
+                                  <h1 class="step-header">
+                                      <span class="label-number active">3</span>Account Creation
+                                  </h1>
+                              </div>
+
+                              <div class="grid-80 tablet-grid-80 container">
+                                  <div class="grid-50 tablet-grid-50">
+                                      <label class="input-label">First Name</label>
+                                      <input type="text" v-model = "formData.signupPart.accountCreation.firstName" name="accountFirstName" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountFirstName') }">
+                                      <pre v-if="errors.has('form-signup.accountFirstName')" class="help is-danger">{{ errors.first('form-signup.accountFirstName') }}</pre>
+                                  </div>
+
+                                  <div class="grid-50 tablet-grid-50">
+                                      <label class="input-label">Last Name</label>
+                                      <input type="text" v-model = "formData.signupPart.accountCreation.lastName" name="accountLastName" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountLastName') }">
+                                      <pre v-if="errors.has('form-signup.accountLastName')" class="help is-danger">{{ errors.first('form-signup.accountLastName') }}</pre>
                                   </div>
                               </div>
 
+                              <div class="grid-80 tablet-grid-80 container">
+                                  <div class="grid-50 tablet-grid-50">
+                                      <label class="input-label">Email</label>
+                                      <input type="text" v-model = "formData.signupPart.accountCreation.email" name="accountEmail" v-validate="'required|email'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountEmail') }">
+                                      <pre v-if="errors.has('form-signup.accountEmail')" class="help is-danger">{{ errors.first('form-signup.accountEmail') }}</pre>
+                                  </div>
 
-                          </div>
+                                  <div class="grid-50 tablet-grid-50">
+                                      <label class="input-label">Username</label>
+                                      <input type="text" v-model = "formData.signupPart.accountCreation.userName" name="accountUsername" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-signup.accountUsername') }">
+                                      <pre v-if="errors.has('form-signup.accountUsername')" class="help is-danger">{{ errors.first('form-signup.accountUsername') }}</pre>
+                                  </div>
+                              </div>
+                              <div>&nbsp;</div>
                        </div>
                   </div>
 
@@ -214,7 +215,7 @@
               <div class="grid-container" v-show = "currentStage === 2" >
 
                   <div class="grid-100 tablet-grid-100 container">
-                      <div class="grid-100 tablet-grid-100 container step-container">
+                      <div class="grid-100 tablet-grid-80 step-container">
                           <div class="grid-100 tablet-grid-100 container">
                               <h1 class="step-header">
                                   <span class="label-number active">4</span>More About the Company
@@ -250,7 +251,7 @@
                           </div>
 
                           <div class="grid-100 tablet-grid-100 container">
-                              <div class="grid-50 tablet-grid-50">
+                              <div class="grid-50 tablet-grid-100">
                                   <div class="grid-parent grid-80 tablet-grid-100 container">
                                       <p class="text-bold">2. How do you receive your orders from your customers?</p>
                                   </div>
@@ -324,18 +325,19 @@
                                       <p class="text-bold margin-top-20">5. Annual freight spend?</p>
                                   </div>
 
-                                  <div class="grid-50 tablet-grid-100 container">
+                                  <div class="grid-50 tablet-grid-60 container">
                                       <select class="dropdown" v-model = "formData.addInfoPart.annualFreightSpend" name="annualFreightSpend" v-validate="'required'" :class="{'input': true, 'is-danger': errors.has('form-addinfo.annualFreightSpend') }">
                                       <option value="" selected>Select</option>
-                                      <template v-for="(item,index) in formData.annualFreightSpendOptions">
+                                      <template v-for="(item, index) in formData.annualFreightSpendOptions">
                                           <option :value="item.key">{{item.text}}</option>
                                       </template>
                                       </select>
                                       <pre v-if="errors.has('form-addinfo.annualFreightSpend') " class="help is-danger">{{ errors.first('form-addinfo.annualFreightSpend') }}</pre>
                                   </div>
+                                  <div></div>
                               </div>
 
-                              <div class="grid-50 tablet-grid-50">
+                              <div class="grid-parent grid-50 tablet-grid-100">
                                   <div class="grid-parent grid-80 tablet-grid-100 container">
                                       <p class="text-bold">6. How many LTL shipments do you ship each week?</p>
                                   </div>
@@ -413,12 +415,12 @@
                       
                   </div>
 
-                  <div class="grid-95 tablet-grid-95 container" style="margin-top: 40px;margin-right:53px;">
-                   <div class="grid-20 tablet-grid-20 " style="margin-left: 8px;margin-top:14px;">
-                                              <button @click.stop.prevent = "signupBack" class="button-standard-large">BACK</button>
-                                         </div>
-                      <MainButtonSet :leftBtnText="'Cancel'" :rightBtnText="'Continue'" @leftBtnAction="signupCancel"  @rightBtnAction="addInfoNext"></MainButtonSet>
-                  </div>
+                    <div class="grid-95 tablet-grid-95 container" style="margin-top: 40px;margin-right:53px;">
+                        <div class="grid-20 tablet-grid-20 back-button" style="margin-left: 8px;margin-top:14px;">
+                            <button @click.stop.prevent = "signupBack" class="button-standard-large">Back</button>
+                        </div>
+                        <MainButtonSet :leftBtnText="'Cancel'" :rightBtnText="'Continue'" @leftBtnAction="signupCancel"  @rightBtnAction="addInfoNext"></MainButtonSet>
+                    </div>
               </div>
         </form>
  <!-- End OF CUSTOMER SIGNUP ADDITIONAL INFO -->
@@ -426,13 +428,13 @@
               <div class="grid-container" v-show = "currentStage === 3">
 
                       <div class="grid-100 tablet-grid-100 container">
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-100 tablet-grid-100">
+                          <div class="grid-50 tablet-grid-100 margin-bottom-40">
+                              <div class="grid-100 tablet-grid-80">
                                   <h1 class="step-header">
                                       <span class="label-number-summary">1</span>Shipping Information</h1>
                               </div>
 
-                              <div class="grid-100 tablet-grid-100 container">
+                              <div class="grid-100 tablet-grid-80 container">
                                   <table class="table-details">
                                       <tbody>
                                           <tr>
@@ -448,22 +450,28 @@
                                               <td>Phone</td>
                                               <td>{{formData.signupPart.shipInfo.phone}}</td>
                                           </tr>
-                                          <tr>
+                                          <tr v-if="formData.signupPart.shipInfo.fax">
                                               <td>Fax</td>
                                               <td>{{formData.signupPart.shipInfo.fax}}</td>
                                           </tr>
                                       </tbody>
                                   </table>
                               </div>
+
+                              <div class="grid-100 tablet-grid-80 container">
+                                <div class="grid-25 tablet-grid-25 landscape-width margin-left-50">
+                                    <button class="button-standard-small edit" :disabled="formData.showLoding" @click="editButtonClick"> Edit</button>
+                                </div>
+                            </div>
                           </div>
 
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-100 tablet-grid-100">
+                          <div class="grid-parent grid-50 tablet-grid-100 margin-bottom-40">
+                              <div class="grid-100 tablet-grid-80">
                                   <h1 class="step-header">
                                       <span class="label-number-summary">2</span>Billing Information</h1>
                               </div>
 
-                              <div class="grid-100 tablet-grid-100 container">
+                              <div class="grid-100 tablet-grid-80 container">
                                   <table class="table-details">
                                       <tbody>
                                           <tr>
@@ -479,7 +487,7 @@
                                               <td>Phone</td>
                                               <td>{{formData.signupPart.billInfo.phone}}</td>
                                           </tr>
-                                          <tr>
+                                          <tr v-if="formData.signupPart.billInfo.fax">
                                               <td>Fax</td>
                                               <td>{{formData.signupPart.billInfo.fax}}</td>
                                           </tr>
@@ -489,32 +497,24 @@
                                           </tr>
                                       </tbody>
                                   </table>
-                              </div>
-                          </div>
-                      </div>
+                            </div>
 
-                      <div class="grid-100 tablet-grid-100 container margin-bottom-40">
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-25 tablet-grid-40 margin-left-50">
-                                  <button class="button-standard-small edit" :disabled="formData.showLoding" @click="editButtonClick"> Edit</button>
-                              </div>
-                          </div>
+                            <div class="grid-100 tablet-grid-80 container">
+                                <div class="grid-25 tablet-grid-25 landscape-width margin-left-50">
+                                    <button class="button-standard-small edit" :disabled="formData.showLoding" @click="editButtonClick"> Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-25 tablet-grid-40 margin-left-50">
-                                  <button class="button-standard-small edit" :disabled="formData.showLoding" @click="editButtonClick"> Edit</button>
-                              </div>
-                          </div>
-                      </div>
+                    <div class="grid-100 tablet-grid-100 container">
+                        <div class="grid-50 tablet-grid-100 add-margin-40">
+                            <div class="grid-100 tablet-grid-80">
+                                <h1 class="step-header">
+                                    <span class="label-number-summary">3</span>Account Creation</h1>
+                            </div>
 
-                      <div class="grid-100 tablet-grid-100 container">
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-100 tablet-grid-100">
-                                  <h1 class="step-header">
-                                      <span class="label-number-summary">3</span>Account Creation</h1>
-                              </div>
-
-                              <div class="grid-100 tablet-grid-100 container">
+                              <div class="grid-100 tablet-grid-80 container">
                                   <table class="table-details">
                                       <tbody>
                                           <tr>
@@ -530,30 +530,27 @@
                                               <td>{{formData.signupPart.accountCreation.userName}}</td>
                                           </tr>
                                       </tbody>
-                                  </table>
-                              </div>
-                          </div>
+                                </table>
+                            </div>
 
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-100 tablet-grid-100">
-                                  <h1 class="step-header">
-                                      <span class="label-number-summary">4</span>Credit Application</h1>
-                              </div>
+                            <div class="grid-100 tablet-grid-80 container">
+                                <div class="grid-25 tablet-grid-25 landscape-width  margin-left-50">
+                                    <button class="button-standard-small edit" @click="editButtonClick" :disabled="formData.showLoding"> Edit</button>
+                                </div>
+                            </div>
+                        </div>
 
-                              <div class="grid-100 tablet-grid-100">
-                                  <p class="sub-header margin-left-50">Please instruct the customer to fill out the credit application form.</p>
-                              </div>
-                          </div>
-                      </div>
+                        <div class="grid-50 tablet-grid-100 margin-bottom-40">
+                            <div class="grid-100 tablet-grid-80">
+                                <h1 class="step-header">
+                                    <span class="label-number-summary">4</span>Credit Application</h1>
+                            </div>
 
-                      <div class="grid-100 tablet-grid-100 container margin-left-50 margin-bottom-40">
-                          <div class="grid-50 tablet-grid-50">
-                              <div class="grid-25 tablet-grid-40">
-                                  <button class="button-standard-small edit" @click="editButtonClick" :disabled="formData.showLoding"> Edit</button>
-                              </div>
-                          </div>
-                      </div>
-
+                            <div class="grid-100 tablet-grid-80">
+                                <p class="sub-header margin-left-50">Please instruct the customer to fill out the credit application form.</p>
+                            </div>
+                        </div>
+                    </div>
 
                   <div class="grid-100 tablet-grid-100 container" style="margin-top: 40px;margin-right:53px;">
                     <transition name="fade">
@@ -561,8 +558,8 @@
                             <p>Hang tight! We are creating this account...</p>
                         </div>
                     </transition>
-                     <div  v-show="!formData.showLoding" class="grid-20 tablet-grid-20 " style="margin-left: 8px;margin-top:14px;">
-                          <button @click = "signupBack" class="button-standard-large">BACK</button>
+                     <div  v-show="!formData.showLoding" class="grid-20 tablet-grid-20 back-button" style="margin-left: 8px;margin-top:14px;">
+                          <button @click = "signupBack" class="button-standard-large">Back</button>
                      </div>
                     <MainButtonSet v-show="!formData.showLoding" @leftBtnAction="signupCancel" @rightBtnAction ="reviewCreateAccount" :rightBtnText="'Create Account'"></MainButtonSet>
                   </div>

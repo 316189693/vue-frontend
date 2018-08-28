@@ -48,5 +48,20 @@ export default class OrderReview extends Vue {
         }
     }
 
+    trackShipment() {
+        let track = '';
+
+        if (this.formData.proNumber != null) {
+            track = this.formData.proNumber;
+        }
+        else if (this.formData.referenceNumber != '') {
+            track = this.formData.referenceNumber;
+        }
+        else {
+            track = this.$route.query.pu;
+        }
+
+        this.$router.push({ name: 'TrackShipment', query: { 'track': track}});
+    }
 
 }

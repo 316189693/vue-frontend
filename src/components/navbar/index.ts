@@ -6,8 +6,9 @@ import template from "./navbar.vue";
   mixins: [template]
 })
 export default class NavBar extends Vue {
+  fullName: any = localStorage.getItem("UserFirstLast");
   collapsed: boolean = true;
-
+  group_name: any = localStorage.getItem("UserGroupName");
   me: "me";
   isLoggedIn: "loggedIn";
 
@@ -37,7 +38,7 @@ export default class NavBar extends Vue {
     let host = window.location.hostname;
 
     if (host == "localhost") {
-      host = "https://clientdev.com";
+      host = "https://clientdev..com";
     } else {
       host = "";
     }
@@ -54,9 +55,7 @@ export default class NavBar extends Vue {
       this.changeTab();
     }, 1000);
 
-    window.addEventListener("hashchange", () => {
-      this.changeTab();
-    });
+   this.$router.afterEach((to, from) => {this.changeTab(); });
   }
 
   changeTab() {
